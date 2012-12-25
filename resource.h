@@ -11,6 +11,7 @@ class Resource : public ListItem
 public:
     enum Roles {
         NameRole = Qt::UserRole + 1,
+        TypeRole,
         QuantityRole,
         FileOffsetRole
     };
@@ -26,12 +27,14 @@ public:
 
     inline QString id() const { return m_name; }
     inline QString name() const { return m_name; }
+    inline QString type() const { return m_type; }
     inline long quantity() const { return m_quantity; }
     inline long fileOffset() const { return m_fileOffset; }
 
 
 private:
     QString m_name;
+    QString m_type;
     long m_quantity;
     long m_fileOffset;
 

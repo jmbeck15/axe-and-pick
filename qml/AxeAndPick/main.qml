@@ -27,9 +27,9 @@ Rectangle {
 
     }
 
-    // This is the component that displays each game in the list
+    // This is the component that displays each resource in the list
     Component {
-        id: gameDelegate
+        id: resourceDelegate
 
         // The box that holds each game content
         Rectangle {
@@ -45,7 +45,7 @@ Rectangle {
 
             // Players
             Text{
-                text: player1 + " <b>vs</b> " + player2
+                text: resourceModel.name + " (" + resourceModel.quantity + ")"
 
                 font.family: "Helvetica"
                 font.pointSize: 10
@@ -68,7 +68,7 @@ Rectangle {
                 anchors.bottom: parent.bottom
 
                 Text{
-                    text: "Markers: " + markers
+                    text: "blah"
 
                     font.pointSize: 7
 
@@ -123,11 +123,12 @@ Rectangle {
 
         clip: true
 
-//        ListView {
-//            anchors.fill: parent
-//            model: gameList
-//            delegate: gameDelegate
-//        }
+        ListView {
+            id: resourceView
+            anchors.fill: parent
+            model: resourceModel
+            delegate: resourceDelegate
+        }
     }
 
     Item {
