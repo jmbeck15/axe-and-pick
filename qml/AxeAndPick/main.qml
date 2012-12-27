@@ -45,7 +45,7 @@ Rectangle {
 
             // Players
             Text{
-                text: resourceModel.name + " (" + resourceModel.quantity + ")"
+                text: name + " (" + quantity + ")"
 
                 font.family: "Helvetica"
                 font.pointSize: 10

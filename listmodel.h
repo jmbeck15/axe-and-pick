@@ -45,6 +45,9 @@ public:
   QModelIndex indexFromItem( const ListItem* item) const;
   void clear();
 
+protected:
+  QHash<int, QByteArray> roleNames() const;
+
 private slots:
   void handleItemChange();
 

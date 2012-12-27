@@ -5,12 +5,18 @@
  * Version: 1.0
  */
 
+#include <QDebug>
 #include "listmodel.h"
 
 ListModel::ListModel(ListItem* prototype, QObject *parent) :
     QAbstractListModel(parent), m_prototype(prototype)
 {
   //setRoleNames(m_prototype->roleNames());
+}
+
+QHash<int, QByteArray> ListModel::roleNames() const
+{
+    return m_prototype->roleNames();
 }
 
 int ListModel::rowCount(const QModelIndex &parent) const
@@ -23,6 +29,7 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
 {
   if(index.row() < 0 || index.row() >= m_list.size())
     return QVariant();
+  qDebug() << "In the ListModel data.";
   return m_list.at(index.row())->data(role);
 }
 

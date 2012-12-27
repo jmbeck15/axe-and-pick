@@ -21,7 +21,7 @@ public:
     explicit Resource(const QString &name, const long &quantity, const long &fileOffset, QObject * parent = 0);
 
     QVariant data(int role) const;
-    QHash<int, QByteArray> roleNames() const;
+
 
     void setQuantity(long quantity);
 
@@ -31,6 +31,8 @@ public:
     inline long quantity() const { return m_quantity; }
     inline long fileOffset() const { return m_fileOffset; }
 
+protected:
+    QHash<int, QByteArray> roleNames() const;
 
 private:
     QString m_name;
