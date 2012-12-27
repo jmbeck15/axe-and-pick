@@ -29,7 +29,6 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
 {
   if(index.row() < 0 || index.row() >= m_list.size())
     return QVariant();
-  qDebug() << "In the ListModel data.";
   return m_list.at(index.row())->data(role);
 }
 

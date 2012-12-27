@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="dirt.svg">images/resource-dirt.svg</file>
+        <file alias="stone.svg">images/resource-stone.svg</file>
+        <file alias="unknown.svg">images/resource-unknown.svg</file>
+        <file alias="wood.svg">images/resource-wood.svg</file>
+    </qresource>
+</RCC>

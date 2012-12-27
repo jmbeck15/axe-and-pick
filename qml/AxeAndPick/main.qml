@@ -42,6 +42,9 @@ Rectangle {
             border.width: 4
             border.color: "#FFEFEFEF"
 
+            Image {
+                source: "qrc:///" + icon
+            }
 
             // Players
             Text{

@@ -12,13 +12,19 @@ public:
     enum Roles {
         NameRole = Qt::UserRole + 1,
         TypeRole,
+        IconRole,
         QuantityRole,
         FileOffsetRole
     };
 
 public:
     Resource(QObject * parent = 0): ListItem(parent){}
-    explicit Resource(const QString &name, const long &quantity, const long &fileOffset, QObject * parent = 0);
+    explicit Resource(const QString &name,
+                      const QString &type,
+                      const QString &icon,
+                      const long &quantity,
+                      const long &fileOffset,
+                      QObject * parent = 0);
 
     QVariant data(int role) const;
 
@@ -28,6 +34,7 @@ public:
     inline QString id() const { return m_name; }
     inline QString name() const { return m_name; }
     inline QString type() const { return m_type; }
+    inline QString icon() const { return m_icon; }
     inline long quantity() const { return m_quantity; }
     inline long fileOffset() const { return m_fileOffset; }
 
@@ -37,6 +44,7 @@ protected:
 private:
     QString m_name;
     QString m_type;
+    QString m_icon;
     long m_quantity;
     long m_fileOffset;
 
