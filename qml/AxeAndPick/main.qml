@@ -39,55 +39,84 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            border.width: 4
+            border.width: 1
             border.color: "#FFEFEFEF"
 
-            Image {
-                source: "qrc:///" + icon
-            }
 
-            // Players
-            Text{
-                text: name + " (" + quantity + ")"
-
-                font.family: "Helvetica"
-                font.pointSize: 10
-
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.left: parent.left
-                anchors.leftMargin: 8
-                anchors.right: statsAndControls.left
-
-                clip: true
-            }
-
-            // Game Stats and Controls
+            // Resource Icon and Text
             Item {
-                id: statsAndControls
+                id: resourceId
+
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+
+                anchors.leftMargin: 8
+                anchors.right: quantityControls.left
+
+
+                Image {
+                    id: resourceIcon
+                    source: "qrc:///" + icon
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: 3
+                }
+                Text {
+                    text: name
+
+                    anchors.left: resourceIcon.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: 5
+                    anchors.right: parent.right
+
+                    font.family: "Helvetica"
+                    font.pointSize: 10
+
+                    clip: true
+                }
+            }
+
+            // Resource Quantity
+            Item {
+                id: quantityControls
 
                 width: 120
                 anchors.top: parent.top
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
-                Text{
-                    text: "blah"
-
-                    font.pointSize: 7
+                Rectangle {
+                    color: desiredQuantity.acceptableInput ? "green" : "red"
+                    height: 14
+                    width: desiredQuantity.width + 10
 
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.leftMargin: 8
+
+                    TextInput {
+                        id: desiredQuantity
+
+                        text: quantity
+                        selectByMouse: true
+
+                        // Only allow integers
+                        validator: RegExpValidator{ regExp: /\d+/ }
+
+                        font.pointSize: 10
+                        anchors.centerIn: parent
+                    }
                 }
 
                 // Circle button control
                 Rectangle {
 
+
                     height: 14
                     width: 14
                     radius: width*0.5
 
-                    color: "transparent"
+                    // color: "transparent"
+                    color: desiredQuantity.acceptableInput ? "green" : "red"
                     border.color: "black"
                     border.width: 2
 

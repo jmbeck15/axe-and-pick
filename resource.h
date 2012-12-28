@@ -4,6 +4,7 @@
 #include <QString>
 #include "listmodel.h"
 
+
 class Resource : public ListItem
 {
     Q_OBJECT
@@ -49,5 +50,6 @@ private:
     long m_fileOffset;
 
 };
+
 
 #endif // RESOURCE_H

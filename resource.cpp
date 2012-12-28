@@ -2,6 +2,7 @@
 #include <QDebug>
 #include "resource.h"
 
+
 Resource::Resource(const QString &name,
                    const QString &type,
                    const QString &icon,

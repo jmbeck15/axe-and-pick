@@ -26,3 +26,6 @@ HEADERS += \
 
 RESOURCES += \
     resource_icons.qrc
+
+OTHER_FILES += \
+    resource_list.txt
