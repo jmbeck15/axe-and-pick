@@ -161,6 +161,12 @@ Rectangle {
             model: resourceModel
             delegate: resourceDelegate
         }
+        ScrollBar {
+            id: resourceScrollBar
+            target: resourceView
+        }
+
+
     }
 
     Item {
