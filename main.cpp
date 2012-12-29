@@ -12,11 +12,12 @@
 void populateResourceList(ListModel * model, QFile & resourceSaveFile);
 
 
-
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
+
+
 
     // Get the file name
     QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves - Copy\\New Settlement\\re.sav");
@@ -32,17 +33,25 @@ int main(int argc, char *argv[])
     proxyResourceModel->setSourceModel(resourceModel);
     proxyResourceModel->setFilterRole(Resource::NameRole);
 
-    // Create a regex model for filtering
-    QRegExp searchRegex("Stone", Qt::CaseInsensitive, QRegExp::Wildcard);
-    proxyResourceModel->setFilterRegExp(searchRegex);
-
     // Link the resource data to the GUI viewer
     viewer.rootContext()->setContextProperty("resourceModel", proxyResourceModel);
-    viewer.rootContext()->setContextProperty("searchRegex", searchRegex.pattern());
 
-    // Pull in the GUI
     viewer.setMainQmlFile(QStringLiteral("qml/AxeAndPick/main.qml"));
+
+
+    // Show the GUI
     viewer.showExpanded();
+
+    // Set a regex for filtering
+    //proxyResourceModel->setFilterRegExp("Stone");
+    QQuickItem * root = viewer.rootObject();
+    QQuickItem * qmlResourceSearchBox = root->findChild<QQuickItem*>("searchBox");
+    if( !qmlResourceSearchBox )
+    {
+        qDebug() << "No.";
+    }
+    QObject::connect(qmlResourceSearchBox, SIGNAL(newResourceFilterText(QString)),
+                     proxyResourceModel, SLOT(setFilterRegExp(QString)));
 
     return app.exec();
 }

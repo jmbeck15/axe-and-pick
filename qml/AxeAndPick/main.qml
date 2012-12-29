@@ -45,8 +45,12 @@ Rectangle {
 
             TextInput {
                 id: searchBox
-                text: searchRegex
+                objectName: "searchBox"
                 width: parent.width
+                text: "Stone"
+
+                signal newResourceFilterText(string regexpText)
+                onTextChanged: searchBox.newResourceFilterText(text)
 
                 autoScroll: true
                 selectByMouse: true
@@ -61,7 +65,7 @@ Rectangle {
     Component {
         id: resourceDelegate
 
-        // The box that holds each game content
+        // The box that holds each resource item
         Rectangle {
 
             color: "#FFE2E2E2"
@@ -72,37 +76,40 @@ Rectangle {
             border.width: 1
             border.color: "#FFEFEFEF"
 
-
-            // Resource Icon and Text
+            // Name and Type and Resource Icon
             Item {
                 id: resourceId
 
                 anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-
-                anchors.leftMargin: 8
                 anchors.right: quantityControls.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 8
+                anchors.rightMargin: 8
 
-
+                // Resource Icon
                 Image {
                     id: resourceIcon
                     source: "qrc:///" + icon
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: 3
                 }
+
+                // Name and Type
                 Item
                 {
                     id: nameAndType
                     anchors.left: resourceIcon.right
                     anchors.right: parent.right
-                    anchors.leftMargin: 5
+                    anchors.leftMargin: 8
+                    anchors.top: resourceIcon.top
+                    anchors.bottom: resourceIcon.bottom
 
                     Text {
                         id: nameText
                         text: name
 
                         anchors.top: parent.top
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
                         anchors.right: parent.right
 
                         font.family: "Helvetica"
@@ -114,11 +121,12 @@ Rectangle {
                         text: type
 
                         anchors.top: nameText.bottom
-                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
                         anchors.right: parent.right
 
                         font.family: "Helvetica"
-                        font.pointSize: 8
+                        font.pointSize: 6
+                        color: "grey"
                         clip: true
                     }
                 }
@@ -129,12 +137,11 @@ Rectangle {
             // Resource Quantity
             Item {
                 id: quantityControls
+                width: 80
 
-                width: 120
                 anchors.top: parent.top
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-
 
                 BorderImage {
                     anchors.fill: quantityBackground
@@ -148,7 +155,7 @@ Rectangle {
                     id: quantityBackground
                     //color: desiredQuantity.acceptableInput ? "green" : "red"
                     height: 14
-                    width: 55
+                    width: 60
 
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.right: rightButton.left
@@ -156,7 +163,7 @@ Rectangle {
 
                     TextInput {
                         id: desiredQuantity
-                        width: 50
+                        width: 55
                         autoScroll: true
 
                         text: quantity
