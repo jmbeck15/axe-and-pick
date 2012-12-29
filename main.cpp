@@ -2,6 +2,7 @@
 #include <QQuickItem>
 #include <QDebug>
 #include <QQmlContext>
+#include <QSortFilterProxyModel>
 #include "qtquick2applicationviewer.h"
 
 #include "resource.h"
@@ -19,11 +20,20 @@ int main(int argc, char *argv[])
 
     // Create a model that holds our resource data, and
     // add the data to it.
-    ListModel * model = new ListModel(new Resource, qApp);
-    populateResourceList(model);
+    ListModel * resourceModel = new ListModel(new Resource, qApp);
+    populateResourceList(resourceModel);
+
+    // Create the proxy model that contains the results of the filter.
+    QSortFilterProxyModel * proxyResourceModel = new QSortFilterProxyModel();
+    proxyResourceModel->setSourceModel(resourceModel);
+
+    // Create a regex model for filtering
+    QRegExp searchRegex("*", Qt::CaseInsensitive, QRegExp::Wildcard);
+    proxyResourceModel->setFilterRegExp(searchRegex);
 
     // Link the resource data to the GUI viewer
-    viewer.rootContext()->setContextProperty("resourceModel", model);
+    viewer.rootContext()->setContextProperty("resourceModel", proxyResourceModel);
+    viewer.rootContext()->setContextProperty("searchRegex", searchRegex);
 
     // Pull in the GUI
     viewer.setMainQmlFile(QStringLiteral("qml/AxeAndPick/main.qml"));

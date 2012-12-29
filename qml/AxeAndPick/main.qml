@@ -25,6 +25,36 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 5
 
+        BorderImage {
+            anchors.fill: searchBoxBackground
+            anchors { leftMargin: -1; topMargin: -1; rightMargin: -1; bottomMargin: -1 }
+            border { left: 10; top: 10; right: 10; bottom: 10 }
+            source: "images/textInputBackground.svg"
+            smooth: true
+        }
+
+        Rectangle {
+            id: searchBoxBackground
+            height: 14
+            width: 60
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: rightButton.left
+            anchors.leftMargin: 8
+
+            TextInput {
+                id: searchBox
+
+                text: searchRegex
+
+                width: 60
+                autoScroll: true
+                selectByMouse: true
+                font.pointSize: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
     }
 
     // This is the component that displays each resource in the list
@@ -84,32 +114,46 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
+
+                BorderImage {
+                    anchors.fill: quantityBackground
+                    anchors { leftMargin: -1; topMargin: -1; rightMargin: -1; bottomMargin: -1 }
+                    border { left: 10; top: 10; right: 10; bottom: 10 }
+                    source: "images/textInputBackground.svg"
+                    smooth: true
+                }
+
                 Rectangle {
-                    color: desiredQuantity.acceptableInput ? "green" : "red"
+                    id: quantityBackground
+                    //color: desiredQuantity.acceptableInput ? "green" : "red"
                     height: 14
-                    width: desiredQuantity.width + 10
+                    width: 55
 
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
+                    anchors.right: rightButton.left
                     anchors.leftMargin: 8
 
                     TextInput {
                         id: desiredQuantity
+                        width: 50
+                        autoScroll: true
 
                         text: quantity
                         selectByMouse: true
 
-                        // Only allow integers
+                        // Only allow integers, and set the text to
+                        // be invalid if there is nothing in the box.
+                        // NOTE: Just for fun, really.
                         validator: RegExpValidator{ regExp: /\d+/ }
 
                         font.pointSize: 10
-                        anchors.centerIn: parent
+                        anchors.centerIn: parent.Center
                     }
                 }
 
                 // Circle button control
                 Rectangle {
-
+                    id: rightButton
 
                     height: 14
                     width: 14
