@@ -47,7 +47,6 @@ Rectangle {
                 id: searchBox
                 objectName: "searchBox"
                 width: parent.width
-                text: "Stone"
 
                 signal newResourceFilterText(string regexpText)
                 onTextChanged: searchBox.newResourceFilterText(text)

@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
     proxyResourceModel->setSourceModel(resourceModel);
     proxyResourceModel->setFilterRole(Resource::NameRole);
 
+    // This is here soley to enable the case insensitivity
+    proxyResourceModel->setFilterRegExp(QRegExp("", Qt::CaseInsensitive));
+
     // Link the resource data to the GUI viewer
     viewer.rootContext()->setContextProperty("resourceModel", proxyResourceModel);
 
