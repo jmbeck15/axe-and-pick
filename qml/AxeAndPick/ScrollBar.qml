@@ -43,13 +43,13 @@ BorderImage {
 
     source: "images/scrollbar.svg"
     border {left: 0; top: 3; right: 0; bottom: 3}
-    width: 17
+    width: 20
 
     anchors {top: target.top; bottom: target.bottom; right: target.right }
     visible: (track.height == slider.height) ? false : true //TODO: !visible -> width: 0 (but creates a binding loop)
 
     Item {
-        anchors {fill: parent; margins: 1; rightMargin: 2; bottomMargin: 2}
+        anchors {fill: parent; margins: 0}
 
         Image {
             id: upArrow
@@ -83,7 +83,7 @@ BorderImage {
 
         Item {
             id: track
-            anchors {top: upArrow.bottom; topMargin: 1; bottom: dnArrow.top;}
+            anchors {top: upArrow.bottom; topMargin: 0; bottom: dnArrow.top;}
             width: parent.width
 
             MouseArea {

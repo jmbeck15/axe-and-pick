@@ -213,8 +213,8 @@ Rectangle {
         anchors.top: topArea.bottom
         anchors.topMargin: 5
 
-        anchors.left: topArea.left
-        anchors.right: topArea.right
+        anchors.left: parent.left
+        anchors.right: parent.right
 
         anchors.bottom: lowerStatusBar.top
 

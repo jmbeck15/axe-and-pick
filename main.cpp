@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     proxyResourceModel->setFilterRole(Resource::NameRole);
 
     // Create a regex model for filtering
-    QRegExp searchRegex("Dirt", Qt::CaseInsensitive, QRegExp::Wildcard);
+    QRegExp searchRegex("Stone", Qt::CaseInsensitive, QRegExp::Wildcard);
     proxyResourceModel->setFilterRegExp(searchRegex);
 
     // Link the resource data to the GUI viewer
