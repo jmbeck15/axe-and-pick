@@ -7,6 +7,8 @@ Rectangle {
     id: iAmTheRootObject
 
     Rectangle {
+        id: topAreaBackground
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
@@ -16,14 +18,15 @@ Rectangle {
 
     Item {
         id: topArea
-        height: 40
 
-        anchors.top: parent.top
+        anchors.top: topAreaBackground.top
         anchors.topMargin: 5
-        anchors.left: parent.left
+        anchors.left: topAreaBackground.left
         anchors.leftMargin: 5
-        anchors.right: parent.right
+        anchors.right: topAreaBackground.right
         anchors.rightMargin: 5
+        anchors.bottom: topAreaBackground.bottom
+        anchors.bottomMargin: 5
 
         BorderImage {
             anchors.fill: searchBoxBackground
@@ -35,23 +38,21 @@ Rectangle {
 
         Rectangle {
             id: searchBoxBackground
-            height: 14
-            width: 60
-
+            height: 22
+            width: 70
             anchors.verticalCenter: parent.verticalCenter
-            anchors.right: rightButton.left
-            anchors.leftMargin: 8
+            anchors.left: parent.left
+
 
             TextInput {
                 id: searchBox
-
                 text: searchRegex
+                width: parent.width
 
-                width: 60
                 autoScroll: true
                 selectByMouse: true
                 font.pointSize: 10
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.centerIn: parent
             }
         }
 
@@ -90,19 +91,40 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.leftMargin: 3
                 }
-                Text {
-                    text: name
-
+                Item
+                {
+                    id: nameAndType
                     anchors.left: resourceIcon.right
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.leftMargin: 5
                     anchors.right: parent.right
+                    anchors.leftMargin: 5
 
-                    font.family: "Helvetica"
-                    font.pointSize: 10
+                    Text {
+                        id: nameText
+                        text: name
 
-                    clip: true
+                        anchors.top: parent.top
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+
+                        font.family: "Helvetica"
+                        font.pointSize: 10
+                        clip: true
+                    }
+                    Text {
+                        id: typeText
+                        text: type
+
+                        anchors.top: nameText.bottom
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+
+                        font.family: "Helvetica"
+                        font.pointSize: 8
+                        clip: true
+                    }
                 }
+
+
             }
 
             // Resource Quantity
