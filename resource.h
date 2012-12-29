@@ -15,7 +15,8 @@ public:
         TypeRole,
         IconRole,
         QuantityRole,
-        FileOffsetRole
+        FileOffsetRole,
+        FilterStringRole
     };
 
 public:
@@ -38,6 +39,7 @@ public:
     inline QString icon() const { return m_icon; }
     inline long quantity() const { return m_quantity; }
     inline long fileOffset() const { return m_fileOffset; }
+    QString filterString() const;
 
 protected:
     QHash<int, QByteArray> roleNames() const;

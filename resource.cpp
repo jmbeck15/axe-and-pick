@@ -1,5 +1,6 @@
 
 #include <QDebug>
+#include <sstream>
 #include "resource.h"
 
 
@@ -35,6 +36,7 @@ QHash<int, QByteArray> Resource::roleNames() const
     names[IconRole] = "icon";
     names[QuantityRole] = "quantity";
     names[FileOffsetRole] = "fileOffset";
+    names[FilterStringRole] = "filterString";
 
     return names;
 }
@@ -52,7 +54,19 @@ QVariant Resource::data(int role) const
         return quantity();
     case FileOffsetRole:
         return fileOffset();
+    case FilterStringRole:
+        return filterString();
     default:
         return QVariant();
     }
+}
+
+QString Resource::filterString() const
+{
+    std::stringstream completeString;
+
+    completeString << "name:" << name().toStdString()
+                   << " type:" << type().toStdString()
+                   << " quantity:" << quantity();
+    return (QString(completeString.str().c_str()));
 }

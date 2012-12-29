@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     // Create the proxy model that contains the results of the filter.
     QSortFilterProxyModel * proxyResourceModel = new QSortFilterProxyModel();
     proxyResourceModel->setSourceModel(resourceModel);
-    proxyResourceModel->setFilterRole(Resource::NameRole);
+    proxyResourceModel->setFilterRole(Resource::FilterStringRole);
 
     // This is here soley to enable the case insensitivity
     proxyResourceModel->setFilterRegExp(QRegExp("", Qt::CaseInsensitive));
