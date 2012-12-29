@@ -11,7 +11,7 @@ class Resource : public ListItem
 
 public:
     enum Roles {
-        NameRole = Qt::UserRole + 1,
+        NameRole  = Qt::UserRole + 1,
         TypeRole,
         IconRole,
         QuantityRole,

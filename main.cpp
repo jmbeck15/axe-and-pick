@@ -30,9 +30,10 @@ int main(int argc, char *argv[])
     // Create the proxy model that contains the results of the filter.
     QSortFilterProxyModel * proxyResourceModel = new QSortFilterProxyModel();
     proxyResourceModel->setSourceModel(resourceModel);
+    proxyResourceModel->setFilterRole(Resource::NameRole);
 
     // Create a regex model for filtering
-    QRegExp searchRegex("*", Qt::CaseInsensitive, QRegExp::Wildcard);
+    QRegExp searchRegex("Dirt", Qt::CaseInsensitive, QRegExp::Wildcard);
     proxyResourceModel->setFilterRegExp(searchRegex);
 
     // Link the resource data to the GUI viewer

@@ -31,7 +31,7 @@ Rectangle {
         BorderImage {
             anchors.fill: searchBoxBackground
             anchors { leftMargin: -1; topMargin: -1; rightMargin: -1; bottomMargin: -1 }
-            border { left: 10; top: 10; right: 10; bottom: 10 }
+            //border { left: 10; top: 10; right: 10; bottom: 10 }
             source: "images/textInputBackground.svg"
             smooth: true
         }
@@ -42,7 +42,6 @@ Rectangle {
             width: 70
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-
 
             TextInput {
                 id: searchBox
