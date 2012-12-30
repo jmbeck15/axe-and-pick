@@ -36,6 +36,11 @@ int main(int argc, char *argv[])
     // This is here soley to enable the case insensitivity
     proxyResourceModel->setFilterRegExp(QRegExp("", Qt::CaseInsensitive));
 
+
+    // Setup sorting the resources
+    proxyResourceModel->setSortRole(Resource::TypeRole);
+    proxyResourceModel->sort(0);
+
     // Link the resource data to the GUI viewer
     viewer.rootContext()->setContextProperty("resourceModel", proxyResourceModel);
 
