@@ -28,25 +28,32 @@ Rectangle {
         anchors.bottom: topAreaBackground.bottom
         anchors.bottomMargin: 5
 
-        BorderImage {
-            anchors.fill: searchBoxBackground
-            anchors { leftMargin: -1; topMargin: -1; rightMargin: -1; bottomMargin: -1 }
-            //border { left: 10; top: 10; right: 10; bottom: 10 }
-            source: "images/textInputBackground.svg"
-            smooth: true
-        }
-
         Rectangle {
-            id: searchBoxBackground
+            color: "blue"
             height: 22
-            width: 70
+            width: 100
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
+
+            Rectangle {
+                id: searchBoxBackground
+                color: "white"
+                height: parent.height-2
+                width: parent.width-2
+
+                anchors.centerIn: parent
+            }
 
             TextInput {
                 id: searchBox
                 objectName: "searchBox"
-                width: parent.width
+                width: searchBoxBackground.width-12
+                anchors.centerIn: parent
+                anchors {
+                    left: parent.left;
+                    right: parent.right;
+                    leftMargin: 8;
+                }
 
                 signal newResourceFilterText(string regexpText)
                 onTextChanged: searchBox.newResourceFilterText(text)
@@ -54,7 +61,6 @@ Rectangle {
                 autoScroll: true
                 selectByMouse: true
                 font.pointSize: 10
-                anchors.centerIn: parent
             }
         }
 
@@ -129,89 +135,99 @@ Rectangle {
                         clip: true
                     }
                 }
-
-
             }
 
-            // Resource Quantity
+            // Resource Quantity Buffer
             Item {
                 id: quantityControls
-                width: 80
+                width: 74
 
                 anchors.top: parent.top
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
-                BorderImage {
-                    anchors.fill: quantityBackground
-                    anchors { leftMargin: -1; topMargin: -1; rightMargin: -1; bottomMargin: -1 }
-                    border { left: 10; top: 10; right: 10; bottom: 10 }
-                    source: "images/textInputBackground.svg"
-                    smooth: true
+                Rectangle {
+                    id: subtractQuantity
+                    color: "lightgray"
+                    height:  quantityTextBox.height
+                    width: 10
+
+                    anchors.left: parent.left
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    Text {
+                        text: "-"
+                        font.pointSize: 10
+                        anchors.centerIn: parent
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: desiredQuantity.text = parseInt(desiredQuantity.text,10)-10
+                    }
                 }
 
                 Rectangle {
-                    id: quantityBackground
-                    //color: desiredQuantity.acceptableInput ? "green" : "red"
-                    height: 14
-                    width: 60
+                    id: quantityTextBox
+                    color: "blue"
+                    height: 19
+                    width: 46
 
+                    anchors.left: subtractQuantity.right
                     anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: rightButton.left
-                    anchors.leftMargin: 8
+
+                    Rectangle {
+                        id: quantityBoxBackground
+                        color: "white"
+                        height: parent.height-2
+                        width: parent.width-2
+
+                        anchors.centerIn: parent
+                    }
 
                     TextInput {
                         id: desiredQuantity
-                        width: 55
-                        autoScroll: true
+                        width: quantityBoxBackground.width-12
+                        anchors.centerIn: parent
+                        anchors {
+                            left: parent.left;
+                            right: parent.right;
+                            leftMargin: 8;
+                        }
 
                         text: quantity
-                        selectByMouse: true
+                        color: desiredQuantity.acceptableInput ? "black" : "red"
 
                         // Only allow integers, and set the text to
                         // be invalid if there is nothing in the box.
                         // NOTE: Just for fun, really.
                         validator: RegExpValidator{ regExp: /\d+/ }
 
+                        autoScroll: true
+                        selectByMouse: true
                         font.pointSize: 10
-                        anchors.centerIn: parent.Center
                     }
                 }
 
-                // Circle button control
                 Rectangle {
-                    id: rightButton
+                    id: addQuantity
+                    color: "lightgray"
+                    height:  quantityTextBox.height
+                    width: 10
 
-                    height: 14
-                    width: 14
-                    radius: width*0.5
+                    anchors.left: quantityTextBox.right
+                    anchors.verticalCenter: quantityTextBox.verticalCenter
 
-                    // color: "transparent"
-                    color: desiredQuantity.acceptableInput ? "green" : "red"
-                    border.color: "black"
-                    border.width: 2
-
-                    smooth: true
-
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.right
-                    anchors.rightMargin: width
-
+                    Text {
+                        text: "+"
+                        font.pointSize: 10
+                        anchors.centerIn: parent
+                    }
                     MouseArea {
                         anchors.fill: parent
-
-                        hoverEnabled: true
-                        onEntered: {
-                            parent.color = "gray"
-                        }
-                        onExited: {
-                            parent.color = "transparent"
-                        }
+                        onClicked: desiredQuantity.text = parseInt(desiredQuantity.text,10)+10
                     }
                 }
             }
-
-
         }
     }
 
