@@ -5,8 +5,9 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+	 x="0px" y="0px" width="20px" height="20px" viewBox="2.75 2.5 20 20" enable-background="new 2.75 2.5 20 20"
+	 xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#808285" width="20" height="20"/>
+<rect fill="#A7A9AC" width="25.75" height="25.5"/>
 </svg>

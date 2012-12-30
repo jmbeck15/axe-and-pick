@@ -45,8 +45,13 @@ BorderImage {
     border {left: 0; top: 3; right: 0; bottom: 3}
     width: 20
 
-    anchors {top: target.top; bottom: target.bottom; right: target.right }
-    visible: (track.height == slider.height) ? false : true //TODO: !visible -> width: 0 (but creates a binding loop)
+    anchors {
+        top: target.top;
+        bottom: target.bottom;
+        right: target.right;
+        rightMargin: -20;
+    }
+    opacity: (track.height == slider.height) ? 0.40 : 1.00
 
     Item {
         anchors {fill: parent; margins: 0}
@@ -101,7 +106,6 @@ BorderImage {
                 id:slider
 
                 source: "images/slider.svg"
-                border {left: 0; top: 3; right: 0; bottom: 3}
                 width: parent.width
 
                 height: Math.min(target.height / target.contentHeight * track.height, track.height)

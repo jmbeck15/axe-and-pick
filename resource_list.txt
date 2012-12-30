@@ -1,150 +1,150 @@
-Dirt,Basic,dirt.svg
-Raw Stone,Basic,stone.svg
-Wood Logs,Basic,wood.svg
-Food,Basic,unknown.svg
-unknown,unknown,unknown.svg
-Fence,Basic,unknown.svg
-Rope,Basic,unknown.svg
-Feathers,Basic,unknown.svg
-Animal Hair,Basic,unknown.svg
-Coal,Basic,unknown.svg
-Iron Ore,Ore,unknown.svg
-Tin Ore,Ore,unknown.svg
-Copper Ore,Ore,unknown.svg
-Silver Ore,Ore,unknown.svg
-Mithril Ore,Ore,unknown.svg
-Gold Ore,Ore,unknown.svg
-Tin Ingot,Ingot,unknown.svg
-Iron Ingot,Ingot,unknown.svg
-Copper Ingot,Ingot,unknown.svg
-Bronze Ingot,Ingot,unknown.svg
-Steel Ingot,Ingot,unknown.svg
-Mithril Ingot,Ingot,unknown.svg
-Silver Ingot,Ingot,unknown.svg
-Gold Ingot,Ingot,unknown.svg
-Plaster,Building Material,unknown.svg
-Plaster 2,Building Material,unknown.svg
-Wood Planks,Building Material,unknown.svg
-Wood Planks 2,Building Material,unknown.svg
-Animal Fat,Basic,unknown.svg
-unknown,unknown,unknown.svg
-Plaster 3,Building Material,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-Wheat Seed,Basics,unknown.svg
-Potato Seed,Basics,unknown.svg
-Carrot Seed,Basics,unknown.svg
-Pumpkin Seed,Basics,unknown.svg
-Turnip Seed,Basics,unknown.svg
-Corn Seed,Basics,unknown.svg
-Flax Seed,Basics,unknown.svg
-Wheat,Basics,unknown.svg
-Flax Fiber,Basics,unknown.svg
-Rope,Basics,unknown.svg
-unknown,unknown,unknown.svg
-Fieldstone,Building Material,unknown.svg
-Brick,Building Material,unknown.svg
-Brick 2,Building Material,unknown.svg
-Brick 3,Building Material,unknown.svg
-Cobblestone,Building Material,unknown.svg
-Cobblestone 2,Building Material,unknown.svg
-Shingles,Building Material,unknown.svg
-Shingles 2,Building Material,unknown.svg
-Shingles 3,Building Material,unknown.svg
-Shingles 4,Building Material,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-Copper Short Sword,Weapon,unknown.svg
-Iron Broadsword,Weapon,unknown.svg
-Bronze Broadsword,Weapon,unknown.svg
-Steel Broadsword,Weapon,unknown.svg
-Shortbow,Weapon,unknown.svg
-Selfbow,Weapon,unknown.svg
-Longbow,Weapon,unknown.svg
-Copper Chainmail Coif,Armor,unknown.svg
-Iron Chainmail Coif,Armor,unknown.svg
-Bronze Chainmail Coif,Armor,unknown.svg
-Steel Chainmail Coif,Armor,unknown.svg
-Bronze Plate Helm,Armor,unknown.svg
-Steel Plate Helm,Armor,unknown.svg
-Steel Great Helm,Armor,unknown.svg
-Copper Chainmail Shirt,Armor,unknown.svg
-Iron Chainmail Shirt,Armor,unknown.svg
-Bronze Chainmail Shirt,Armor,unknown.svg
-Steel Chainmail Shirt,Armor,unknown.svg
-Iron Cuirass,Armor,unknown.svg
-Bronze Cuirass,Armor,unknown.svg
-Steel Cuirass,Armor,unknown.svg
-Copper Plated Boots,Armor,unknown.svg
-Iron Plated Boots,Armor,unknown.svg
-Bronze Plated Boots,Armor,unknown.svg
-Steel Plated Boots,Armor,unknown.svg
-Stone Tipped Arrows,Weapon,unknown.svg
-Copper Tipped Arrows,Weapon,unknown.svg
-Iron Tipped Arrows,Weapon,unknown.svg
-Bronze Tipped Arrows,Weapon,unknown.svg
-Steel Tipped Arrows,Weapon,unknown.svg
-unknown,unknown,unknown.svg
-Stone Hammer,Tools,unknown.svg
-Iron Hammer,Tools,unknown.svg
-Bronze Hammer,Tools,unknown.svg
-Steel Hammer,Tools,unknown.svg
-Stone Axe,Tools,unknown.svg
-Copper Axe,Tools,unknown.svg
-Iron Axe,Tools,unknown.svg
-Bronze Axe,Tools,unknown.svg
-Steel Axe,Tools,unknown.svg
-Stone Pickaxe,Tools,unknown.svg
-Copper Pickaxe,Tools,unknown.svg
-Iron Pickaxe,Tools,unknown.svg
-Bronze Pickaxe,Tools,unknown.svg
-Steel Pickaxe,Tools,unknown.svg
-Stone Hoe,Tools,unknown.svg
-Copper Hoe,Tools,unknown.svg
-Iron Hoe,Tools,unknown.svg
-Bronze Hoe,Tools,unknown.svg
-Steel Hoe,Tools,unknown.svg
-Ladder,Tools,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
-unknown,unknown,unknown.svg
+Dirt,Basics,resource-unknown.svg
+Raw Stone,Basics,resource-unknown.svg
+Wood Logs,Basics,resource-unknown.svg
+Food,Basics,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+Fence,Basics,resource-unknown.svg
+Rope,Basics,resource-unknown.svg
+Feathers,Basics,resource-unknown.svg
+Animal Hair,Basics,resource-unknown.svg
+Coal,Basics,resource-unknown.svg
+Iron Ore,Ore,resource-unknown.svg
+Tin Ore,Ore,resource-unknown.svg
+Copper Ore,Ore,resource-unknown.svg
+Silver Ore,Ore,resource-unknown.svg
+Mithril Ore,Ore,resource-unknown.svg
+Gold Ore,Ore,resource-unknown.svg
+Tin Ingot,Ingot,resource-unknown.svg
+Iron Ingot,Ingot,resource-unknown.svg
+Copper Ingot,Ingot,resource-unknown.svg
+Bronze Ingot,Ingot,resource-unknown.svg
+Steel Ingot,Ingot,resource-unknown.svg
+Mithril Ingot,Ingot,resource-unknown.svg
+Silver Ingot,Ingot,resource-unknown.svg
+Gold Ingot,Ingot,resource-unknown.svg
+Plaster,Building Material,resource-unknown.svg
+Plaster 2,Building Material,resource-unknown.svg
+Wood Planks,Building Material,resource-unknown.svg
+Wood Planks 2,Building Material,resource-unknown.svg
+Animal Fat,Basics,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+Plaster 3,Building Material,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+Wheat Seed,Basics,resource-unknown.svg
+Potato Seed,Basics,resource-unknown.svg
+Carrot Seed,Basics,resource-unknown.svg
+Pumpkin Seed,Basics,resource-unknown.svg
+Turnip Seed,Basics,resource-unknown.svg
+Corn Seed,Basics,resource-unknown.svg
+Flax Seed,Basics,resource-unknown.svg
+Wheat,Basics,resource-unknown.svg
+Flax Fiber,Basics,resource-unknown.svg
+Rope,Basics,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+Fieldstone,Building Material,resource-unknown.svg
+Brick,Building Material,resource-unknown.svg
+Brick 2,Building Material,resource-unknown.svg
+Brick 3,Building Material,resource-unknown.svg
+Cobblestone,Building Material,resource-unknown.svg
+Cobblestone 2,Building Material,resource-unknown.svg
+Shingles,Building Material,resource-unknown.svg
+Shingles 2,Building Material,resource-unknown.svg
+Shingles 3,Building Material,resource-unknown.svg
+Shingles 4,Building Material,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+Copper Short Sword,Weapons,resource-unknown.svg
+Iron Broadsword,Weapons,resource-unknown.svg
+Bronze Broadsword,Weapons,resource-unknown.svg
+Steel Broadsword,Weapons,resource-unknown.svg
+Shortbow,Weapons,resource-unknown.svg
+Selfbow,Weapons,resource-unknown.svg
+Longbow,Weapons,resource-unknown.svg
+Copper Chainmail Coif,Armor,resource-unknown.svg
+Iron Chainmail Coif,Armor,resource-unknown.svg
+Bronze Chainmail Coif,Armor,resource-unknown.svg
+Steel Chainmail Coif,Armor,resource-unknown.svg
+Bronze Plate Helm,Armor,resource-unknown.svg
+Steel Plate Helm,Armor,resource-unknown.svg
+Steel Great Helm,Armor,resource-unknown.svg
+Copper Chainmail Shirt,Armor,resource-unknown.svg
+Iron Chainmail Shirt,Armor,resource-unknown.svg
+Bronze Chainmail Shirt,Armor,resource-unknown.svg
+Steel Chainmail Shirt,Armor,resource-unknown.svg
+Iron Cuirass,Armor,resource-unknown.svg
+Bronze Cuirass,Armor,resource-unknown.svg
+Steel Cuirass,Armor,resource-unknown.svg
+Copper Plated Boots,Armor,resource-unknown.svg
+Iron Plated Boots,Armor,resource-unknown.svg
+Bronze Plated Boots,Armor,resource-unknown.svg
+Steel Plated Boots,Armor,resource-unknown.svg
+Stone Tipped Arrows,Weapons,resource-unknown.svg
+Copper Tipped Arrows,Weapons,resource-unknown.svg
+Iron Tipped Arrows,Weapons,resource-unknown.svg
+Bronze Tipped Arrows,Weapons,resource-unknown.svg
+Steel Tipped Arrows,Weapons,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+Stone Hammer,Tools,resource-unknown.svg
+Iron Hammer,Tools,resource-unknown.svg
+Bronze Hammer,Tools,resource-unknown.svg
+Steel Hammer,Tools,resource-unknown.svg
+Stone Axe,Tools,resource-unknown.svg
+Copper Axe,Tools,resource-unknown.svg
+Iron Axe,Tools,resource-unknown.svg
+Bronze Axe,Tools,resource-unknown.svg
+Steel Axe,Tools,resource-unknown.svg
+Stone Pickaxe,Tools,resource-unknown.svg
+Copper Pickaxe,Tools,resource-unknown.svg
+Iron Pickaxe,Tools,resource-unknown.svg
+Bronze Pickaxe,Tools,resource-unknown.svg
+Steel Pickaxe,Tools,resource-unknown.svg
+Stone Hoe,Tools,resource-unknown.svg
+Copper Hoe,Tools,resource-unknown.svg
+Iron Hoe,Tools,resource-unknown.svg
+Bronze Hoe,Tools,resource-unknown.svg
+Steel Hoe,Tools,resource-unknown.svg
+Ladder,Tools,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
+unknown,unknown,resource-unknown.svg

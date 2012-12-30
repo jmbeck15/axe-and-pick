@@ -87,7 +87,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
             }
             else
             {
-                resourceString = "extra data,unknown,unknown.svg";
+                resourceString = "unexpected data,unknown,resource-unknown.svg";
             }
 
             QStringList assetData;

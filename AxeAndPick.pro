@@ -24,8 +24,7 @@ HEADERS += \
     resource.h \
     listmodel.h
 
-RESOURCES += \
-    resource_icons.qrc
+RESOURCES +=
 
 OTHER_FILES += \
     resource_list.txt

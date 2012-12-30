@@ -89,7 +89,7 @@ Rectangle {
                 // Resource Icon
                 Image {
                     id: resourceIcon
-                    source: "qrc:///" + icon
+                    source: "images/" + icon
                     anchors.verticalCenter: parent.verticalCenter
                 }
 
@@ -124,7 +124,7 @@ Rectangle {
                         anchors.right: parent.right
 
                         font.family: "Helvetica"
-                        font.pointSize: 6
+                        font.pointSize: 7
                         color: "grey"
                         clip: true
                     }
@@ -221,7 +221,6 @@ Rectangle {
 
         anchors.left: parent.left
         anchors.right: parent.right
-
         anchors.bottom: lowerStatusBar.top
 
         clip: true
@@ -229,6 +228,8 @@ Rectangle {
         ListView {
             id: resourceView
             anchors.fill: parent
+            anchors.rightMargin: 20
+
             model: resourceModel
             delegate: resourceDelegate
         }
@@ -236,9 +237,8 @@ Rectangle {
             id: resourceScrollBar
             target: resourceView
         }
-
-
     }
+
 
     Item {
         id: lowerStatusBar
