@@ -45,17 +45,6 @@ int main(int argc, char *argv[])
     // Show the GUI
     viewer.showExpanded();
 
-    // Set a regex for filtering
-    //proxyResourceModel->setFilterRegExp("Stone");
-    QQuickItem * root = viewer.rootObject();
-    QQuickItem * qmlResourceSearchBox = root->findChild<QQuickItem*>("searchBox");
-    if( !qmlResourceSearchBox )
-    {
-        qDebug() << "No.";
-    }
-    QObject::connect(qmlResourceSearchBox, SIGNAL(newResourceFilterText(QString)),
-                     proxyResourceModel, SLOT(setFilterRegExp(QString)));
-
     return app.exec();
 }
 

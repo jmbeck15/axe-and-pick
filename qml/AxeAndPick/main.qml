@@ -55,8 +55,11 @@ Rectangle {
                     leftMargin: 8;
                 }
 
-                signal newResourceFilterText(string regexpText)
-                onTextChanged: searchBox.newResourceFilterText(text)
+                // NOTE: This is how you use a signal, though it's
+                // totally not necessary in this case.
+                //signal newResourceFilterText(string regexpText)
+                //onTextChanged: searchBox.newResourceFilterText(text)
+                onTextChanged: resourceModel.setFilterFixedString(text)
 
                 autoScroll: true
                 selectByMouse: true
@@ -195,6 +198,7 @@ Rectangle {
                         }
 
                         text: quantity
+                        //onTextChanged: name = parseInt(desiredQuantity.text,10)
                         color: desiredQuantity.acceptableInput ? "black" : "red"
 
                         // Only allow integers, and set the text to
