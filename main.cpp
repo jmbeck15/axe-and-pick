@@ -97,26 +97,29 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
 
             char sigByte; // Most Significant Byte
             resourceSaveFile.read(&sigByte, 1);
-            if( (unsigned char)sigByte >= 224)
+            if( (unsigned char)sigByte >= 0xE0)
             {
+                byteArray[2] = (sigByte - 0xE0);
+
                 // Pull in the middle byte, because they must be processed together.
                 char middleByte;
                 resourceSaveFile.read(&middleByte, 1);
-                byteArray[1] = ((middleByte&MASK) | ((sigByte&MASK) << 6)) - 2;
+                byteArray[1] = (middleByte & MASK);
             }
             else
             {
-                byteArray[1] = sigByte - 0xC2;
+                byteArray[2] = 0;
+                byteArray[1] = sigByte - 0xC0;
             }
 
             char leastByte;
             resourceSaveFile.read(&leastByte, 1);
-            byteArray[0] = leastByte - 0x80;
+            byteArray[0] = leastByte & MASK;
 
             // Build the quantity out of the read bytes.
             quint32 resourceQuantity;
-            resourceQuantity = byteArray[0] & MASK;
-            resourceQuantity |= byteArray[1] << 6;
+            resourceQuantity = byteArray[0];
+            resourceQuantity |= ((byteArray[1] | (byteArray[2]<<6)) -2) << 6;
 
             // Create a new Resource with the quantity, and use the
             // data from the ResourceAssetList to flush it out.
