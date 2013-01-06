@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 
     // Get the file name
-    QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves - Copy\\New Settlement\\re.sav");
+    QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\Timber and Stone pld1\\saves\\Test\\re.sav");
 
 
     // Create a model that holds our resource data, and
@@ -37,14 +37,16 @@ int main(int argc, char *argv[])
     proxyResourceModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
     // Setup sorting the resources
-    proxyResourceModel->setSortRole(Resource::TypeRole);
-    proxyResourceModel->sort(0);
+    //proxyResourceModel->setSortRole(Resource::TypeRole);
+    //proxyResourceModel->sort(0);
 
     // Link the resource data to the GUI viewer
     viewer.rootContext()->setContextProperty("resourceModel", proxyResourceModel);
 
-    viewer.setMainQmlFile(QStringLiteral("qml/AxeAndPick/main.qml"));
+    Resource * testResource = new Resource("Test Resource", "mytype", "icon.jpg", 0, 0);
+    viewer.rootContext()->setContextProperty("testResource", testResource);
 
+    viewer.setMainQmlFile(QStringLiteral("qml/AxeAndPick/main.qml"));
 
     // Show the GUI
     viewer.showExpanded();
@@ -55,6 +57,9 @@ int main(int argc, char *argv[])
 
 void populateResourceList(ListModel * model, QFile & resourceSaveFile)
 {
+    // Mask for the quantity bytes
+    const unsigned char MASK = 0x3F;
+
     // Pull the save file data in.
     if (resourceSaveFile.open(QIODevice::ReadWrite))
     {
@@ -71,6 +76,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
         QTextStream assetStream(&assetFile);
 
         while (!resourceSaveFile.atEnd())
+        //for( int i=0; i<3; i++ )
         {
             // Grab the next section and decide the size, etc.
             QString resourceString;
@@ -86,17 +92,38 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
             QStringList assetData;
             assetData = resourceString.split(',');
 
-            QByteArray resourceQuantity;
-            resourceQuantity = resourceSaveFile.read(2);
-//            qDebug() << "Byte: " << resourceQuantity[0]
-//                     << " and "  << resourceQuantity[1];
+            // Temporary array to hold the bytes we read from the file.
+            quint8 byteArray[4];
+
+            char sigByte; // Most Significant Byte
+            resourceSaveFile.read(&sigByte, 1);
+            if( (unsigned char)sigByte >= 224)
+            {
+                // Pull in the middle byte, because they must be processed together.
+                char middleByte;
+                resourceSaveFile.read(&middleByte, 1);
+                byteArray[1] = ((middleByte&MASK) | ((sigByte&MASK) << 6)) - 2;
+            }
+            else
+            {
+                byteArray[1] = sigByte - 0xC2;
+            }
+
+            char leastByte;
+            resourceSaveFile.read(&leastByte, 1);
+            byteArray[0] = leastByte - 0x80;
+
+            // Build the quantity out of the read bytes.
+            quint32 resourceQuantity;
+            resourceQuantity = byteArray[0] & MASK;
+            resourceQuantity |= byteArray[1] << 6;
 
             // Create a new Resource with the quantity, and use the
             // data from the ResourceAssetList to flush it out.
             model->appendRow(new Resource(assetData[0],
                                           assetData[1],
                                           assetData[2],
-                                          resourceQuantity[1]+128,
+                                          resourceQuantity,
                                           0));
         }
     }
