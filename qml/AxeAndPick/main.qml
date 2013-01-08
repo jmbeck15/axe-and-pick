@@ -64,6 +64,8 @@ Rectangle {
                 autoScroll: true
                 selectByMouse: true
                 font.pointSize: 10
+
+                focus: true
             }
         }
 
@@ -149,6 +151,10 @@ Rectangle {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
+                // TEST
+                //signal newResourceFilterText(string regexpText)
+                //onTextChanged: searchBox.newResourceFilterText(text)
+
                 Rectangle {
                     id: subtractQuantity
                     color: "lightgray"
@@ -165,7 +171,7 @@ Rectangle {
                     }
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: desiredQuantity.text = parseInt(desiredQuantity.text,10)-10
+                        onClicked: resourceModel.setData(index, quantity-10)
                     }
                 }
 
@@ -209,6 +215,7 @@ Rectangle {
                         autoScroll: true
                         selectByMouse: true
                         font.pointSize: 10
+                        onTextChanged: quantity = 49
                     }
                 }
 
@@ -228,7 +235,10 @@ Rectangle {
                     }
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: desiredQuantity.text = parseInt(desiredQuantity.text,10)+10
+                        onClicked: {
+                            //desiredQuantity.text = quantity+10
+                            resourceModel.setData(index, quantity+10)
+                        }
                     }
                 }
             }

@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 
     // Get the file name
-    QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\Timber and Stone pld1\\saves\\Test\\re.sav");
+    QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves\\New Settlement\\re.sav");
 
 
     // Create a model that holds our resource data, and
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     //proxyResourceModel->sort(0);
 
     // Link the resource data to the GUI viewer
-    viewer.rootContext()->setContextProperty("resourceModel", proxyResourceModel);
+    viewer.rootContext()->setContextProperty("resourceModel", resourceModel);// proxyResourceModel);
 
     Resource * testResource = new Resource("Test Resource", "mytype", "icon.jpg", 0, 0);
     viewer.rootContext()->setContextProperty("testResource", testResource);
