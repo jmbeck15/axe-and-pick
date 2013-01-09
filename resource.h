@@ -8,6 +8,7 @@
 class Resource : public ListItem
 {
     Q_OBJECT
+    //Q_PROPERTY(long quantity READ quantity WRITE setQuantity)
 
 public:
     enum Roles {
@@ -15,6 +16,7 @@ public:
         TypeRole,
         IconRole,
         QuantityRole,
+        IdRole,
         FileOffsetRole,
         FilterStringRole
     };
@@ -29,17 +31,16 @@ public:
                       QObject * parent = 0);
 
     QVariant data(int role) const;
-
-
     void setQuantity(long quantity);
 
-    inline QString id() const { return m_name; }
+    inline long id() const { return m_fileOffset; }
     inline QString name() const { return m_name; }
     inline QString type() const { return m_type; }
     inline QString icon() const { return m_icon; }
     inline long quantity() const { return m_quantity; }
     inline long fileOffset() const { return m_fileOffset; }
     QString filterString() const;
+
 
 protected:
     QHash<int, QByteArray> roleNames() const;

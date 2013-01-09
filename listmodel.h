@@ -19,7 +19,7 @@ public:
   ListItem(QObject* parent = 0) : QObject(parent) {}
   virtual ~ListItem() {}
 
-  virtual QString id() const = 0;
+  virtual long id() const = 0;
   virtual QVariant data(int role) const = 0;
   virtual QHash<int, QByteArray> roleNames() const = 0;
 
@@ -42,10 +42,10 @@ public:
   bool removeRow(int row, const QModelIndex &parent = QModelIndex());
   bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
   ListItem* takeRow(int row);
-  ListItem* find(const QString &id) const;
+  ListItem* find(const long &id) const;
   QModelIndex indexFromItem( const ListItem* item) const;
   void clear();
-  Q_INVOKABLE void setData(const int index, const QVariant &value);
+  Q_INVOKABLE void setData(const long identification, const QVariant &value);
 
 protected:
   QHash<int, QByteArray> roleNames() const;

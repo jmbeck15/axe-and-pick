@@ -76,6 +76,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
         qDebug() << "Opened Asset File: " << assetFile.fileName();
 
         QTextStream assetStream(&assetFile);
+        long byteNumber(0);
 
         while (!resourceSaveFile.atEnd())
         //for( int i=0; i<3; i++ )
@@ -99,6 +100,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
 
             char sigByte; // Most Significant Byte
             resourceSaveFile.read(&sigByte, 1);
+            byteNumber++;
             if( (unsigned char)sigByte >= 0xE0)
             {
                 byteArray[2] = (sigByte - 0xE0);
@@ -106,6 +108,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
                 // Pull in the middle byte, because they must be processed together.
                 char middleByte;
                 resourceSaveFile.read(&middleByte, 1);
+                byteNumber++;
                 byteArray[1] = (middleByte & MASK);
             }
             else
@@ -116,6 +119,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
 
             char leastByte;
             resourceSaveFile.read(&leastByte, 1);
+            byteNumber++;
             byteArray[0] = leastByte & MASK;
 
             // Build the quantity out of the read bytes.
@@ -129,7 +133,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile)
                                           assetData[1],
                                           assetData[2],
                                           resourceQuantity,
-                                          0));
+                                          byteNumber));
         }
     }
     else

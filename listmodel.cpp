@@ -69,7 +69,7 @@ void ListModel::handleItemChange()
     emit dataChanged(index, index);
 }
 
-ListItem * ListModel::find(const QString &id) const
+ListItem * ListModel::find(const long &id) const
 {
   foreach(ListItem* item, m_list) {
     if(item->id() == id) return item;
@@ -122,8 +122,8 @@ ListItem * ListModel::takeRow(int row)
   return item;
 }
 
-void ListModel::setData(const int index, const QVariant &value)
+void ListModel::setData(const long identification, const QVariant &value)
 {
-    Resource * item = (Resource *)m_list.at(index);
+    Resource * item = (Resource *)find(identification);
     item->setQuantity(value.toLongLong());
 }

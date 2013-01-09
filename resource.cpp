@@ -24,6 +24,7 @@ void Resource::setQuantity(long quantity)
     if(m_quantity != quantity)
     {
         m_quantity = quantity;
+        qDebug() << "Set quantity to " << quantity;
         emit dataChanged();
     }
 }
@@ -35,6 +36,7 @@ QHash<int, QByteArray> Resource::roleNames() const
     names[TypeRole] = "type";
     names[IconRole] = "icon";
     names[QuantityRole] = "quantity";
+    names[IdRole] = "identification";
     names[FileOffsetRole] = "fileOffset";
     names[FilterStringRole] = "filterString";
 
@@ -52,6 +54,8 @@ QVariant Resource::data(int role) const
         return icon();
     case QuantityRole:
         return quantity();
+    case IdRole:
+        return id();
     case FileOffsetRole:
         return fileOffset();
     case FilterStringRole:

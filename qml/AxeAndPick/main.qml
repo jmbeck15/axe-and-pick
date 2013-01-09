@@ -173,7 +173,7 @@ Rectangle {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            resourceModel.setData(index, quantity-10)
+                            resourceModel.setData(identification, quantity-10)
                         }
                     }
                 }
@@ -240,8 +240,7 @@ Rectangle {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {
-                            //desiredQuantity.text = quantity+10
-                            resourceModel.setData(index, quantity+10)
+                            resourceModel.setData(identification, quantity+10)
                         }
                     }
                 }
