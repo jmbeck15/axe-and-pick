@@ -28,21 +28,32 @@ Rectangle {
         anchors.bottom: topAreaBackground.bottom
         anchors.bottomMargin: 5
 
-        Rectangle {
-            color: "blue"
-            height: 22
-            width: 100
+        Image {
+            id: searchIcon
+            source: "images/searchIcon.svg"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
+            anchors.leftMargin: 5
+        }
+        Rectangle {
+            id: searchBoxOutline
+            color: "#FF999999"
+            height: 22
+            width: 150
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: searchIcon.right
+            anchors.leftMargin: 3
 
             Rectangle {
                 id: searchBoxBackground
                 color: "white"
                 height: parent.height-2
-                width: parent.width-2
 
                 clip: true
-                anchors.centerIn: parent
+                anchors.left: parent.left
+                anchors.leftMargin: 1
+                anchors.right: cancelSearchIcon.left
+                anchors.verticalCenter: parent.verticalCenter
 
                 TextInput {
                     id: searchBox
@@ -66,6 +77,20 @@ Rectangle {
                     font.pointSize: 10
 
                     focus: true
+                }
+            }
+            Image {
+                id: cancelSearchIcon
+                source: "images/cancelSearch.svg"
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: 1
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        searchBox.text = "";
+                    }
                 }
             }
         }
@@ -146,59 +171,57 @@ Rectangle {
             // Resource Quantity Buffer
             Item {
                 id: quantityControls
-                width: 74
+                width: 105
 
                 anchors.top: parent.top
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
 
-                // TEST
-                //signal newResourceFilterText(string regexpText)
-                //onTextChanged: searchBox.newResourceFilterText(text)
-
                 Rectangle {
-                    id: subtractQuantity
-                    color: "lightgray"
-                    height:  quantityTextBox.height
-                    width: 10
+                    id: quantityBoxOutline
+                    color: "#FF999999"
+                    height: 19
+                    width: 85
 
                     anchors.left: parent.left
+                    anchors.leftMargin: 5
                     anchors.verticalCenter: parent.verticalCenter
 
-                    Text {
-                        text: "-"
-                        font.pointSize: 10
-                        anchors.centerIn: parent
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            resourceModel.setData(identification, quantity-10)
+                    Image {
+                        id: subtractQuantity
+                        source: "images/subtract.svg"
+                        anchors.left: parent.left
+                        anchors.leftMargin: 1
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        MouseArea {
+                            anchors.fill: parent
+
+                            onClicked: {
+                                if (mouse.modifiers & Qt.ShiftModifier)
+                                {
+                                    resourceModel.setData(identification, quantity-100)
+                                }
+                                else
+                                {
+                                    resourceModel.setData(identification, quantity-10)
+                                }
+                            }
                         }
                     }
-                }
-
-                Rectangle {
-                    id: quantityTextBox
-                    color: "blue"
-                    height: 19
-                    width: 46
-
-                    anchors.left: subtractQuantity.right
-                    anchors.verticalCenter: parent.verticalCenter
-
                     Rectangle {
                         id: quantityBoxBackground
                         color: "white"
                         height: parent.height-2
-                        width: parent.width-2
                         clip: true
 
-                        anchors.centerIn: parent
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: subtractQuantity.right
+                        anchors.right: addQuantity.left
 
                         TextInput {
                             id: desiredQuantity
-                            width: quantityBoxBackground.width-12
+                            width: parent.width-12
                             anchors.centerIn: parent
                             anchors {
                                 left: parent.left;
@@ -207,7 +230,6 @@ Rectangle {
                             }
 
                             text: quantity
-                            //onTextChanged: name = parseInt(desiredQuantity.text,10)
                             color: desiredQuantity.acceptableInput ? "black" : "red"
 
                             // Only allow integers, and set the text to
@@ -218,29 +240,30 @@ Rectangle {
                             autoScroll: true
                             selectByMouse: true
                             font.pointSize: 10
-                            onTextChanged: quantity = 49
+                            onTextChanged: {
+                                resourceModel.setData(identification, parseInt(text,10))
+                            }
                         }
                     }
-                }
+                    Image {
+                        id: addQuantity
+                        source: "images/add.svg"
+                        anchors.right: parent.right
+                        anchors.rightMargin: 1
+                        anchors.verticalCenter: parent.verticalCenter
 
-                Rectangle {
-                    id: addQuantity
-                    color: "lightgray"
-                    height:  quantityTextBox.height
-                    width: 10
-
-                    anchors.left: quantityTextBox.right
-                    anchors.verticalCenter: quantityTextBox.verticalCenter
-
-                    Text {
-                        text: "+"
-                        font.pointSize: 10
-                        anchors.centerIn: parent
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: {
-                            resourceModel.setData(identification, quantity+10)
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if (mouse.modifiers & Qt.ShiftModifier)
+                                {
+                                    resourceModel.setData(identification, quantity+100)
+                                }
+                                else
+                                {
+                                    resourceModel.setData(identification, quantity+10)
+                                }
+                            }
                         }
                     }
                 }
