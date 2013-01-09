@@ -45,6 +45,7 @@ public:
   ListItem* find(const QString &id) const;
   QModelIndex indexFromItem( const ListItem* item) const;
   void clear();
+  Q_INVOKABLE void setData(const int index, const QVariant &value);
 
 protected:
   QHash<int, QByteArray> roleNames() const;

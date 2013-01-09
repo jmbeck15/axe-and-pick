@@ -7,6 +7,7 @@
 
 #include <QDebug>
 #include "listmodel.h"
+#include "resource.h"
 
 ListModel::ListModel(ListItem* prototype, QObject *parent) :
     QAbstractListModel(parent), m_prototype(prototype)
@@ -119,4 +120,10 @@ ListItem * ListModel::takeRow(int row)
   ListItem* item = m_list.takeAt(row);
   endRemoveRows();
   return item;
+}
+
+void ListModel::setData(const int index, const QVariant &value)
+{
+    Resource * item = (Resource *)m_list.at(index);
+    item->setQuantity(value.toLongLong());
 }

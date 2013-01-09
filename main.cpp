@@ -35,13 +35,15 @@ int main(int argc, char *argv[])
 
     // Enable the case insensitivity
     proxyResourceModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    //proxyResourceModel->mapToSource(index)
 
     // Setup sorting the resources
     //proxyResourceModel->setSortRole(Resource::TypeRole);
     //proxyResourceModel->sort(0);
 
     // Link the resource data to the GUI viewer
-    viewer.rootContext()->setContextProperty("resourceModel", resourceModel);// proxyResourceModel);
+    viewer.rootContext()->setContextProperty("resourceModelProxy", proxyResourceModel);
+    viewer.rootContext()->setContextProperty("resourceModel", resourceModel);
 
     Resource * testResource = new Resource("Test Resource", "mytype", "icon.jpg", 0, 0);
     viewer.rootContext()->setContextProperty("testResource", testResource);

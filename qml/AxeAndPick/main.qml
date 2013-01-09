@@ -41,31 +41,32 @@ Rectangle {
                 height: parent.height-2
                 width: parent.width-2
 
+                clip: true
                 anchors.centerIn: parent
-            }
 
-            TextInput {
-                id: searchBox
-                objectName: "searchBox"
-                width: searchBoxBackground.width-12
-                anchors.centerIn: parent
-                anchors {
-                    left: parent.left;
-                    right: parent.right;
-                    leftMargin: 8;
+                TextInput {
+                    id: searchBox
+                    objectName: "searchBox"
+                    width: searchBoxBackground.width-12
+                    anchors.centerIn: parent
+                    anchors {
+                        left: parent.left;
+                        right: parent.right;
+                        leftMargin: 8;
+                    }
+
+                    // NOTE: This is how you use a signal, though it's
+                    // totally not necessary in this case.
+                    //signal newResourceFilterText(string regexpText)
+                    //onTextChanged: searchBox.newResourceFilterText(text)
+                    onTextChanged: resourceModelProxy.setFilterFixedString(text)
+
+                    autoScroll: true
+                    selectByMouse: true
+                    font.pointSize: 10
+
+                    focus: true
                 }
-
-                // NOTE: This is how you use a signal, though it's
-                // totally not necessary in this case.
-                //signal newResourceFilterText(string regexpText)
-                //onTextChanged: searchBox.newResourceFilterText(text)
-                onTextChanged: resourceModel.setFilterFixedString(text)
-
-                autoScroll: true
-                selectByMouse: true
-                font.pointSize: 10
-
-                focus: true
             }
         }
 
@@ -171,7 +172,9 @@ Rectangle {
                     }
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: resourceModel.setData(index, quantity-10)
+                        onClicked: {
+                            resourceModel.setData(index, quantity-10)
+                        }
                     }
                 }
 
@@ -189,33 +192,34 @@ Rectangle {
                         color: "white"
                         height: parent.height-2
                         width: parent.width-2
+                        clip: true
 
                         anchors.centerIn: parent
-                    }
 
-                    TextInput {
-                        id: desiredQuantity
-                        width: quantityBoxBackground.width-12
-                        anchors.centerIn: parent
-                        anchors {
-                            left: parent.left;
-                            right: parent.right;
-                            leftMargin: 8;
+                        TextInput {
+                            id: desiredQuantity
+                            width: quantityBoxBackground.width-12
+                            anchors.centerIn: parent
+                            anchors {
+                                left: parent.left;
+                                right: parent.right;
+                                leftMargin: 8;
+                            }
+
+                            text: quantity
+                            //onTextChanged: name = parseInt(desiredQuantity.text,10)
+                            color: desiredQuantity.acceptableInput ? "black" : "red"
+
+                            // Only allow integers, and set the text to
+                            // be invalid if there is nothing in the box.
+                            // NOTE: Just for fun, really.
+                            validator: RegExpValidator{ regExp: /\d+/ }
+
+                            autoScroll: true
+                            selectByMouse: true
+                            font.pointSize: 10
+                            onTextChanged: quantity = 49
                         }
-
-                        text: quantity
-                        //onTextChanged: name = parseInt(desiredQuantity.text,10)
-                        color: desiredQuantity.acceptableInput ? "black" : "red"
-
-                        // Only allow integers, and set the text to
-                        // be invalid if there is nothing in the box.
-                        // NOTE: Just for fun, really.
-                        validator: RegExpValidator{ regExp: /\d+/ }
-
-                        autoScroll: true
-                        selectByMouse: true
-                        font.pointSize: 10
-                        onTextChanged: quantity = 49
                     }
                 }
 
@@ -260,7 +264,7 @@ Rectangle {
             anchors.fill: parent
             anchors.rightMargin: 20
 
-            model: resourceModel
+            model: resourceModelProxy
             delegate: resourceDelegate
         }
         ScrollBar {
