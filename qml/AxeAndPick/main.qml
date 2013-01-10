@@ -199,13 +199,19 @@ Rectangle {
                             anchors.fill: parent
 
                             onClicked: {
-                                if (mouse.modifiers & Qt.ShiftModifier)
-                                {
-                                    resourceModel.setData(identification, quantity-100)
+                                var newQuantity;
+                                if (mouse.modifiers & Qt.ShiftModifier) {
+                                    newQuantity = 100;
                                 }
-                                else
-                                {
-                                    resourceModel.setData(identification, quantity-10)
+                                else {
+                                    newQuantity = 10;
+                                }
+
+                                if ((quantity-newQuantity)<0) {
+                                    resourceModel.setData(identification, 0)
+                                }
+                                else {
+                                    resourceModel.setData(identification, quantity-newQuantity)
                                 }
                             }
                         }
@@ -256,13 +262,20 @@ Rectangle {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
-                                if (mouse.modifiers & Qt.ShiftModifier)
-                                {
-                                    resourceModel.setData(identification, quantity+100)
+                                var newQuantity;
+                                // If Shift+Click, add 100 instead of 10.
+                                if (mouse.modifiers & Qt.ShiftModifier) {
+                                    newQuantity = 100;
                                 }
-                                else
-                                {
-                                    resourceModel.setData(identification, quantity+10)
+                                else {
+                                    newQuantity = 10;
+                                }
+
+                                if ((quantity+newQuantity)<0) {
+                                    resourceModel.setData(identification, 0)
+                                }
+                                else {
+                                    resourceModel.setData(identification, quantity+newQuantity)
                                 }
                             }
                         }
