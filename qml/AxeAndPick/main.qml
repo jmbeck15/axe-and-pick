@@ -4,96 +4,98 @@ Rectangle {
     width: 360
     height: 460
     color: "#FFEFEFEF"
-    id: iAmTheRootObject
-
-    Rectangle {
-        id: topAreaBackground
-
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        height: 40
-        color: "lightgray"
-    }
+    id: rootWindow
 
     Item {
-        id: topArea
+        id: saveDirectoryControl
 
-        anchors.top: topAreaBackground.top
-        anchors.topMargin: 5
-        anchors.left: topAreaBackground.left
-        anchors.leftMargin: 5
-        anchors.right: topAreaBackground.right
-        anchors.rightMargin: 5
-        anchors.bottom: topAreaBackground.bottom
-        anchors.bottomMargin: 5
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.right: parent.right
 
+        height: 50
+
+    }
+
+
+    Item {
+        id: searchBar
+
+        anchors.top: saveDirectoryControl.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        height: 35
+
+        Rectangle {
+            color: "lightgray"
+            anchors.fill: parent
+        }
         Image {
             id: searchIcon
             source: "images/searchIcon.svg"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 5
+            anchors.leftMargin: 10
         }
         Rectangle {
-            id: searchBoxOutline
-            color: "#FF999999"
-            height: 22
-            width: 150
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: searchIcon.right
-            anchors.leftMargin: 3
-
-            Rectangle {
-                id: searchBoxBackground
-                color: "white"
-                height: parent.height-2
-
-                clip: true
-                anchors.left: parent.left
-                anchors.leftMargin: 1
-                anchors.right: cancelSearchIcon.left
+                id: searchBoxOutline
+                color: "#FF999999"
+                height: 22
+                width: 150
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.left: searchIcon.right
+                anchors.leftMargin: 3
 
-                TextInput {
-                    id: searchBox
-                    objectName: "searchBox"
-                    width: searchBoxBackground.width-12
-                    anchors.centerIn: parent
-                    anchors {
-                        left: parent.left;
-                        right: parent.right;
-                        leftMargin: 8;
-                    }
+                Rectangle {
+                    id: searchBoxBackground
+                    color: "white"
+                    height: parent.height-2
 
-                    // NOTE: This is how you use a signal, though it's
-                    // totally not necessary in this case.
-                    //signal newResourceFilterText(string regexpText)
-                    //onTextChanged: searchBox.newResourceFilterText(text)
-                    onTextChanged: resourceModelProxy.setFilterFixedString(text)
+                    clip: true
+                    anchors.left: parent.left
+                    anchors.leftMargin: 1
+                    anchors.right: cancelSearchIcon.left
+                    anchors.verticalCenter: parent.verticalCenter
 
-                    autoScroll: true
-                    selectByMouse: true
-                    font.pointSize: 10
+                    TextInput {
+                        id: searchBox
+                        objectName: "searchBox"
+                        width: searchBoxBackground.width-12
+                        anchors {
+                            left: parent.left;
+                            right: parent.right;
+                            centerIn: parent;
+                        }
 
-                    focus: true
-                }
-            }
-            Image {
-                id: cancelSearchIcon
-                source: "images/cancelSearch.svg"
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.right: parent.right
-                anchors.rightMargin: 1
+                        // NOTE: This is how you use a signal, though it's
+                        // totally not necessary in this case.
+                        //signal newResourceFilterText(string regexpText)
+                        //onTextChanged: searchBox.newResourceFilterText(text)
+                        onTextChanged: resourceModelProxy.setFilterFixedString(text)
 
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        searchBox.text = "";
+                        autoScroll: true
+                        selectByMouse: true
+                        font.pointSize: 10
+
+                        focus: true
                     }
                 }
+                Image {
+                    id: cancelSearchIcon
+                    source: "images/cancelSearch.svg"
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.right: parent.right
+                    anchors.rightMargin: 1
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            searchBox.text = "";
+                        }
+                    }
+                }
             }
-        }
 
     }
 
@@ -121,7 +123,6 @@ Rectangle {
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 anchors.leftMargin: 8
-                anchors.rightMargin: 8
 
                 // Resource Icon
                 Image {
@@ -184,7 +185,7 @@ Rectangle {
                     width: 85
 
                     anchors.left: parent.left
-                    anchors.leftMargin: 5
+                    anchors.leftMargin: 3
                     anchors.verticalCenter: parent.verticalCenter
 
                     Image {
@@ -222,11 +223,11 @@ Rectangle {
                         TextInput {
                             id: desiredQuantity
                             width: parent.width-12
-                            anchors.centerIn: parent
                             anchors {
                                 left: parent.left;
                                 right: parent.right;
                                 leftMargin: 8;
+                                centerIn: parent;
                             }
 
                             text: quantity
@@ -272,12 +273,12 @@ Rectangle {
     }
 
     Flickable{
-        anchors.top: topArea.bottom
+        anchors.top: searchBar.bottom
         anchors.topMargin: 5
 
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: lowerStatusBar.top
+        anchors.bottom: parent.bottom
 
         clip: true
 
@@ -295,34 +296,4 @@ Rectangle {
         }
     }
 
-
-    Item {
-        id: lowerStatusBar
-
-        height: 30
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        Rectangle {
-            objectName: "statusBarBackground"
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            color: "lightgray"
-        }
-
-        Row {
-            anchors.left: parent.left
-            anchors.leftMargin: 8 + 5
-            anchors.verticalCenter: parent.verticalCenter
-
-            spacing: 10
-
-            Text {
-                text: qsTr("Here is the bottom bar.")
-            }
-        }
-    }
 }
