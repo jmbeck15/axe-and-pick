@@ -15,6 +15,7 @@ Rectangle {
 
         height: 50
 
+
     }
 
 
@@ -36,7 +37,7 @@ Rectangle {
             source: "images/searchIcon.svg"
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 10
+            anchors.leftMargin: 12
         }
         Rectangle {
                 id: searchBoxOutline
@@ -287,7 +288,7 @@ Rectangle {
 
     Flickable{
         anchors.top: searchBar.bottom
-        anchors.topMargin: 5
+//        anchors.topMargin: 5
 
         anchors.left: parent.left
         anchors.right: parent.right
