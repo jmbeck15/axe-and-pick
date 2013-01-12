@@ -27,4 +27,5 @@ HEADERS += \
 RESOURCES +=
 
 OTHER_FILES += \
-    resource_list.txt
+    resource_list.txt \
+    qml/AxeAndPick/ToolbarTextInput.qml

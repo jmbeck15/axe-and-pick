@@ -18,8 +18,66 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "blue"
+            color: "lightgray"
         }
+        Row {
+            spacing: 5
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            anchors.bottom: parent.bottom
+
+            Column {
+                spacing: 3
+                anchors.top: parent.top
+                anchors.topMargin: 5
+
+                Text {
+                    id: saveGameName
+                    text: "Save Game Name"
+                    font.pixelSize: 18
+                }
+                Text {
+                    id: saveGameDate
+                    text: "January 01 23:59 PM"
+                    font.pixelSize: 10
+                    font.italic: true
+                    color: "gray"
+                }
+            }
+            Rectangle {
+                // This is just a spacer.
+                color: "transparent"
+                width: 30
+                height: 1
+            }
+            ToolbarTextInput {
+                textLabel: "Day"
+                value: 6
+                width: 45
+            }
+            ToolbarTextInput {
+                textLabel: "Hour"
+                value: 23
+                width: 38
+            }
+        }
+
+        Row {
+            spacing: 5
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.bottom: parent.bottom
+
+            ToolbarImageButton {
+                icon: "images/openIcon.svg"
+            }
+            ToolbarImageButton {
+                icon: "images/saveIcon.svg"
+            }
+        }
+
     }
 
     Item {
@@ -121,7 +179,7 @@ Item {
         // The box that holds each resource item
         Rectangle {
 
-            color: "#FFEEEEEE"
+            color: "#FFeeeeee"
             height: 36
             anchors.left: parent.left
             anchors.right: parent.right
@@ -137,7 +195,7 @@ Item {
                 anchors.right: quantityControls.left
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
-                anchors.leftMargin: 8
+                anchors.leftMargin: 10
 
                 // Resource Icon
                 Image {

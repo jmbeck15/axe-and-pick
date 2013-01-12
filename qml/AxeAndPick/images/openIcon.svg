@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="40px" height="30px" viewBox="-0.608 -0.799 40 30" enable-background="new -0.608 -0.799 40 30"
+	 xml:space="preserve">
+<defs>
+</defs>
+<path fill="#939598" stroke="#6D6E71" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M32.771,5.055c0-1.455-0.2-1.646-1.632-1.653c-0.898-0.004-9.849-0.005-17.809-0.005V1.221c0-0.481-0.39-0.871-0.87-0.871H1.22
+	c-0.48,0-0.87,0.39-0.87,0.871v2.175v1.233v23.423h31.618C31.968,28.052,32.771,6.066,32.771,5.055z"/>
+<polygon fill="#BCBEC0" stroke="#6D6E71" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	6.365,8.617 0.35,28.052 31.968,28.052 38.35,8.617 "/>
+<polygon fill="#F1F2F2" stroke="#6D6E71" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	11.679,3.821 11.679,3.821 1.804,3.821 1.804,3.821 1.804,1.8 1.804,1.8 11.679,1.8 11.679,1.8 "/>
+</svg>
