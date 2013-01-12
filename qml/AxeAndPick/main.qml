@@ -1,10 +1,13 @@
 import QtQuick 2.0
 
-Rectangle {
-    width: 360
-    height: 460
-    color: "#FFEFEFEF"
+
+
+Item {
+    width: 800
+    height: 600
     id: rootWindow
+
+    //var darkGrayColor = "#FFEFEFEF";
 
     Item {
         id: mainToolbar
@@ -18,6 +21,7 @@ Rectangle {
             color: "blue"
         }
     }
+
     Item {
         id: resourceContainer
         anchors.top: mainToolbar.bottom
@@ -30,11 +34,12 @@ Rectangle {
             color: "red"
         }
     }
+
     Item {
         id: containerSeperator
         anchors.top: mainToolbar.bottom
         anchors.bottom: parent.bottom
-        x: 350
+        x: 300
         width: 5
 
         Rectangle {
@@ -44,7 +49,13 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             drag.target: containerSeperator
+
+            // Restrict how far you can drag the seperator.
+            drag.minimumX: 100
+            drag.maximumX: rootWindow.width - 100
+
             cursorShape: Qt.SizeHorCursor
+
         }
 
     }
