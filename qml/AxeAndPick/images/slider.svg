@@ -5,9 +5,12 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="20px" height="20px" viewBox="2.75 2.5 20 20" enable-background="new 2.75 2.5 20 20"
-	 xml:space="preserve">
+	 x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#999999" width="25.75" height="25.5"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="0" y1="8" x2="16" y2="8">
+	<stop  offset="0" style="stop-color:#999999"/>
+	<stop  offset="1" style="stop-color:#808285"/>
+</linearGradient>
+<rect fill="url(#SVGID_1_)" width="16" height="16"/>
 </svg>

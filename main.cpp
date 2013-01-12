@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
-
+    QCoreApplication::setApplicationName("Axe and Pick");
+    QCoreApplication::setOrganizationName("Potato Mining Corporation");
 
 
     // Get the file name

@@ -5,11 +5,10 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="20px" height="20px" viewBox="2.875 2.75 20 20" enable-background="new 2.875 2.75 20 20"
-	 xml:space="preserve">
+	 x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#E6E7E8" width="25.75" height="25.5"/>
-<line fill="#58595B" stroke="#808285" stroke-width="2.5" stroke-miterlimit="10" x1="8.917" y1="8.792" x2="16.833" y2="16.708"/>
-<line fill="#58595B" stroke="#808285" stroke-width="2.5" stroke-miterlimit="10" x1="8.917" y1="16.708" x2="16.833" y2="8.792"/>
+<rect fill="#E6E7E8" width="20" height="20"/>
+<line fill="#58595B" stroke="#939598" stroke-width="2.5" stroke-miterlimit="10" x1="6.042" y1="6.042" x2="13.958" y2="13.958"/>
+<line fill="#58595B" stroke="#939598" stroke-width="2.5" stroke-miterlimit="10" x1="6.042" y1="13.958" x2="13.958" y2="6.042"/>
 </svg>

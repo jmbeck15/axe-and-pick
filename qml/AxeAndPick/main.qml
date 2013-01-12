@@ -29,9 +29,50 @@ Item {
         anchors.right: containerSeperator.left
         anchors.bottom: parent.bottom
 
+        // Background for the resource container
         Rectangle {
             anchors.fill: parent
-            color: "red"
+            color: "silver"
+        }
+
+        Item {
+            id: resourceToolbar
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 30
+
+            Rectangle {
+                anchors.fill: parent
+                color: "silver"
+            }
+
+            SearchBox {
+                id: resourceSearchBox
+                target: resourceModelProxy
+                anchors.right: parent.right
+
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
+        ListView {
+            id: resourceList
+            anchors.top: resourceToolbar.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.rightMargin: 16
+            anchors.bottom: parent.bottom
+
+            model: resourceModelProxy
+            delegate: resourceDelegate
+
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
+        }
+        ScrollBar {
+            target: resourceList
+            width: 16
         }
     }
 
@@ -44,7 +85,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "gray"
+            color: "silver"
         }
         MouseArea {
             anchors.fill: parent
@@ -55,9 +96,7 @@ Item {
             drag.maximumX: rootWindow.width - 100
 
             cursorShape: Qt.SizeHorCursor
-
         }
-
     }
 
     Item {
@@ -75,272 +114,196 @@ Item {
 
 
 
-//    Item {
-//        id: searchBar
+    // This is the component that displays each resource in the list
+    Component {
+        id: resourceDelegate
 
-//        anchors.top: saveDirectoryControl.bottom
-//        anchors.left: parent.left
-//        anchors.right: parent.right
+        // The box that holds each resource item
+        Rectangle {
 
-//        height: 35
+            color: "#FFEEEEEE"
+            height: 36
+            anchors.left: parent.left
+            anchors.right: parent.right
 
-//        Rectangle {
-//            color: "lightgray"
-//            anchors.fill: parent
-//        }
-//        Image {
-//            id: searchIcon
-//            source: "images/searchIcon.svg"
-//            anchors.verticalCenter: parent.verticalCenter
-//            anchors.left: parent.left
-//            anchors.leftMargin: 12
-//        }
-//        Rectangle {
-//                id: searchBoxOutline
-//                color: "#FF999999"
-//                height: 22
-//                width: 150
-//                anchors.verticalCenter: parent.verticalCenter
-//                anchors.left: searchIcon.right
-//                anchors.leftMargin: 3
+            border.width: 1
+            border.color: "#FFE3E3E3"
 
-//                Rectangle {
-//                    id: searchBoxBackground
-//                    color: "white"
-//                    height: parent.height-2
+            // Name and Type and Resource Icon
+            Item {
+                id: resourceId
 
-//                    clip: true
-//                    anchors.left: parent.left
-//                    anchors.leftMargin: 1
-//                    anchors.right: cancelSearchIcon.left
-//                    anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.right: quantityControls.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 8
 
-//                    TextInput {
-//                        id: searchBox
-//                        objectName: "searchBox"
-//                        width: searchBoxBackground.width-12
-//                        anchors {
-//                            left: parent.left;
-//                            right: parent.right;
-//                            centerIn: parent;
-//                        }
+                // Resource Icon
+                Image {
+                    id: resourceIcon
+                    source: "images/" + icon
+                    anchors.verticalCenter: parent.verticalCenter
+                }
 
-//                        // NOTE: This is how you use a signal, though it's
-//                        // totally not necessary in this case.
-//                        //signal newResourceFilterText(string regexpText)
-//                        //onTextChanged: searchBox.newResourceFilterText(text)
-//                        onTextChanged: resourceModelProxy.setFilterFixedString(text)
+                // Name and Type
+                Item
+                {
+                    id: nameAndType
+                    anchors.left: resourceIcon.right
+                    anchors.right: parent.right
+                    anchors.leftMargin: 8
+                    anchors.top: resourceIcon.top
+                    anchors.bottom: resourceIcon.bottom
 
-//                        autoScroll: true
-//                        selectByMouse: true
-//                        font.pointSize: 10
+                    Text {
+                        id: nameText
+                        text: name
 
-//                        focus: true
-//                    }
-//                }
-//                Image {
-//                    id: cancelSearchIcon
-//                    source: "images/cancelSearch.svg"
-//                    anchors.verticalCenter: parent.verticalCenter
-//                    anchors.right: parent.right
-//                    anchors.rightMargin: 1
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.right: parent.right
 
-//                    MouseArea {
-//                        anchors.fill: parent
-//                        onClicked: {
-//                            searchBox.text = "";
-//                        }
-//                    }
-//                }
-//            }
+                        font.family: "Helvetica"
+                        font.pointSize: 10
+                        clip: true
+                    }
+                    Text {
+                        id: typeText
+                        text: type
 
-//    }
+                        anchors.top: nameText.bottom
+                        anchors.left: parent.left
+                        anchors.right: parent.right
 
-//    // This is the component that displays each resource in the list
-//    Component {
-//        id: resourceDelegate
+                        font.family: "Helvetica"
+                        font.pointSize: 7
+                        color: "grey"
+                        clip: true
+                    }
+                }
+            }
 
-//        // The box that holds each resource item
-//        Rectangle {
+            // Resource Quantity Buffer
+            Item {
+                id: quantityControls
+                width: 105
 
-//            color: "#FFE2E2E2"
-//            height: 36
-//            anchors.left: parent.left
-//            anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
 
-//            border.width: 1
-//            border.color: "#FFEFEFEF"
+                Rectangle {
+                    id: quantityBoxOutline
+                    color: "#FF999999"
+                    height: 19
+                    width: 85
 
-//            // Name and Type and Resource Icon
-//            Item {
-//                id: resourceId
+                    anchors.left: parent.left
+                    anchors.leftMargin: 3
+                    anchors.verticalCenter: parent.verticalCenter
 
-//                anchors.left: parent.left
-//                anchors.right: quantityControls.left
-//                anchors.top: parent.top
-//                anchors.bottom: parent.bottom
-//                anchors.leftMargin: 8
+                    Image {
+                        id: subtractQuantity
+                        source: "images/subtract.svg"
+                        anchors.left: parent.left
+                        anchors.leftMargin: 1
+                        anchors.verticalCenter: parent.verticalCenter
 
-//                // Resource Icon
-//                Image {
-//                    id: resourceIcon
-//                    source: "images/" + icon
-//                    anchors.verticalCenter: parent.verticalCenter
-//                }
+                        MouseArea {
+                            anchors.fill: parent
 
-//                // Name and Type
-//                Item
-//                {
-//                    id: nameAndType
-//                    anchors.left: resourceIcon.right
-//                    anchors.right: parent.right
-//                    anchors.leftMargin: 8
-//                    anchors.top: resourceIcon.top
-//                    anchors.bottom: resourceIcon.bottom
+                            onClicked: {
+                                var newQuantity;
+                                if (mouse.modifiers & Qt.ShiftModifier) {
+                                    newQuantity = 100;
+                                }
+                                else {
+                                    newQuantity = 10;
+                                }
 
-//                    Text {
-//                        id: nameText
-//                        text: name
+                                if ((quantity-newQuantity)<0) {
+                                    resourceModel.setData(identification, 0)
+                                }
+                                else {
+                                    resourceModel.setData(identification, quantity-newQuantity)
+                                }
+                            }
+                        }
+                    }
+                    Rectangle {
+                        id: quantityBoxBackground
+                        color: "white"
+                        height: parent.height-2
+                        clip: true
 
-//                        anchors.top: parent.top
-//                        anchors.left: parent.left
-//                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: subtractQuantity.right
+                        anchors.right: addQuantity.left
 
-//                        font.family: "Helvetica"
-//                        font.pointSize: 10
-//                        clip: true
-//                    }
-//                    Text {
-//                        id: typeText
-//                        text: type
+                        TextInput {
+                            id: desiredQuantity
+                            width: parent.width-12
+                            anchors {
+                                left: parent.left;
+                                right: parent.right;
+                                leftMargin: 8;
+                                centerIn: parent;
+                            }
 
-//                        anchors.top: nameText.bottom
-//                        anchors.left: parent.left
-//                        anchors.right: parent.right
+                            text: quantity
+                            color: desiredQuantity.acceptableInput ? "black" : "red"
 
-//                        font.family: "Helvetica"
-//                        font.pointSize: 7
-//                        color: "grey"
-//                        clip: true
-//                    }
-//                }
-//            }
+                            // Only allow integers, and set the text to
+                            // be invalid if there is nothing in the box.
+                            // NOTE: Just for fun, really.
+                            validator: RegExpValidator{ regExp: /\d+/ }
 
-//            // Resource Quantity Buffer
-//            Item {
-//                id: quantityControls
-//                width: 105
+                            autoScroll: true
+                            selectByMouse: true
+                            font.pointSize: 10
+                            onTextChanged: {
+                                resourceModel.setData(identification, parseInt(text,10))
+                            }
+                        }
+                    }
+                    Image {
+                        id: addQuantity
+                        source: "images/add.svg"
+                        anchors.right: parent.right
+                        anchors.rightMargin: 1
+                        anchors.verticalCenter: parent.verticalCenter
 
-//                anchors.top: parent.top
-//                anchors.right: parent.right
-//                anchors.bottom: parent.bottom
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                var newQuantity;
+                                // If Shift+Click, add 100 instead of 10.
+                                if (mouse.modifiers & Qt.ShiftModifier) {
+                                    newQuantity = 100;
+                                }
+                                else {
+                                    newQuantity = 10;
+                                }
 
-//                Rectangle {
-//                    id: quantityBoxOutline
-//                    color: "#FF999999"
-//                    height: 19
-//                    width: 85
+                                if ((quantity+newQuantity)<0) {
+                                    resourceModel.setData(identification, 0)
+                                }
+                                else {
+                                    resourceModel.setData(identification, quantity+newQuantity)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-//                    anchors.left: parent.left
-//                    anchors.leftMargin: 3
-//                    anchors.verticalCenter: parent.verticalCenter
 
-//                    Image {
-//                        id: subtractQuantity
-//                        source: "images/subtract.svg"
-//                        anchors.left: parent.left
-//                        anchors.leftMargin: 1
-//                        anchors.verticalCenter: parent.verticalCenter
 
-//                        MouseArea {
-//                            anchors.fill: parent
 
-//                            onClicked: {
-//                                var newQuantity;
-//                                if (mouse.modifiers & Qt.ShiftModifier) {
-//                                    newQuantity = 100;
-//                                }
-//                                else {
-//                                    newQuantity = 10;
-//                                }
 
-//                                if ((quantity-newQuantity)<0) {
-//                                    resourceModel.setData(identification, 0)
-//                                }
-//                                else {
-//                                    resourceModel.setData(identification, quantity-newQuantity)
-//                                }
-//                            }
-//                        }
-//                    }
-//                    Rectangle {
-//                        id: quantityBoxBackground
-//                        color: "white"
-//                        height: parent.height-2
-//                        clip: true
-
-//                        anchors.verticalCenter: parent.verticalCenter
-//                        anchors.left: subtractQuantity.right
-//                        anchors.right: addQuantity.left
-
-//                        TextInput {
-//                            id: desiredQuantity
-//                            width: parent.width-12
-//                            anchors {
-//                                left: parent.left;
-//                                right: parent.right;
-//                                leftMargin: 8;
-//                                centerIn: parent;
-//                            }
-
-//                            text: quantity
-//                            color: desiredQuantity.acceptableInput ? "black" : "red"
-
-//                            // Only allow integers, and set the text to
-//                            // be invalid if there is nothing in the box.
-//                            // NOTE: Just for fun, really.
-//                            validator: RegExpValidator{ regExp: /\d+/ }
-
-//                            autoScroll: true
-//                            selectByMouse: true
-//                            font.pointSize: 10
-//                            onTextChanged: {
-//                                resourceModel.setData(identification, parseInt(text,10))
-//                            }
-//                        }
-//                    }
-//                    Image {
-//                        id: addQuantity
-//                        source: "images/add.svg"
-//                        anchors.right: parent.right
-//                        anchors.rightMargin: 1
-//                        anchors.verticalCenter: parent.verticalCenter
-
-//                        MouseArea {
-//                            anchors.fill: parent
-//                            onClicked: {
-//                                var newQuantity;
-//                                // If Shift+Click, add 100 instead of 10.
-//                                if (mouse.modifiers & Qt.ShiftModifier) {
-//                                    newQuantity = 100;
-//                                }
-//                                else {
-//                                    newQuantity = 10;
-//                                }
-
-//                                if ((quantity+newQuantity)<0) {
-//                                    resourceModel.setData(identification, 0)
-//                                }
-//                                else {
-//                                    resourceModel.setData(identification, quantity+newQuantity)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
 //    Flickable{
 //        anchors.top: searchBar.bottom
@@ -366,3 +329,5 @@ Item {
 //    }
 
 }
+
+

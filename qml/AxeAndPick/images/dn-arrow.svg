@@ -5,9 +5,14 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+	 x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#D1D3D4" width="20" height="20"/>
-<polygon fill="#939598" points="4.564,6.652 10,15.348 15.436,6.652 "/>
+<rect fill="#E6E7E8" width="16" height="16"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="47.667" y1="-3.1992" x2="63.667" y2="-3.1992" gradientTransform="matrix(-1 0 0 -1 63.667 4.8008)">
+	<stop  offset="0.6198" style="stop-color:#E6E7E8"/>
+	<stop  offset="1" style="stop-color:#F1F2F2"/>
+</linearGradient>
+<rect fill="url(#SVGID_1_)" width="16" height="16"/>
+<polygon fill="#58595B" points="5,5.6 8,10.4 11,5.6 "/>
 </svg>

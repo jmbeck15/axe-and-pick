@@ -42,14 +42,12 @@ BorderImage {
     property variant target
 
     source: "images/scrollbar.svg"
-    border {left: 0; top: 3; right: 0; bottom: 3}
-    width: 16
 
     anchors {
         top: target.top;
         bottom: target.bottom;
         right: target.right;
-        rightMargin: -16;
+        rightMargin: -width;
     }
     opacity: (track.height == slider.height) ? 0.40 : 1.00
 
@@ -94,8 +92,19 @@ BorderImage {
             MouseArea {
                 anchors.fill: parent
                 onPressed: {
-                    timer.scrollAmount = target.height * (mouseY < slider.y ? -1 : 1)       // scroll by a page
-                    timer.running = true;
+                    // scroll by a page, until the scroll bar reaches the cursor
+                    // TODO: This doesn't work.
+                    if (slider.y > mouseY
+                            || slider.y+slider.height < mouseY )
+                    {
+                        timer.scrollAmount = target.height * (mouseY < slider.y ? -1 : 1)
+                        timer.running = true;
+                        console.log("sliding")
+                    }
+                    else
+                    {
+                        timer.running = false
+                    }
                 }
                 onReleased: {
                     timer.running = false;
@@ -108,7 +117,7 @@ BorderImage {
                 source: "images/slider.svg"
                 width: parent.width
 
-                height: Math.min(target.height / target.contentHeight * track.height, track.height)
+                height: target.visibleArea.heightRatio * track.height
                 y: target.visibleArea.yPosition * track.height
 
                 MouseArea {
