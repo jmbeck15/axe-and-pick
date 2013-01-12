@@ -43,13 +43,13 @@ BorderImage {
 
     source: "images/scrollbar.svg"
     border {left: 0; top: 3; right: 0; bottom: 3}
-    width: 20
+    width: 16
 
     anchors {
         top: target.top;
         bottom: target.bottom;
         right: target.right;
-        rightMargin: -20;
+        rightMargin: -16;
     }
     opacity: (track.height == slider.height) ? 0.40 : 1.00
 

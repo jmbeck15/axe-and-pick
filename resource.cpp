@@ -24,7 +24,6 @@ void Resource::setQuantity(long quantity)
     if(m_quantity != quantity)
     {
         m_quantity = quantity;
-        qDebug() << "Set quantity to " << quantity;
         emit dataChanged();
     }
 }
