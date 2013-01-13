@@ -1,13 +1,9 @@
 import QtQuick 2.0
 
-
-
 Item {
     width: 800
     height: 600
     id: rootWindow
-
-    //var darkGrayColor = "#FFEFEFEF";
 
     Item {
         id: mainToolbar
@@ -71,6 +67,7 @@ Item {
             anchors.bottom: parent.bottom
 
             ToolbarImageButton {
+                id: openFileButton
                 icon: "images/openIcon.svg"
                 color: "transparent"
             }
@@ -177,7 +174,15 @@ Item {
         }
     }
 
+    OpenFileDisplay {
+        visible: true
+        windowWidth: 300
 
+        MouseArea {
+            // This is to disable clicks going through the window.
+            anchors.fill: parent
+        }
+    }
 }
 
 
