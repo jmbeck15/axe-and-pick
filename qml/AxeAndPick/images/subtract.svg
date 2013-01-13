@@ -5,9 +5,13 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="17px" height="17px" viewBox="2 1.898 17 17" enable-background="new 2 1.898 17 17" xml:space="preserve">
+	 x="0px" y="0px" width="17px" height="17px" viewBox="0 0 17 17" enable-background="new 0 0 17 17" xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#E6E7E8" width="21" height="20.796"/>
-<line fill="#58595B" stroke="#808285" stroke-width="1.875" stroke-miterlimit="10" x1="6.931" y1="10.398" x2="14.068" y2="10.398"/>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="46.6665" y1="171.7153" x2="63.6665" y2="171.7153" gradientTransform="matrix(4.371139e-008 -1 1 4.371139e-008 -163.215 63.6664)">
+	<stop  offset="0.6198" style="stop-color:#E6E7E8"/>
+	<stop  offset="1" style="stop-color:#F1F2F2"/>
+</linearGradient>
+<rect fill="url(#SVGID_1_)" width="17" height="17"/>
+<line fill="#58595B" stroke="#808285" stroke-width="1.4809" stroke-linecap="round" stroke-miterlimit="10" x1="5.682" y1="8.5" x2="11.318" y2="8.5"/>
 </svg>

@@ -59,9 +59,18 @@ Item {
             anchors.rightMargin: 1
 
             MouseArea {
+                id: iconClick
                 anchors.fill: parent
                 onClicked: {
                     searchBox.text = "";
+                }
+            }
+            states: State {
+                name: "mouse-down"
+                when: iconClick.pressed
+                PropertyChanges {
+                    target: cancelSearchIcon
+                    source: "images/cancelSearch_click.svg"
                 }
             }
         }

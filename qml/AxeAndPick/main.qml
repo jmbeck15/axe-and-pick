@@ -72,9 +72,11 @@ Item {
 
             ToolbarImageButton {
                 icon: "images/openIcon.svg"
+                color: "transparent"
             }
             ToolbarImageButton {
                 icon: "images/saveIcon.svg"
+                color: "transparent"
             }
         }
 
@@ -269,6 +271,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
 
                         MouseArea {
+                            id: subtractIconClick
                             anchors.fill: parent
 
                             onClicked: {
@@ -288,7 +291,16 @@ Item {
                                 }
                             }
                         }
+                        states: State {
+                            name: "mouse-down"
+                            when: subtractIconClick.pressed
+                            PropertyChanges {
+                                target: subtractQuantity
+                                source: "images/subtract_click.svg"
+                            }
+                        }
                     }
+
                     Rectangle {
                         id: quantityBoxBackground
                         color: "white"
@@ -333,6 +345,7 @@ Item {
                         anchors.verticalCenter: parent.verticalCenter
 
                         MouseArea {
+                            id: addIconClick
                             anchors.fill: parent
                             onClicked: {
                                 var newQuantity;
@@ -350,6 +363,14 @@ Item {
                                 else {
                                     resourceModel.setData(identification, quantity+newQuantity)
                                 }
+                            }
+                        }
+                        states: State {
+                            name: "mouse-down"
+                            when: addIconClick.pressed
+                            PropertyChanges {
+                                target: addQuantity
+                                source: "images/add_click.svg"
                             }
                         }
                     }

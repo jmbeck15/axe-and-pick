@@ -8,11 +8,11 @@
 	 x="0px" y="0px" width="20px" height="20px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
 <defs>
 </defs>
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-109.71" y1="107.9766" x2="-89.71" y2="107.9766" gradientTransform="matrix(4.371139e-008 -1 1 4.371139e-008 -97.9762 -89.7101)">
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-131.21" y1="86.4766" x2="-111.21" y2="86.4766" gradientTransform="matrix(-4.371139e-008 1 -1 -4.371139e-008 96.4767 131.2101)">
 	<stop  offset="0.6198" style="stop-color:#E6E7E8"/>
 	<stop  offset="1" style="stop-color:#F1F2F2"/>
 </linearGradient>
 <rect fill="url(#SVGID_1_)" width="20" height="20"/>
-<line fill="#808285" stroke="#939598" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="6.917" x2="13.083" y2="13.083"/>
-<line fill="#808285" stroke="#939598" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="13.083" x2="13.083" y2="6.917"/>
+<line fill="#808285" stroke="#808285" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="7.417" x2="13.083" y2="13.583"/>
+<line fill="#808285" stroke="#808285" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="13.583" x2="13.083" y2="7.417"/>
 </svg>
