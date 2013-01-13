@@ -152,8 +152,8 @@ Item {
             drag.target: containerSeperator
 
             // Restrict how far you can drag the seperator.
-            drag.minimumX: 100
-            drag.maximumX: rootWindow.width - 100
+            drag.minimumX: 10
+            drag.maximumX: rootWindow.width - 10
 
             cursorShape: Qt.SizeHorCursor
         }

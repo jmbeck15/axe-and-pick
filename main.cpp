@@ -16,9 +16,11 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
+    viewer.setMinimumWidth(400);
+    viewer.setMinimumHeight(350);
+
     QCoreApplication::setApplicationName("Axe and Pick");
     QCoreApplication::setOrganizationName("Potato Mining Corporation");
-
 
     // Get the file name
     QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves\\New Settlement\\re.sav");
