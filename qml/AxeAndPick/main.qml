@@ -177,6 +177,7 @@ Item {
     OpenFileDisplay {
         visible: true
         windowWidth: 300
+        filePath: settings.value("TimberAndStone/GameInstallationDirectory");
 
         MouseArea {
             // This is to disable clicks going through the window.

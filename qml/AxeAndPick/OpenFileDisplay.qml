@@ -3,6 +3,7 @@ import QtGraphicalEffects 1.0
 
 Item {
     property int windowWidth
+    property string filePath
 
     anchors.fill: parent
 
@@ -25,13 +26,71 @@ Item {
         // NOTE: The width is 5 to reflect consistancy with the draggable
         // border between lists.
         border.width: 5
-        border.color: "darkgray"
+        border.color: "gray"
     }
+
 
     Item {
         id: fileOpenContents
-        anchors.fill: fileOpenWindowBackground
+        anchors.top: fileOpenWindowBackground.top
+        anchors.topMargin: 5
+        anchors.left: fileOpenWindowBackground.left
+        anchors.leftMargin: 5
+        anchors.right: fileOpenWindowBackground.right
+        anchors.rightMargin: 5
+        anchors.bottom: fileOpenWindowBackground.bottom
+        anchors.bottomMargin: 5
 
+        Rectangle {
+            id: savesFileDirectoryBackground
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
 
+            height: 30
+            color: "darkgray"
+
+            Rectangle {
+                id: directoryOutline
+                color: "gray"
+                height: 22
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                Rectangle {
+                    id: directoryBackground
+                    color: "#FFf8f8f8"
+                    height: parent.height-2
+
+                    clip: true
+                    anchors.left: parent.left
+                    anchors.leftMargin: 1
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    TextInput {
+                        id: directoryBox
+                        width: directoryBackground.width-12
+                        anchors {
+                            left: parent.left;
+                            right: parent.right;
+                            centerIn: parent;
+                        }
+
+                        text: filePath
+
+                        onTextChanged: {
+                            filePath = text
+                        }
+                        autoScroll: true
+                        selectByMouse: true
+                        font.pointSize: 10
+
+                        focus: true
+                    }
+                }
+            }
+        }
     }
 }

@@ -1,11 +1,13 @@
 #include <QtGui/QGuiApplication>
 #include <QQuickItem>
 #include <QDebug>
+#include <QSettings>
 #include <QQmlContext>
 #include <QSortFilterProxyModel>
 #include "qtquick2applicationviewer.h"
 
 #include "resource.h"
+#include "settings.h"
 
 
 
@@ -20,9 +22,17 @@ int main(int argc, char *argv[])
     viewer.setMinimumHeight(350);
 
     QCoreApplication::setApplicationName("Axe and Pick");
+    QCoreApplication::setOrganizationDomain("potatominingcorp.com");
     QCoreApplication::setOrganizationName("Potato Mining Corporation");
 
-    // Get the file name
+    // Load and create the settings. Give QML access.
+    Settings settings;
+    viewer.rootContext()->setContextProperty("settings", &settings);
+
+
+    //settings.setValue("TimberAndStone/GameInstallationDirectory","C:\\Users\\jmbeck\\Desktop\\TaS Saves");
+    //qDebug() << settings.value("TimberAndStone/GameInstallationDirectory");
+
     QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves\\New Settlement\\re.sav");
 
 
