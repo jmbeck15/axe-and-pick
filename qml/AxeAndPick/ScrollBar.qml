@@ -59,6 +59,7 @@ BorderImage {
             source: "images/up-arrow.svg"
             anchors.top: parent.top
             MouseArea {
+                id: upArrowMouse
                 anchors.fill: parent
                 onPressed: {
                     timer.scrollAmount = -10
@@ -66,6 +67,14 @@ BorderImage {
                 }
                 onReleased: {
                     timer.running = false;
+                }
+            }
+            states: State {
+                name: "mouse-down"
+                when: upArrowMouse.pressed
+                PropertyChanges {
+                    target: upArrow
+                    source: "images/up-arrow_click.svg"
                 }
             }
         }
@@ -86,7 +95,7 @@ BorderImage {
 
         Item {
             id: track
-            anchors {top: upArrow.bottom; topMargin: 0; bottom: dnArrow.top;}
+            anchors {top: upArrow.bottom; topMargin: 0; bottom: downArrow.top;}
             width: parent.width
 
             MouseArea {
@@ -136,10 +145,11 @@ BorderImage {
             }
         }
         Image {
-            id: dnArrow
+            id: downArrow
             source: "images/dn-arrow.svg"
             anchors.bottom: parent.bottom
             MouseArea {
+                id: downArrowMouse
                 anchors.fill: parent
                 onPressed: {
                     timer.scrollAmount = 10
@@ -147,6 +157,14 @@ BorderImage {
                 }
                 onReleased: {
                     timer.running = false;
+                }
+            }
+            states: State {
+                name: "mouse-down"
+                when: downArrowMouse.pressed
+                PropertyChanges {
+                    target: downArrow
+                    source: "images/dn-arrow_click.svg"
                 }
             }
         }

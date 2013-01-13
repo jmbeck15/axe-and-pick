@@ -13,6 +13,6 @@
 	<stop  offset="1" style="stop-color:#F1F2F2"/>
 </linearGradient>
 <rect fill="url(#SVGID_1_)" width="20" height="20"/>
-<line fill="#808285" stroke="#939598" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="6.917" x2="13.083" y2="13.083"/>
-<line fill="#808285" stroke="#939598" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="13.083" x2="13.083" y2="6.917"/>
+<line fill="#808285" stroke="#808285" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="6.917" x2="13.083" y2="13.083"/>
+<line fill="#808285" stroke="#808285" stroke-width="1.9474" stroke-linecap="round" stroke-miterlimit="10" x1="6.917" y1="13.083" x2="13.083" y2="6.917"/>
 </svg>
