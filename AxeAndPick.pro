@@ -15,8 +15,8 @@ QML_IMPORT_PATH =
 SOURCES += main.cpp \
     resource.cpp \
     listmodel.cpp \
-    savesfile.cpp \
-    settings.cpp
+    settings.cpp \
+    savesaccess.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
@@ -25,8 +25,8 @@ qtcAddDeployment()
 HEADERS += \
     resource.h \
     listmodel.h \
-    savesfile.h \
-    settings.h
+    settings.h \
+    savesaccess.h
 
 RESOURCES +=
 

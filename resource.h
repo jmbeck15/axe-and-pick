@@ -8,7 +8,6 @@
 class Resource : public ListItem
 {
     Q_OBJECT
-    //Q_PROPERTY(long quantity READ quantity WRITE setQuantity)
 
 public:
     enum Roles {

@@ -4,11 +4,11 @@
 #include <QSettings>
 #include <QQmlContext>
 #include <QSortFilterProxyModel>
+#include <QtWidgets/QFileDialog>
 #include "qtquick2applicationviewer.h"
 
 #include "resource.h"
 #include "settings.h"
-
 
 
 void populateResourceList(ListModel * model, QFile & resourceSaveFile);
@@ -29,6 +29,9 @@ int main(int argc, char *argv[])
     Settings settings;
     viewer.rootContext()->setContextProperty("settings", &settings);
 
+    // Create a file dialog box so the user can select his or her saves file.
+    //QFileDialog fileDialog;
+    //viewer.rootContext()->setContextProperty("fileDialog", &fileDialog);
 
     //settings.setValue("TimberAndStone/GameInstallationDirectory","C:\\Users\\jmbeck\\Desktop\\TaS Saves");
     //qDebug() << settings.value("TimberAndStone/GameInstallationDirectory");
