@@ -5,14 +5,18 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="18px" height="22px" viewBox="-0.4 -0.224 18 22" enable-background="new -0.4 -0.224 18 22"
+	 x="0px" y="0px" width="18px" height="22px" viewBox="-0.403 -0.224 18 22" enable-background="new -0.403 -0.224 18 22"
 	 xml:space="preserve">
 <defs>
 </defs>
 <polygon fill="#6D6E71" points="3.407,21.552 0,19.573 2.71,14.906 3.718,14.058 7.556,6.563 10.963,8.542 6.456,15.623 
 	6.108,16.901 "/>
 <g>
-	<path fill="#E6E7E8" d="M8.981,15.497c-1.311,0-2.607-0.351-3.748-1.013c-1.728-1.003-2.961-2.619-3.473-4.549
+	<radialGradient id="SVGID_1_" cx="8.9893" cy="8.0171" r="7.4805" gradientUnits="userSpaceOnUse">
+		<stop  offset="0.6606" style="stop-color:#E6E7E8"/>
+		<stop  offset="1" style="stop-color:#FFFFFF"/>
+	</radialGradient>
+	<path fill="url(#SVGID_1_)" d="M8.981,15.497c-1.311,0-2.607-0.351-3.748-1.013c-1.728-1.003-2.961-2.619-3.473-4.549
 		C1.249,8.003,1.52,5.988,2.523,4.261c1.333-2.297,3.814-3.724,6.473-3.724c1.312,0,2.607,0.35,3.749,1.013
 		c1.728,1.003,2.961,2.619,3.473,4.549s0.242,3.945-0.762,5.672C14.123,14.069,11.642,15.497,8.981,15.497z"/>
 	<path fill="#6D6E71" d="M8.997,1.075L8.997,1.075c1.216,0,2.419,0.325,3.479,0.94c1.603,0.931,2.748,2.431,3.223,4.223

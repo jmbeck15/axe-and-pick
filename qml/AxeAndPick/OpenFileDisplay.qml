@@ -7,10 +7,10 @@ Item {
 
     anchors.fill: parent
 
-    Rectangle {
-        anchors.fill: parent
-        color: "#80000000"
-    }
+//    Rectangle {
+//        anchors.fill: parent
+//        color: "#80000000"
+//    }
 
     Rectangle {
         id: fileOpenWindowBackground
@@ -47,16 +47,19 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            height: 30
+            height: 40
             color: "darkgray"
 
             Rectangle {
                 id: directoryOutline
                 color: "gray"
                 height: 22
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 5
                 anchors.left: parent.left
-                anchors.right: parent.right
+                anchors.leftMargin: 5
+                anchors.right: openFileButton.left
+                anchors.rightMargin: 5
 
                 Rectangle {
                     id: directoryBackground
@@ -67,6 +70,7 @@ Item {
                     anchors.left: parent.left
                     anchors.leftMargin: 1
                     anchors.right: parent.right
+                    anchors.rightMargin: 1
                     anchors.verticalCenter: parent.verticalCenter
 
                     TextInput {
@@ -90,6 +94,14 @@ Item {
                         focus: true
                     }
                 }
+            }
+            ToolbarImageButton {
+                id: openFileButton
+                icon: "images/openIcon.svg"
+                color: "transparent"
+                setWidth: 40
+                anchors.right: parent.right
+                anchors.rightMargin: 5
             }
         }
     }
