@@ -4,13 +4,21 @@ import QtGraphicalEffects 1.0
 Item {
     property int windowWidth
     property string filePath
+    property variant settingsObject
 
     anchors.fill: parent
 
-//    Rectangle {
-//        anchors.fill: parent
-//        color: "#80000000"
-//    }
+    Rectangle {
+        anchors.fill: parent
+        color: "#80000000"
+    }
+
+    MouseArea {
+        // This is to disable clicks going through the window.
+        anchors.fill: parent
+        onWheel: {} // do nothing
+        onClicked: { parent.visible = false }
+    }
 
     Rectangle {
         id: fileOpenWindowBackground
@@ -27,6 +35,12 @@ Item {
         // border between lists.
         border.width: 5
         border.color: "gray"
+
+        MouseArea {
+            // This is to disable clicks going through the window.
+            anchors.fill: parent
+            onClicked: {}
+        }
     }
 
 
@@ -47,19 +61,31 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            height: 40
-            color: "darkgray"
+            height: 45
+            color: "lightgray"
+
+            Text {
+                id: directoryTextTag
+                text: "Game Installation Directory"
+                color: "gray"
+                font.pixelSize: 10
+                anchors.top: parent.top
+                anchors.topMargin: 5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+            }
 
             Rectangle {
                 id: directoryOutline
                 color: "gray"
                 height: 22
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 5
+
                 anchors.left: parent.left
                 anchors.leftMargin: 5
                 anchors.right: openFileButton.left
                 anchors.rightMargin: 5
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: 5
 
                 Rectangle {
                     id: directoryBackground
@@ -82,16 +108,15 @@ Item {
                             centerIn: parent;
                         }
 
-                        text: filePath
-
+                        text: settings.value("TimberAndStone/GameInstallationDirectory");
                         onTextChanged: {
-                            filePath = text
+                            settings.setValue("TimberAndStone/GameInstallationDirectory",
+                                              text);
                         }
+
                         autoScroll: true
                         selectByMouse: true
                         font.pointSize: 10
-
-                        focus: true
                     }
                 }
             }
@@ -99,10 +124,43 @@ Item {
                 id: openFileButton
                 icon: "images/openIcon.svg"
                 color: "transparent"
-                setWidth: 40
+                width: 40
                 anchors.right: parent.right
                 anchors.rightMargin: 5
+
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: { parent.color = "#0A000000" }
+                    onExited: { parent.color = "transparent" }
+                }
             }
         }
+
+        SavedGamesDelegate {
+            id: savedGamesDelegate
+        }
+
+        ListView {
+            id: savedGamesList
+
+            anchors.top: savesFileDirectoryBackground.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            anchors.rightMargin: 16
+
+            model: resourceModelProxy
+            delegate: savedGamesDelegate
+
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
+        }
+
+        ScrollBar {
+            target: savedGamesList
+            width: 16
+        }
+
     }
 }

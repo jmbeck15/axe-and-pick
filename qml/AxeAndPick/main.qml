@@ -5,6 +5,12 @@ Item {
     height: 600
     id: rootWindow
 
+    FontLoader {
+        id: localNameFont
+        name: "Arial"
+        //source: "ITCEDSCR.TTF" // TODO: This doesn't work with OTF fonts.
+    }
+
     Item {
         id: mainToolbar
         anchors.top: parent.top
@@ -70,6 +76,15 @@ Item {
                 id: openFileButton
                 icon: "images/openIcon.svg"
                 color: "transparent"
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onEntered: { parent.color = "#0A000000" }
+                    onExited: { parent.color = "transparent" }
+                    onClicked: {
+                        openFileDialog.visible = true
+                    }
+                }
             }
             ToolbarImageButton {
                 icon: "images/saveIcon.svg"
@@ -175,14 +190,10 @@ Item {
     }
 
     OpenFileDisplay {
+        id: openFileDialog
         visible: true
         windowWidth: 300
-        filePath: settings.value("TimberAndStone/GameInstallationDirectory");
-
-        MouseArea {
-            // This is to disable clicks going through the window.
-            anchors.fill: parent
-        }
+        settingsObject: settings
     }
 }
 
