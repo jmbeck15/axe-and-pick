@@ -27,15 +27,19 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain("potatominingcorp.com");
     QCoreApplication::setOrganizationName("Potato Mining Corporation");
 
+    // Register the list item types for the enumerations in QML
+    qmlRegisterType<Resource>("Resource", 1,0, "Resource");
+
     // Load and create the settings. Give QML access.
     Settings settings;
     viewer.rootContext()->setContextProperty("settings", &settings);
 
+    // This holds the info for all the saved games.
     SavesAccess savesAccess;
     savesAccess.setFilePath(settings.value("TimberAndStone/GameInstallationDirectory").toString());
     viewer.rootContext()->setContextProperty("savesAccess", &savesAccess);
 
-
+    // DEBUG: Just to load the resources. Will be removed shortly.
     QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves\\New Settlement\\re.sav");
 
 

@@ -82,13 +82,14 @@ void ResourceListModel::setData(const long identification, const QVariant &value
 {
     switch (role)
     {
-    case Qt::EditRole:
+    case Resource::QuantityRole:
     {
         Resource * item = (Resource *)find(identification);
         item->setQuantity(value.toLongLong());
         break;
     }
     default:
+        qWarning() << "ResourceListModel::setData does not understand what role" << role << "is.";
         break;
     }
 }

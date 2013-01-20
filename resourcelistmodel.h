@@ -11,6 +11,7 @@
 class Resource : public ListItem
 {
     Q_OBJECT
+    Q_ENUMS(Roles)
 
 public:
     enum Roles {

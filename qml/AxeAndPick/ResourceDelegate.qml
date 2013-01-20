@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import Resource 1.0
 
 // This is the component that displays each resource in the list
 Component {
@@ -110,10 +111,10 @@ Component {
                             }
 
                             if ((quantity-newQuantity)<0) {
-                                resourceModel.setData(identification, 0)
+                                desiredQuantity.text = 0
                             }
                             else {
-                                resourceModel.setData(identification, quantity-newQuantity)
+                                desiredQuantity.text = quantity-newQuantity
                             }
                         }
                     }
@@ -159,7 +160,7 @@ Component {
                         selectByMouse: true
                         font.pointSize: 10
                         onTextChanged: {
-                            resourceModel.setData(identification, parseInt(text,10))
+                            resourceModel.setData(identification, parseInt(text,10), Resource.QuantityRole)
                         }
                     }
                 }
@@ -184,10 +185,10 @@ Component {
                             }
 
                             if ((quantity+newQuantity)<0) {
-                                resourceModel.setData(identification, 0)
+                                desiredQuantity.text = 0
                             }
                             else {
-                                resourceModel.setData(identification, quantity+newQuantity)
+                                desiredQuantity.text = quantity+newQuantity
                             }
                         }
                     }
