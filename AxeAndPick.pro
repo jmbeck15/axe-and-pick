@@ -17,20 +17,20 @@ QT += widgets
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    resource.cpp \
     listmodel.cpp \
     settings.cpp \
-    savesaccess.cpp
+    savesaccess.cpp \
+    resourcelistmodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    resource.h \
     listmodel.h \
     settings.h \
-    savesaccess.h
+    savesaccess.h \
+    resourcelistmodel.h
 
 RESOURCES +=
 

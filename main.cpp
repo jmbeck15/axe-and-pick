@@ -8,12 +8,12 @@
 #include <QtWidgets/QFileDialog>
 #include "qtquick2applicationviewer.h"
 
-#include "resource.h"
+#include "resourcelistmodel.h"
 #include "settings.h"
 #include "savesaccess.h"
 
 
-void populateResourceList(ListModel * model, QFile & resourceSaveFile);
+void populateResourceList(ResourceListModel * model, QFile & resourceSaveFile);
 
 
 int main(int argc, char *argv[])
@@ -40,29 +40,23 @@ int main(int argc, char *argv[])
 
 
     // Create a model that holds our resource data, and
-    // add the data to it.
-    ListModel * resourceModel = new ListModel(new Resource, qApp);
+    // add the data to it. Then make it available to QML.
+    ResourceListModel * resourceModel = new ResourceListModel(new Resource, qApp);
     populateResourceList(resourceModel, resourceSaveFile);
+    viewer.rootContext()->setContextProperty("resourceModel", resourceModel);
 
     // Create the proxy model that contains the results of the filter.
     QSortFilterProxyModel * proxyResourceModel = new QSortFilterProxyModel();
     proxyResourceModel->setSourceModel(resourceModel);
     proxyResourceModel->setFilterRole(Resource::FilterStringRole);
+    viewer.rootContext()->setContextProperty("resourceModelProxy", proxyResourceModel);
 
     // Enable the case insensitivity
     proxyResourceModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    //proxyResourceModel->mapToSource(index)
 
     // Setup sorting the resources
     //proxyResourceModel->setSortRole(Resource::TypeRole);
     //proxyResourceModel->sort(0);
-
-    // Link the resource data to the GUI viewer
-    viewer.rootContext()->setContextProperty("resourceModelProxy", proxyResourceModel);
-    viewer.rootContext()->setContextProperty("resourceModel", resourceModel);
-
-    Resource * testResource = new Resource("Test Resource", "mytype", "icon.jpg", 0, 0);
-    viewer.rootContext()->setContextProperty("testResource", testResource);
 
     viewer.setMainQmlFile(QStringLiteral("qml/AxeAndPick/main.qml"));
 
@@ -73,7 +67,7 @@ int main(int argc, char *argv[])
 }
 
 
-void populateResourceList(ListModel * model, QFile & resourceSaveFile)
+void populateResourceList(ResourceListModel * model, QFile & resourceSaveFile)
 {
     // Mask for the quantity bytes
     const unsigned char MASK = 0x3F;

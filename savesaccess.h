@@ -21,7 +21,8 @@ public:
 
 private:
     QFile file;
-    // List model goes here (or maybe public, I'm not sure)
+    //SavedGamesListModel savedGames;
+
 };
 
 #endif // SAVESACCESS_H

@@ -45,7 +45,9 @@ public:
   ListItem * find(const long &id) const;
   QModelIndex indexFromItem( const ListItem* item) const;
   void clear();
-  Q_INVOKABLE void setData(const long identification, const QVariant &value);
+
+  // Set this in the inherited model.
+  Q_INVOKABLE virtual void setData(const long identification, const QVariant &value, int role = Qt::EditRole) = 0;
 
 protected:
   QHash<int, QByteArray> roleNames() const;

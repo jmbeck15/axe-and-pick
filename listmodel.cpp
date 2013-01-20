@@ -7,7 +7,7 @@
 
 #include <QDebug>
 #include "listmodel.h"
-#include "resource.h"
+#include "resourcelistmodel.h"
 
 ListModel::ListModel(ListItem* prototype, QObject *parent) :
     QAbstractListModel(parent), m_prototype(prototype)
@@ -113,16 +113,10 @@ bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
   return true;
 }
 
-ListItem * ListModel::takeRow(int row)
+ListItem  * ListModel::takeRow(int row)
 {
   beginRemoveRows(QModelIndex(), row, row);
-  ListItem* item = m_list.takeAt(row);
+  ListItem * item = m_list.takeAt(row);
   endRemoveRows();
   return item;
-}
-
-void ListModel::setData(const long identification, const QVariant &value)
-{
-    Resource * item = (Resource *)find(identification);
-    item->setQuantity(value.toLongLong());
 }

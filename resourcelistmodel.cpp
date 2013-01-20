@@ -1,8 +1,7 @@
+#include "resourcelistmodel.h"
 
 #include <QDebug>
 #include <sstream>
-#include "resource.h"
-
 
 Resource::Resource(const QString &name,
                    const QString &type,
@@ -72,4 +71,24 @@ QString Resource::filterString() const
                    << " type:" << type().toStdString()
                    << " quantity:" << quantity();
     return (QString(completeString.str().c_str()));
+}
+
+ResourceListModel::ResourceListModel(ListItem * prototype, QObject * parent )
+    : ListModel(prototype, parent)
+{
+}
+
+void ResourceListModel::setData(const long identification, const QVariant &value, int role)
+{
+    switch (role)
+    {
+    case Qt::EditRole:
+    {
+        Resource * item = (Resource *)find(identification);
+        item->setQuantity(value.toLongLong());
+        break;
+    }
+    default:
+        break;
+    }
 }
