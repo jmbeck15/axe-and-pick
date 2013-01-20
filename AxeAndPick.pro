@@ -11,6 +11,10 @@ QML_IMPORT_PATH =
 # CONFIG += mobility
 # MOBILITY +=
 
+# Required for QApplication, which requires QWidgets which is necessary
+# for things like QFileDialog.
+QT += widgets
+
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     resource.cpp \

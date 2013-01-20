@@ -1,4 +1,5 @@
 #include <QtGui/QGuiApplication>
+#include <QtWidgets/QApplication>
 #include <QQuickItem>
 #include <QDebug>
 #include <QSettings>
@@ -9,6 +10,7 @@
 
 #include "resource.h"
 #include "settings.h"
+#include "savesaccess.h"
 
 
 void populateResourceList(ListModel * model, QFile & resourceSaveFile);
@@ -16,7 +18,7 @@ void populateResourceList(ListModel * model, QFile & resourceSaveFile);
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
     viewer.setMinimumWidth(400);
     viewer.setMinimumHeight(350);
@@ -29,12 +31,10 @@ int main(int argc, char *argv[])
     Settings settings;
     viewer.rootContext()->setContextProperty("settings", &settings);
 
-    // Create a file dialog box so the user can select his or her saves file.
-    //QFileDialog fileDialog;
-    //viewer.rootContext()->setContextProperty("fileDialog", &fileDialog);
+    SavesAccess savesAccess;
+    savesAccess.setFilePath(settings.value("TimberAndStone/GameInstallationDirectory").toString());
+    viewer.rootContext()->setContextProperty("savesAccess", &savesAccess);
 
-    //settings.setValue("TimberAndStone/GameInstallationDirectory","C:\\Users\\jmbeck\\Desktop\\TaS Saves");
-    //qDebug() << settings.value("TimberAndStone/GameInstallationDirectory");
 
     QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves\\New Settlement\\re.sav");
 

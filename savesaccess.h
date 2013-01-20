@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QFile>
+#include <QDir>
 
 class SavesAccess : public QObject
 {
@@ -13,11 +14,12 @@ public:
     explicit SavesAccess(QObject *parent = 0);
 
     Q_INVOKABLE void openFileDialog();
-    Q_INVOKABLE void setFileName(QString name);
+    Q_INVOKABLE QString getFilePath();
+    Q_INVOKABLE void setFilePath(QString path);
 
 private:
     QFile file;
-    QString fileName;
+    QDir filePath;
     // List model goes here (or maybe public, I'm not sure)
 
 };

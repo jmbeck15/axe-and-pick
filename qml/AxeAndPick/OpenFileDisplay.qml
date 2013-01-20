@@ -88,7 +88,7 @@ Item {
                 anchors.bottomMargin: 5
 
                 Rectangle {
-                    id: directoryBackground
+                    id: directoryTextBackground
                     color: "#FFf8f8f8"
                     height: parent.height-2
 
@@ -100,8 +100,8 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
 
                     TextInput {
-                        id: directoryBox
-                        width: directoryBackground.width-12
+                        id: directoryText
+                        width: directoryTextBackground.width-12
                         anchors {
                             left: parent.left;
                             right: parent.right;
@@ -112,6 +112,7 @@ Item {
                         onTextChanged: {
                             settings.setValue("TimberAndStone/GameInstallationDirectory",
                                               text);
+                            savesAccess.setFilePath(text);
                         }
 
                         autoScroll: true
@@ -133,6 +134,11 @@ Item {
                     hoverEnabled: true
                     onEntered: { parent.color = "#0A000000" }
                     onExited: { parent.color = "transparent" }
+                    onClicked: {
+                        // Open the file dialog
+                        savesAccess.openFileDialog();
+                        directoryText.text = savesAccess.getFilePath();
+                    }
                 }
             }
         }
