@@ -12,7 +12,6 @@
 ListModel::ListModel(ListItem* prototype, QObject *parent) :
     QAbstractListModel(parent), m_prototype(prototype)
 {
-  //setRoleNames(m_prototype->roleNames());
 }
 
 QHash<int, QByteArray> ListModel::roleNames() const
@@ -71,7 +70,7 @@ void ListModel::handleItemChange()
 
 ListItem * ListModel::find(const long &id) const
 {
-  foreach(ListItem* item, m_list) {
+  foreach(ListItem * item, m_list) {
     if(item->id() == id) return item;
   }
   return 0;

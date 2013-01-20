@@ -41,8 +41,8 @@ public:
   void insertRow(int row, ListItem* item);
   bool removeRow(int row, const QModelIndex &parent = QModelIndex());
   bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
-  ListItem* takeRow(int row);
-  ListItem* find(const long &id) const;
+  ListItem * takeRow(int row);
+  ListItem * find(const long &id) const;
   QModelIndex indexFromItem( const ListItem* item) const;
   void clear();
   Q_INVOKABLE void setData(const long identification, const QVariant &value);

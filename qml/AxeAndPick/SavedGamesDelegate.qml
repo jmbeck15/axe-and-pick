@@ -50,7 +50,7 @@ Component {
             }
             Text {
                 id: dateText
-                text: "February 03 08:34 PM"
+                text: date
 
                 anchors.top: nameText.bottom
                 anchors.left: parent.left
@@ -96,7 +96,7 @@ Component {
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
                     //anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Medium"
+                    text: worldSize
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
@@ -131,7 +131,7 @@ Component {
                     anchors.top: parent.top
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
-                    text: "12"
+                    text: days
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
@@ -165,7 +165,7 @@ Component {
                     anchors.top: parent.top
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
-                    text: "26"
+                    text: units
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"

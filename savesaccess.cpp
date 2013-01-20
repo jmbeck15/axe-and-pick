@@ -50,5 +50,10 @@ bool SavesAccess::pathIsValid()
     }
 }
 
+void SavesAccess::loadGamesList()
+{
+
+}
+
 Q_DECLARE_METATYPE(SavesAccess*)
 

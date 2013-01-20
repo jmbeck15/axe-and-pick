@@ -17,12 +17,11 @@ public:
     Q_INVOKABLE QString getFilePath();
     Q_INVOKABLE void setFilePath(QString path);
     Q_INVOKABLE bool pathIsValid();
+    Q_INVOKABLE void loadGamesList();
 
 private:
     QFile file;
-    //QDir filePath;
     // List model goes here (or maybe public, I'm not sure)
-
 };
 
 #endif // SAVESACCESS_H
