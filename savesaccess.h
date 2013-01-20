@@ -16,10 +16,11 @@ public:
     Q_INVOKABLE void openFileDialog();
     Q_INVOKABLE QString getFilePath();
     Q_INVOKABLE void setFilePath(QString path);
+    Q_INVOKABLE bool pathIsValid();
 
 private:
     QFile file;
-    QDir filePath;
+    //QDir filePath;
     // List model goes here (or maybe public, I'm not sure)
 
 };

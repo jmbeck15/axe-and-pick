@@ -8,6 +8,10 @@ Item {
 
     anchors.fill: parent
 
+    onVisibleChanged: {
+        resetValidityMarker();
+    }
+
     Rectangle {
         anchors.fill: parent
         color: "#80000000"
@@ -18,6 +22,11 @@ Item {
         anchors.fill: parent
         onWheel: {} // do nothing
         onClicked: { parent.visible = false }
+    }
+
+    function resetValidityMarker()
+    {
+        directoryTextOutline.color = savesAccess.pathIsValid() ? "green" : "red";
     }
 
     Rectangle {
@@ -61,31 +70,31 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            height: 45
+            height: 59
             color: "lightgray"
 
             Text {
                 id: directoryTextTag
-                text: "Game Installation Directory"
-                color: "gray"
-                font.pixelSize: 10
+                text: "Timber and Stone 'saves.sav' file"
+                color: "#FF303030"
+                font.pixelSize: 11
+                font.italic: true
                 anchors.top: parent.top
-                anchors.topMargin: 5
+                anchors.topMargin: 10
                 anchors.left: parent.left
-                anchors.leftMargin: 5
+                anchors.leftMargin: 10
             }
 
             Rectangle {
-                id: directoryOutline
+                id: directoryTextOutline
                 color: "gray"
                 height: 22
 
-                anchors.left: parent.left
-                anchors.leftMargin: 5
+                anchors.left: directoryTextTag.left
                 anchors.right: openFileButton.left
-                anchors.rightMargin: 5
+                anchors.rightMargin: 0
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: 5
+                anchors.bottomMargin: 10
 
                 Rectangle {
                     id: directoryTextBackground
@@ -108,11 +117,13 @@ Item {
                             centerIn: parent;
                         }
 
-                        text: settings.value("TimberAndStone/GameInstallationDirectory");
+                        text: savesAccess.getFilePath();
                         onTextChanged: {
                             settings.setValue("TimberAndStone/GameInstallationDirectory",
                                               text);
                             savesAccess.setFilePath(text);
+
+                            resetValidityMarker();
                         }
 
                         autoScroll: true
@@ -121,13 +132,15 @@ Item {
                     }
                 }
             }
+
             ToolbarImageButton {
                 id: openFileButton
+                target: directoryTextOutline
                 icon: "images/openIcon.svg"
                 color: "transparent"
                 width: 40
                 anchors.right: parent.right
-                anchors.rightMargin: 5
+                anchors.rightMargin: 6
 
                 MouseArea {
                     anchors.fill: parent
@@ -143,6 +156,15 @@ Item {
             }
         }
 
+        Rectangle {
+            id: listBorder
+            anchors.top: savesFileDirectoryBackground.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 3
+            color: "silver"
+        }
+
         SavedGamesDelegate {
             id: savedGamesDelegate
         }
@@ -150,7 +172,7 @@ Item {
         ListView {
             id: savedGamesList
 
-            anchors.top: savesFileDirectoryBackground.bottom
+            anchors.top: listBorder.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom

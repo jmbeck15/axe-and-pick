@@ -74,6 +74,7 @@ Item {
 
             ToolbarImageButton {
                 id: openFileButton
+                target: parent
                 icon: "images/openIcon.svg"
                 color: "transparent"
                 MouseArea {
@@ -87,6 +88,8 @@ Item {
                 }
             }
             ToolbarImageButton {
+                id: saveSavedGamesButton
+                target: parent
                 icon: "images/saveIcon.svg"
                 color: "transparent"
             }
