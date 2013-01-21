@@ -52,6 +52,28 @@ bool SavesAccess::pathIsValid()
 
 void SavesAccess::loadGamesList()
 {
+    if (!file.exists() || !file.open(QFile::ReadOnly | QFile::Text))
+    {
+//        QMessageBox::warning(this, tr("Application"),
+//                                      tr("Cannot read file %1:\n%2.")
+//                                      .arg(file.fileName())
+//                                      .arg(file.errorString()));
+        qDebug() << "Can't open file.";
+        return;
+    }
+    else
+    {
+
+        QTextStream in(&file);
+        QStringList strings;
+        while (!in.atEnd())
+        {
+            strings = in.readLine().split("/", QString::KeepEmptyParts);
+            qDebug() << "Line:" << strings;
+        }
+    }
+    file.close();
+
 
 }
 

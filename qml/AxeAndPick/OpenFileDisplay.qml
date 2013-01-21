@@ -27,6 +27,10 @@ Item {
     function resetValidityMarker()
     {
         directoryTextOutline.color = savesAccess.pathIsValid() ? "green" : "red";
+        if( savesAccess.pathIsValid() )
+        {
+            savesAccess.loadGamesList();
+        }
     }
 
     Rectangle {
