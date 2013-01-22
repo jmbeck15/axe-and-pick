@@ -51,11 +51,11 @@ QVariant Resource::data(int role) const
     case IconRole:
         return icon();
     case QuantityRole:
-        return quantity();
+        return (unsigned int)quantity();
     case IdRole:
-        return id();
+        return (unsigned int)id();
     case FileOffsetRole:
-        return fileOffset();
+        return (unsigned int)fileOffset();
     case FilterStringRole:
         return filterString();
     default:
