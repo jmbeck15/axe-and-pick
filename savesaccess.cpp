@@ -7,6 +7,7 @@
 SavesAccess::SavesAccess(QObject *parent) :
     QObject(parent)
 {
+    savedGames = new SavedGameListModel(new SavedGameItem());
 }
 
 void SavesAccess::openFileDialog()
@@ -66,10 +67,22 @@ void SavesAccess::loadGamesList()
 
         QTextStream in(&file);
         QStringList strings;
+
+        long numberOfGames = in.readLine().toLongLong();
+        qDebug() << "Number of games: " << numberOfGames;
+
         while (!in.atEnd())
         {
             strings = in.readLine().split("/", QString::KeepEmptyParts);
-            qDebug() << "Line:" << strings;
+
+            qDebug() << strings;
+
+
+            savedGames->appendRow(new SavedGameItem(strings[0],
+                                 strings[3],
+                                 strings[4],
+                                 strings[1].toLongLong(),
+                                 strings[2].toLongLong()));
         }
     }
     file.close();

@@ -5,6 +5,8 @@
 #include <QFile>
 #include <QDir>
 
+#include "savedgamelistmodel.h"
+
 class SavesAccess : public QObject
 {
     Q_OBJECT
@@ -21,7 +23,7 @@ public:
 
 private:
     QFile file;
-    //SavedGamesListModel savedGames;
+    SavedGameListModel * savedGames;
 
 };
 

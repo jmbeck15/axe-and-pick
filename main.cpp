@@ -9,6 +9,7 @@
 #include "qtquick2applicationviewer.h"
 
 #include "resourcelistmodel.h"
+#include "savedgamelistmodel.h"
 #include "settings.h"
 #include "savesaccess.h"
 
@@ -156,7 +157,4 @@ void populateResourceList(ResourceListModel * model, QFile & resourceSaveFile)
     }
 
     // Pull in the file that contains the saved-game resources
-
-
-
 }
