@@ -131,7 +131,7 @@ Component {
                     anchors.top: parent.top
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
-                    text: days
+                    text: day
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
@@ -165,7 +165,7 @@ Component {
                     anchors.top: parent.top
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
-                    text: units
+                    text: unitNumber
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"

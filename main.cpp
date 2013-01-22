@@ -38,7 +38,14 @@ int main(int argc, char *argv[])
     // This holds the info for all the saved games.
     SavesAccess savesAccess;
     savesAccess.setFilePath(settings.value("TimberAndStone/GameInstallationDirectory").toString());
+    SavedGameListModel * savedGameModel = new SavedGameListModel(new SavedGameItem, qApp);
+    savesAccess.setSavedGameListModel(savedGameModel);
+    savesAccess.loadGamesList();
+
+    // Saved game list should be completely initialized. Now we can expose
+    // the data to QML.
     viewer.rootContext()->setContextProperty("savesAccess", &savesAccess);
+    viewer.rootContext()->setContextProperty("savedGameModel", savedGameModel);
 
     // DEBUG: Just to load the resources. Will be removed shortly.
     QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves\\New Settlement\\re.sav");
@@ -49,6 +56,7 @@ int main(int argc, char *argv[])
     ResourceListModel * resourceModel = new ResourceListModel(new Resource, qApp);
     populateResourceList(resourceModel, resourceSaveFile);
     viewer.rootContext()->setContextProperty("resourceModel", resourceModel);
+
 
     // Create the proxy model that contains the results of the filter.
     QSortFilterProxyModel * proxyResourceModel = new QSortFilterProxyModel();

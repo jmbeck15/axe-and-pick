@@ -182,7 +182,7 @@ Item {
             anchors.bottom: parent.bottom
             anchors.rightMargin: 16
 
-            model: testModel
+            model: savedGameModel
             delegate: savedGamesDelegate
 
             clip: true

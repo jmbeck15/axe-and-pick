@@ -5,9 +5,9 @@
 #include <QDebug>
 
 SavesAccess::SavesAccess(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    savedGames(Q_NULLPTR)
 {
-    savedGames = new SavedGameListModel(new SavedGameItem());
 }
 
 void SavesAccess::openFileDialog()
@@ -53,6 +53,13 @@ bool SavesAccess::pathIsValid()
 
 void SavesAccess::loadGamesList()
 {
+    if (savedGames == Q_NULLPTR)
+    {
+        qDebug() << "SavedAccess model hasn't been set up yet.";
+        return;
+    }
+
+    // Open file and make sure it went okay.
     if (!file.exists() || !file.open(QFile::ReadOnly | QFile::Text))
     {
 //        QMessageBox::warning(this, tr("Application"),
@@ -69,14 +76,14 @@ void SavesAccess::loadGamesList()
         QStringList strings;
 
         long numberOfGames = in.readLine().toLongLong();
-        qDebug() << "Number of games: " << numberOfGames;
 
+        // Remove all the games.
+        savedGames->clear();
+
+        // Add the games from the saves.sav file.
         while (!in.atEnd())
         {
             strings = in.readLine().split("/", QString::KeepEmptyParts);
-
-            qDebug() << strings;
-
 
             savedGames->appendRow(new SavedGameItem(strings[0],
                                  strings[3],
@@ -87,7 +94,11 @@ void SavesAccess::loadGamesList()
     }
     file.close();
 
+}
 
+void SavesAccess::setSavedGameListModel(SavedGameListModel * model)
+{
+    savedGames = model;
 }
 
 Q_DECLARE_METATYPE(SavesAccess*)

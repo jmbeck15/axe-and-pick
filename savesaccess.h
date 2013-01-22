@@ -19,7 +19,11 @@ public:
     Q_INVOKABLE QString getFilePath();
     Q_INVOKABLE void setFilePath(QString path);
     Q_INVOKABLE bool pathIsValid();
+
     Q_INVOKABLE void loadGamesList();
+
+
+    void setSavedGameListModel(SavedGameListModel * model);
 
 private:
     QFile file;
