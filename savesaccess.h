@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QDir>
 
-#include "savedgamelistmodel.h"
+#include "savesoverviewlistmodel.h"
 
 class SavesAccess : public QObject
 {
@@ -23,11 +23,11 @@ public:
     Q_INVOKABLE void loadGamesList();
 
 
-    void setSavedGameListModel(SavedGameListModel * model);
+    void setSavesOverviewListModel(SavesOverviewListModel * model);
 
 private:
     QFile file;
-    SavedGameListModel * savedGames;
+    SavesOverviewListModel * savesOverview;
 
 };
 

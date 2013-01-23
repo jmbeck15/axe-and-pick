@@ -169,12 +169,12 @@ Item {
             color: "silver"
         }
 
-        SavedGamesDelegate {
-            id: savedGamesDelegate
+        SavesOverviewDelegate {
+            id: savesOverviewDelegate
         }
 
         ListView {
-            id: savedGamesList
+            id: savesOverviewList
 
             anchors.top: listBorder.bottom
             anchors.left: parent.left
@@ -182,15 +182,15 @@ Item {
             anchors.bottom: parent.bottom
             anchors.rightMargin: 16
 
-            model: savedGameModel
-            delegate: savedGamesDelegate
+            model: savesOverviewModel
+            delegate: savesOverviewDelegate
 
             clip: true
             boundsBehavior: Flickable.StopAtBounds
         }
 
         ScrollBar {
-            target: savedGamesList
+            target: savesOverviewList
             width: 16
         }
 

@@ -6,7 +6,7 @@
 
 SavesAccess::SavesAccess(QObject *parent) :
     QObject(parent),
-    savedGames(Q_NULLPTR)
+    savesOverview(Q_NULLPTR)
 {
 }
 
@@ -53,7 +53,7 @@ bool SavesAccess::pathIsValid()
 
 void SavesAccess::loadGamesList()
 {
-    if (savedGames == Q_NULLPTR)
+    if (savesOverview == Q_NULLPTR)
     {
         qDebug() << "SavedAccess model hasn't been set up yet.";
         return;
@@ -78,14 +78,14 @@ void SavesAccess::loadGamesList()
         long numberOfGames = in.readLine().toLongLong();
 
         // Remove all the games.
-        savedGames->clear();
+        savesOverview->clear();
 
         // Add the games from the saves.sav file.
         while (!in.atEnd())
         {
             strings = in.readLine().split("/", QString::KeepEmptyParts);
 
-            savedGames->appendRow(new SavedGameItem(strings[0],
+            savesOverview->appendRow(new SavesOverviewItem(strings[0],
                                  strings[3],
                                  strings[4],
                                  strings[1].toLongLong(),
@@ -96,9 +96,9 @@ void SavesAccess::loadGamesList()
 
 }
 
-void SavesAccess::setSavedGameListModel(SavedGameListModel * model)
+void SavesAccess::setSavesOverviewListModel(SavesOverviewListModel * model)
 {
-    savedGames = model;
+    savesOverview = model;
 }
 
 Q_DECLARE_METATYPE(SavesAccess*)
