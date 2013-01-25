@@ -10,6 +10,16 @@ SavesAccess::SavesAccess(QObject *parent) :
 {
 }
 
+void SavesAccess::loadSavedGame(unsigned long id)
+{
+    // Load the game!
+}
+
+void SavesAccess::saveSavedGame()
+{
+    // Save the game!
+}
+
 void SavesAccess::openFileDialog()
 {
 
@@ -17,31 +27,31 @@ void SavesAccess::openFileDialog()
     // Not sure if this is the cause of the weird Windows behavior
     // or not. Something to try.
     QFileDialog fileDialog(0,"Timber and Stone saves.sav file");
-    fileDialog.setDirectory(file.fileName());
+    fileDialog.setDirectory(savesOverviewFile.fileName());
     fileDialog.setNameFilter("Saves File (saves.sav)");
 
     if (fileDialog.exec())
     {
-        file.setFileName(fileDialog.selectedFiles().first());
+        savesOverviewFile.setFileName(fileDialog.selectedFiles().first());
     }
 }
 
 void SavesAccess::setFilePath(QString path)
 {
-    file.setFileName(path);
+    savesOverviewFile.setFileName(path);
 }
 
 QString SavesAccess::getFilePath()
 {
-    return file.fileName();
+    return savesOverviewFile.fileName();
 }
 
 bool SavesAccess::pathIsValid()
 {
     // Return True if both the directory path is valid
     // and the saves.sav file exists.
-    QFileInfo fileInfo(file);
-    if (file.exists() && (fileInfo.fileName() == "saves.sav"))
+    QFileInfo fileInfo(savesOverviewFile);
+    if (savesOverviewFile.exists() && (fileInfo.fileName() == "saves.sav"))
     {
         return true;
     }
@@ -60,19 +70,19 @@ void SavesAccess::loadGamesList()
     }
 
     // Open file and make sure it went okay.
-    if (!file.exists() || !file.open(QFile::ReadOnly | QFile::Text))
+    if (!savesOverviewFile.exists() || !savesOverviewFile.open(QFile::ReadOnly | QFile::Text))
     {
 //        QMessageBox::warning(this, tr("Application"),
-//                                      tr("Cannot read file %1:\n%2.")
-//                                      .arg(file.fileName())
-//                                      .arg(file.errorString()));
-        qDebug() << "Can't open file.";
+//                                      tr("Cannot read savesOverviewFile %1:\n%2.")
+//                                      .arg(savesOverviewFile.savesOverviewFile())
+//                                      .arg(savesOverviewFile.errorString()));
+        qDebug() << "Can't open savesOverviewFile.";
         return;
     }
     else
     {
 
-        QTextStream in(&file);
+        QTextStream in(&savesOverviewFile);
         QStringList strings;
 
         long numberOfGames = in.readLine().toLongLong();
@@ -92,7 +102,7 @@ void SavesAccess::loadGamesList()
                                  strings[2].toLongLong()));
         }
     }
-    file.close();
+    savesOverviewFile.close();
 
 }
 
@@ -100,6 +110,19 @@ void SavesAccess::setSavesOverviewListModel(SavesOverviewListModel * model)
 {
     savesOverview = model;
 }
+
+
+void SavesAccess::loadResourcesList()
+{
+    // Load it!
+}
+
+void SavesAccess::saveResourcesToFile()
+{
+    // Save it again!
+    // This is where the storage stuff should go, I think.
+}
+
 
 Q_DECLARE_METATYPE(SavesAccess*)
 
