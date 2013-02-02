@@ -43,16 +43,11 @@ int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("savesAccess", &savesAccess);
     viewer.rootContext()->setContextProperty("savesOverviewModel", savesOverviewModel);
 
-    // DEBUG: Just to load the resources. Will be removed shortly.
-    //QFile resourceSaveFile("C:\\Users\\jmbeck\\Desktop\\TaS Saves\\saves\\New Settlement\\re.sav");
-
-
     // Create a model that holds our resource data, and
     // add the data to it. Then make it available to QML.
     ResourceListModel * resourceModel = new ResourceListModel(new Resource, qApp);
     savesAccess.setResourceListModel(resourceModel);
     viewer.rootContext()->setContextProperty("resourceModel", resourceModel);
-
 
     // Create the proxy model that contains the results of the filter.
     QSortFilterProxyModel * proxyResourceModel = new QSortFilterProxyModel();

@@ -27,6 +27,11 @@ Component {
 
                 openFileDialog.enabled = false;
                 openFileDialog.visible = false;
+
+                saveGameName.text = nameText.text;
+                saveGameDate.text = dateText.text;
+                dayInputButton.value = dayCountText.text;
+
             }
         }
 
@@ -43,7 +48,7 @@ Component {
 
             Text {
                 id: nameText
-                text: name
+                text: model.name
 
                 anchors.top: parent.top
                 anchors.left: parent.left
@@ -57,7 +62,7 @@ Component {
             }
             Text {
                 id: dateText
-                text: date
+                text: model.date
 
                 anchors.top: nameText.bottom
                 anchors.left: parent.left
@@ -103,7 +108,7 @@ Component {
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
                     //anchors.horizontalCenter: parent.horizontalCenter
-                    text: worldSize
+                    text: model.worldSize
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
@@ -138,7 +143,7 @@ Component {
                     anchors.top: parent.top
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
-                    text: day
+                    text: model.day
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
@@ -172,7 +177,7 @@ Component {
                     anchors.top: parent.top
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
-                    text: unitNumber
+                    text: model.unitNumber
                     font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"

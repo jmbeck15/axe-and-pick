@@ -54,11 +54,13 @@ Item {
                 height: 1
             }
             ToolbarTextInput {
+                id: dayInputButton
                 textLabel: "Day"
                 value: 6
                 width: 45
             }
             ToolbarTextInput {
+                id: hourInputButton
                 textLabel: "Hour"
                 value: 23
                 width: 38

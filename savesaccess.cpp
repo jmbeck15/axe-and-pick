@@ -36,7 +36,7 @@ void SavesAccess::openFileDialog()
     // Not sure if this is the cause of the weird Windows behavior
     // or not. Something to try.
     QFileDialog fileDialog(0,"Timber and Stone saves.sav file");
-    fileDialog.setDirectory(savesOverviewFile.fileName());
+    fileDialog.setDirectory(rootSavesDirectory);
     fileDialog.setNameFilter("Saves File (saves.sav)");
 
     if (fileDialog.exec())
