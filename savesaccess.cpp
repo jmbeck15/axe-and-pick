@@ -134,7 +134,26 @@ void SavesAccess::setResourceListModel(ResourceListModel * model)
     resourceModel = model;
 }
 
+QByteArray SavesAccess::toBinary(long value)
+{
+    QByteArray bytes;
 
+    // NOTE: I do not understand this. I understand what it's doing, but
+    // I have no idea why. I suspect it's much more simple, and I've
+    // missed something.
+    if (value>>12)
+    {
+        bytes.append( (((value>>6) + 2)>>6) | 0xe0 );
+        bytes.append( (((value>>6) + 2) &0x3F) | 0x80 );
+    }
+    else
+    {
+        bytes.append( (((value>>6) &0x1F) + 2) | 0xc0 );
+    }
+    bytes.append(value&0x3F | 0x80);
+
+    return bytes;
+}
 
 // This format handling can certainly be simplified. There's little
 // chance that the game designer made it complicated on purpose.
@@ -142,9 +161,9 @@ void SavesAccess::setResourceListModel(ResourceListModel * model)
 long SavesAccess::toLong(QByteArray bytes)
 {
     // Ensure the bytes have only their relevant bits visible.
-    bytes[2] = bytes[2] & 0x1F; // Two or more bytes exist, so this one has an extra id bit.
-    bytes[1] = bytes[1] & 0x3F;
-    bytes[0] = bytes[0] & 0x3F;
+    bytes[2] = bytes[2] & 0x1f; // Two or more bytes exist, so this one has an extra id bit.
+    bytes[1] = bytes[1] & 0x3f;
+    bytes[0] = bytes[0] & 0x3f;
 
     // Compile the bytes into a long.
     //
@@ -208,7 +227,7 @@ void SavesAccess::loadResourcesList()
                 // TODO: The format may call for a fourth byte, with a
                 // leading FOUR bits instead of three. This should be easy
                 // to impliment, but I haven't verified that it really exists.
-                if( byte >= 0xE0)
+                if( byte >= 0xe0)
                 {
                     byteArray[2] = byte;
 
@@ -237,6 +256,7 @@ void SavesAccess::loadResourcesList()
             if (!resourceFile.atEnd())
             {
                 // Read the rest of the file into an array, and keep it for later.
+                resourceExtraData.clear();
                 resourceExtraData = resourceFile.readAll();
                 //qDebug() << resourceExtraData.toHex();
             }
@@ -266,8 +286,8 @@ void SavesAccess::saveResourcesToFile()
         return;
     }
 
-    // Open file and make sure it went okay.
-    if (!resourceFile.exists() || !resourceFile.open(QFile::ReadWrite))
+    // Open file for write, and make sure it went okay.
+    if (!resourceFile.open(QFile::ReadWrite))
     {
 //        QMessageBox::warning(this, tr("Application"),
 //                                      tr("Cannot read savesOverviewFile %1:\n%2.")
@@ -278,6 +298,19 @@ void SavesAccess::saveResourcesToFile()
     }
     else
     {
+        QByteArray binaryData;
+
+        // Write the data to the resource file. Clobber the old one.
+        for (int ndx = 0;
+             ndx < resourceModel->rowCount();
+             ndx++)
+        {
+            binaryData = toBinary(resourceModel->index(ndx).data(Resource::QuantityRole).toLongLong());
+            resourceFile.write(binaryData);
+        }
+        // Write out the unexpected data to the file too.
+        resourceFile.write(resourceExtraData);
+        resourceFile.close();
 
     }
 }
