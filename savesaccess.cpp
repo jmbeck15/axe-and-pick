@@ -315,7 +315,19 @@ void SavesAccess::saveResourcesToFile()
              ndx < resourceModel->rowCount();
              ndx++)
         {
-            binaryData = toBinary(resourceModel->index(ndx).data(Resource::QuantityRole).toLongLong());
+            long quantity = resourceModel->index(ndx).data(Resource::QuantityRole).toLongLong();
+            if (quantity > 30000)
+            {
+                qDebug() << "Resource quantities above 32,639 will fail to load in the game. Reduced to 30,000.";
+                quantity = 30000;
+
+                // Update the resource.
+                //
+                // TODO: I don't know why this doesn't emit the signal that
+                // QML reads to update the view. setData() does emit...
+                resourceModel->setData(ndx,30000);
+            }
+            binaryData = toBinary(quantity);
             resourceFile.write(binaryData);
         }
 

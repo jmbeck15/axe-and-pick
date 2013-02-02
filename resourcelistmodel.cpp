@@ -67,9 +67,9 @@ QString Resource::filterString() const
 {
     std::stringstream completeString;
 
-    completeString << "name:" << name().toStdString()
-                   << " type:" << type().toStdString()
-                   << " quantity:" << quantity();
+    completeString << " " << name().toStdString()
+                   << " " << type().toStdString()
+                   << " " << quantity();
     return (QString(completeString.str().c_str()));
 }
 
