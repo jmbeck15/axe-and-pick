@@ -13,12 +13,39 @@
 #include "settings.h"
 #include "savesaccess.h"
 
+#define TESTING 0
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
     viewer.setMinimumWidth(400);
     viewer.setMinimumHeight(350);
+
+#if TESTING
+    QByteArray binary;
+    long result;
+    bool failed(false);
+    for( long value=0; value<700000; value++ )
+    {
+        binary = SavesAccess::toBinary(value);
+        result = SavesAccess::toLong(binary);
+        if( result != value)
+        {
+            qDebug() << "Value" << value << "returned" << result;
+            failed = true;
+            break;
+        }
+    }
+    if( failed )
+    {
+        qDebug() << "[FAILURE] The tests did NOT succeed!";
+    }
+    else
+    {
+        qDebug() << "[PASSED]  All tests passed.";
+    }
+#endif
 
     QCoreApplication::setApplicationName("Axe and Pick");
     QCoreApplication::setOrganizationDomain("potatominingcorp.com");

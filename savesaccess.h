@@ -21,9 +21,10 @@ public:
 private:
     QDir rootSavesDirectory;
 
+public:
     // Functions to convert to/from binary format
-    long toLong(QByteArray bytes);
-    QByteArray toBinary(long value);
+    static long toLong(QByteArray bytes);
+    static QByteArray toBinary(long value);
 
 
     //

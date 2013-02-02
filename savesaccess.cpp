@@ -141,16 +141,16 @@ QByteArray SavesAccess::toBinary(long value)
     // NOTE: I do not understand this. I understand what it's doing, but
     // I have no idea why. I suspect it's much more simple, and I've
     // missed something.
-    if (value>>12)
+    if (value>1919) // this is the largest two-byte number
     {
         bytes.append( (((value>>6) + 2)>>6) | 0xe0 );
-        bytes.append( (((value>>6) + 2) &0x3F) | 0x80 );
+        bytes.append( (((value>>6) + 2) &0x3f) | 0x80 );
     }
     else
     {
-        bytes.append( (((value>>6) &0x1F) + 2) | 0xc0 );
+        bytes.append( (((value>>6) &0x1f) + 2) | 0xc0 );
     }
-    bytes.append(value&0x3F | 0x80);
+    bytes.append(value&0x3f | 0x80);
 
     return bytes;
 }
@@ -160,17 +160,27 @@ QByteArray SavesAccess::toBinary(long value)
 //
 long SavesAccess::toLong(QByteArray bytes)
 {
-    // Ensure the bytes have only their relevant bits visible.
-    bytes[2] = bytes[2] & 0x1f; // Two or more bytes exist, so this one has an extra id bit.
-    bytes[1] = bytes[1] & 0x3f;
-    bytes[0] = bytes[0] & 0x3f;
 
-    // Compile the bytes into a long.
-    //
-    // Note: The -2 in the equation is strange. I have no answer as to why
-    // this format requires that.
+    // Ensure the bytes have only their relevant bits visible.
     long value;
-    value = bytes[0] | (((bytes[1] | (bytes[2]<<6)) -2) << 6);
+    if( bytes.size() > 2 )
+    {
+        bytes[0] = bytes[0] & 0x1f; // Two or more bytes exist, so this one has an extra id bit.
+        bytes[1] = bytes[1] & 0x3f;
+        bytes[2] = bytes[2] & 0x3f;
+
+        // Compile the bytes into a long.
+        //
+        // Note: The -2 in the equation is strange. I have no answer as to why
+        // this format requires that.
+        value = bytes[2] | (((bytes[1] | (bytes[0]<<6)) -2) << 6);
+    }
+    else
+    {
+        bytes[0] = bytes[0] & 0x3f;
+        bytes[1] = bytes[1] & 0x3f;
+        value = bytes[1] | (bytes[0] -2) << 6;
+    }
 
     return value;
 }
@@ -218,7 +228,8 @@ void SavesAccess::loadResourcesList()
                 assetData = assetString.split(',');
 
                 // Temporary array to hold the bytes we read from the file.
-                QByteArray byteArray(4,'\0');
+                QByteArray byteArray;
+                byteArray.clear();
 
                 unsigned char byte; // Most Significant Byte
                 resourceFile.read((char *)&byte, 1);
@@ -229,20 +240,19 @@ void SavesAccess::loadResourcesList()
                 // to impliment, but I haven't verified that it really exists.
                 if( byte >= 0xe0)
                 {
-                    byteArray[2] = byte;
+                    byteArray.append(byte);
 
                     // Another byte exists!
                     resourceFile.read((char *)&byte, 1);
-                    byteArray[1] = byte;
+                    byteArray.append(byte);
                 }
                 else
                 {
-                    byteArray[2] = 0;
-                    byteArray[1] = byte;
+                    byteArray.append(byte);
                 }
 
                 resourceFile.read((char *)&byte, 1);
-                byteArray[0] = byte;
+                byteArray.append(byte);
 
                 // Create a new Resource with the quantity, and use the
                 // data from the ResourceAssetList to flush it out.
@@ -308,10 +318,10 @@ void SavesAccess::saveResourcesToFile()
             binaryData = toBinary(resourceModel->index(ndx).data(Resource::QuantityRole).toLongLong());
             resourceFile.write(binaryData);
         }
+
         // Write out the unexpected data to the file too.
         resourceFile.write(resourceExtraData);
         resourceFile.close();
-
     }
 }
 
