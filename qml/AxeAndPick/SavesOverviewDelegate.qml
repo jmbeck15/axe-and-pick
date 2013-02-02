@@ -25,16 +25,16 @@ Component {
                 // Load and display the game.
                 savesAccess.loadSavedGame( name );
 
+                // Set the game data
+                saveGameName.text = model.name;
+                saveGameDate.text = model.date;
+                dayInputButton.value = model.day;
+
+                // Close the dialog
                 openFileDialog.enabled = false;
                 openFileDialog.visible = false;
-
-                saveGameName.text = nameText.text;
-                saveGameDate.text = dateText.text;
-                dayInputButton.value = dayCountText.text;
-
             }
         }
-
 
         // Name and Date
         Item {
