@@ -160,6 +160,11 @@ Component {
                         selectByMouse: true
                         font.pointSize: 10
                         onTextChanged: {
+                            if (text > 30000)
+                            {
+                                text = 30000;
+                            }
+
                             resourceModel.setData(identification, parseInt(text,10), Resource.QuantityRole)
                         }
                     }
