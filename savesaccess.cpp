@@ -27,6 +27,7 @@ void SavesAccess::loadSavedGame(QString gameName)
 void SavesAccess::saveSavedGame()
 {
     // Save the game!
+    saveResourcesToFile();
 }
 
 void SavesAccess::openFileDialog()
@@ -133,6 +134,28 @@ void SavesAccess::setResourceListModel(ResourceListModel * model)
     resourceModel = model;
 }
 
+
+
+// This format handling can certainly be simplified. There's little
+// chance that the game designer made it complicated on purpose.
+//
+long SavesAccess::toLong(QByteArray bytes)
+{
+    // Ensure the bytes have only their relevant bits visible.
+    bytes[2] = bytes[2] & 0x1F; // Two or more bytes exist, so this one has an extra id bit.
+    bytes[1] = bytes[1] & 0x3F;
+    bytes[0] = bytes[0] & 0x3F;
+
+    // Compile the bytes into a long.
+    //
+    // Note: The -2 in the equation is strange. I have no answer as to why
+    // this format requires that.
+    long value;
+    value = bytes[0] | (((bytes[1] | (bytes[2]<<6)) -2) << 6);
+
+    return value;
+}
+
 void SavesAccess::loadResourcesList()
 {
     if (resourceModel == Q_NULLPTR)
@@ -153,8 +176,6 @@ void SavesAccess::loadResourcesList()
     }
     else
     {
-        // Mask for the quantity bytes
-        const unsigned char MASK = 0x3F;
 
         // Pull in the list of resource assets (name, group, etc)
         QFile assetFile(QCoreApplication::applicationDirPath() + "/resource_list.txt");
@@ -167,64 +188,57 @@ void SavesAccess::loadResourcesList()
             resourceModel->clear();
 
             QTextStream assetStream(&assetFile);
-            long byteNumber(0);
+            long index(0);
 
-            while (!resourceFile.atEnd())
-            //for( int i=0; i<3; i++ )
+            while (!assetStream.atEnd())
             {
                 // Grab the next section and decide the size, etc.
-                QString resourceString;
-                if (!assetStream.atEnd())
-                {
-                    resourceString = assetStream.readLine();
-                }
-                else
-                {
-                    resourceString = "unexpected data,unknown,resource-unknown.svg";
-                }
-
+                QString assetString;
+                assetString = assetStream.readLine();
                 QStringList assetData;
-                assetData = resourceString.split(',');
+                assetData = assetString.split(',');
 
                 // Temporary array to hold the bytes we read from the file.
-                quint8 byteArray[4];
+                QByteArray byteArray(4,'\0');
 
-                char sigByte; // Most Significant Byte
-                resourceFile.read(&sigByte, 1);
-                byteNumber++;
-                if( (unsigned char)sigByte >= 0xE0)
+                unsigned char byte; // Most Significant Byte
+                resourceFile.read((char *)&byte, 1);
+
+
+                // TODO: The format may call for a fourth byte, with a
+                // leading FOUR bits instead of three. This should be easy
+                // to impliment, but I haven't verified that it really exists.
+                if( byte >= 0xE0)
                 {
-                    byteArray[2] = (sigByte - 0xE0);
+                    byteArray[2] = byte;
 
-                    // Pull in the middle byte, because they must be processed together.
-                    char middleByte;
-                    resourceFile.read(&middleByte, 1);
-                    byteNumber++;
-                    byteArray[1] = (middleByte & MASK);
+                    // Another byte exists!
+                    resourceFile.read((char *)&byte, 1);
+                    byteArray[1] = byte;
                 }
                 else
                 {
                     byteArray[2] = 0;
-                    byteArray[1] = sigByte - 0xC0;
+                    byteArray[1] = byte;
                 }
 
-                char leastByte;
-                resourceFile.read(&leastByte, 1);
-                byteNumber++;
-                byteArray[0] = leastByte & MASK;
-
-                // Build the quantity out of the read bytes.
-                quint32 resourceQuantity;
-                resourceQuantity = byteArray[0];
-                resourceQuantity |= ((byteArray[1] | (byteArray[2]<<6)) -2) << 6;
+                resourceFile.read((char *)&byte, 1);
+                byteArray[0] = byte;
 
                 // Create a new Resource with the quantity, and use the
                 // data from the ResourceAssetList to flush it out.
                 resourceModel->appendRow(new Resource(assetData[0],
                                               assetData[1],
                                               assetData[2],
-                                              resourceQuantity,
-                                              byteNumber));
+                                              toLong(byteArray), // resource quantity
+                                              index++));
+            }
+
+            if (!resourceFile.atEnd())
+            {
+                // Read the rest of the file into an array, and keep it for later.
+                resourceExtraData = resourceFile.readAll();
+                //qDebug() << resourceExtraData.toHex();
             }
         }
         else
@@ -232,14 +246,40 @@ void SavesAccess::loadResourcesList()
             qDebug() << "Could not open " << assetFile.fileName();
         }
 
+        assetFile.close();
+        resourceFile.close();
     }
 
 }
 
+
 void SavesAccess::saveResourcesToFile()
 {
-    // Save it again!
     // This is where the storage stuff should go, I think.
+
+    qDebug() << "You want the resources saved, eh? Okay.";
+
+    if (resourceModel == Q_NULLPTR
+            || resourceModel->rowCount() <= 0)
+    {
+        qDebug() << "The resource model hasn't been populated.";
+        return;
+    }
+
+    // Open file and make sure it went okay.
+    if (!resourceFile.exists() || !resourceFile.open(QFile::ReadWrite))
+    {
+//        QMessageBox::warning(this, tr("Application"),
+//                                      tr("Cannot read savesOverviewFile %1:\n%2.")
+//                                      .arg(savesOverviewFile.savesOverviewFile())
+//                                      .arg(savesOverviewFile.errorString()));
+        qDebug() << "Can't open resourceFile for writing.";
+        return;
+    }
+    else
+    {
+
+    }
 }
 
 

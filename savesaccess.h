@@ -21,6 +21,11 @@ public:
 private:
     QDir rootSavesDirectory;
 
+    // Functions to convert to/from binary format
+    long toLong(QByteArray bytes);
+    QByteArray toBinary(long value);
+
+
     //
     // Saves Overview
     //
@@ -46,6 +51,7 @@ private:
     void saveResourcesToFile();
     QFile resourceFile;
     ResourceListModel * resourceModel;
+    QByteArray resourceExtraData;   // This is for holding the unexpected data
 
 };
 
