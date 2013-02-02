@@ -21,6 +21,13 @@ Component {
             onEntered: { parent.color = "#FFe5e5e5" }
             onExited: { parent.color = "#FFeeeeee" }
             onPressed: { parent.color = "#FFe0e0e0" }
+            onClicked: {
+                // Load and display the game.
+                savesAccess.loadSavedGame( name );
+
+                openFileDialog.enabled = false;
+                openFileDialog.visible = false;
+            }
         }
 
 

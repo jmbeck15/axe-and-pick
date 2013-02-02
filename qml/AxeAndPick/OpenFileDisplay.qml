@@ -2,6 +2,8 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 
 Item {
+    id: openFileDialog
+
     property int windowWidth
     property string filePath
     property variant settingsObject
@@ -21,7 +23,10 @@ Item {
         // This is to disable clicks going through the window.
         anchors.fill: parent
         onWheel: {} // do nothing
-        onClicked: { parent.visible = false }
+        onClicked: {
+            openFileDialog.enabled = false;
+            openFileDialog.visible = false;
+        }
     }
 
     function resetValidityMarker()
@@ -194,38 +199,5 @@ Item {
             width: 16
         }
 
-    }
-
-    ListModel {
-        id: testModel
-
-        ListElement {
-            name: "New Settlement"
-            date: "November 03, 02:34 PM"
-            worldSize: "Small"
-            days: 7
-            units: 4
-        }
-        ListElement {
-            name: "Testing"
-            date: "August 13, 11:34 PM"
-            worldSize: "Huge"
-            days: 3
-            units: 22
-        }
-        ListElement {
-            name: "Grand Castle"
-            date: "May 03, 02:01 PM"
-            worldSize: "Medium"
-            days: 12
-            units: 6
-        }
-        ListElement {
-            name: "Another try with archers"
-            date: "May 04, 12:11 AM"
-            worldSize: "Medium"
-            days: 122
-            units: 450
-        }
     }
 }

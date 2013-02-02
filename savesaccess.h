@@ -16,9 +16,10 @@ class SavesAccess : public QObject
 public:
     explicit SavesAccess(QObject *parent = 0);
 
-    Q_INVOKABLE void loadSavedGame(unsigned long id);
+    Q_INVOKABLE void loadSavedGame(QString gameName);
     Q_INVOKABLE void saveSavedGame();
-
+private:
+    QDir rootSavesDirectory;
 
     //
     // Saves Overview
@@ -43,6 +44,7 @@ public:
 private:
     void loadResourcesList();
     void saveResourcesToFile();
+    QFile resourceFile;
     ResourceListModel * resourceModel;
 
 };

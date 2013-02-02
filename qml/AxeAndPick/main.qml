@@ -83,7 +83,8 @@ Item {
                     onEntered: { parent.color = "#0A000000" }
                     onExited: { parent.color = "transparent" }
                     onClicked: {
-                        openFileDialog.visible = true
+                        openFileDialog.enabled = true;
+                        openFileDialog.visible = true;
                     }
                 }
             }
