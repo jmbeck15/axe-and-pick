@@ -17,10 +17,15 @@
 
 int main(int argc, char *argv[])
 {
+
     QApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;
     viewer.setMinimumWidth(400);
     viewer.setMinimumHeight(350);
+
+    QStringList libPaths = QCoreApplication::libraryPaths();
+    libPaths.append(QCoreApplication::applicationDirPath() + "/plugins");
+    app.setLibraryPaths(libPaths);
 
 #if TESTING
     QByteArray binary;

@@ -103,6 +103,7 @@ void SavesAccess::loadGamesList()
         QStringList strings;
 
         long numberOfGames = in.readLine().toLongLong();
+        qDebug() << "Loaded" << numberOfGames << "games.";
 
         // Remove all the games.
         savesOverview->clear();
@@ -207,7 +208,7 @@ void SavesAccess::loadResourcesList()
     {
 
         // Pull in the list of resource assets (name, group, etc)
-        QFile assetFile(QCoreApplication::applicationDirPath() + "/resource_list.txt");
+        QFile assetFile(QCoreApplication::applicationDirPath() + "/resource_list.csv");
 
         if (assetFile.open(QIODevice::ReadOnly | QIODevice::Text))
         {
@@ -256,11 +257,16 @@ void SavesAccess::loadResourcesList()
 
                 // Create a new Resource with the quantity, and use the
                 // data from the ResourceAssetList to flush it out.
-                resourceModel->appendRow(new Resource(assetData[0],
+                //
+                // Don't add the resource if it's unknown.
+                if (assetData[0].compare("unknown"))
+                {
+                    resourceModel->appendRow(new Resource(assetData[0],
                                               assetData[1],
                                               assetData[2],
                                               toLong(byteArray), // resource quantity
                                               index++));
+                }
             }
 
             if (!resourceFile.atEnd())

@@ -1,46 +1,46 @@
-Dirt,Basics,resource-unknown.svg
-Raw Stone,Basics,resource-unknown.svg
-Wood Logs,Basics,resource-unknown.svg
-Food,Basics,resource-unknown.svg
+Dirt,Raw Material,resource-unknown.svg
+Raw Stone,Raw Material,resource-unknown.svg
+Wood Logs,Raw Material,resource-unknown.svg
+Food,Raw Material,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
-Fence,Basics,resource-unknown.svg
-Rope,Basics,resource-unknown.svg
-Feathers,Basics,resource-unknown.svg
-Animal Hair,Basics,resource-unknown.svg
-Coal,Basics,resource-unknown.svg
-Iron Ore,Ore,resource-unknown.svg
-Tin Ore,Ore,resource-unknown.svg
-Copper Ore,Ore,resource-unknown.svg
-Silver Ore,Ore,resource-unknown.svg
-Mithril Ore,Ore,resource-unknown.svg
-Gold Ore,Ore,resource-unknown.svg
-Tin Ingot,Ingot,resource-unknown.svg
-Iron Ingot,Ingot,resource-unknown.svg
-Copper Ingot,Ingot,resource-unknown.svg
-Bronze Ingot,Ingot,resource-unknown.svg
-Steel Ingot,Ingot,resource-unknown.svg
-Mithril Ingot,Ingot,resource-unknown.svg
-Silver Ingot,Ingot,resource-unknown.svg
-Gold Ingot,Ingot,resource-unknown.svg
+Fence,Raw Material,resource-unknown.svg
+Rope,Crafting Material,resource-unknown.svg
+Feathers,Raw Material,resource-unknown.svg
+Animal Hair,Raw Material,resource-unknown.svg
+Coal,Raw Material,resource-unknown.svg
+Iron Ore,Raw Material,resource-unknown.svg
+Tin Ore,Raw Material,resource-unknown.svg
+Copper Ore,Raw Material,resource-unknown.svg
+Silver Ore,Raw Material,resource-unknown.svg
+Mithril Ore,Raw Material,resource-unknown.svg
+Gold Ore,Raw Material,resource-unknown.svg
+Tin Ingot,Crafting Material,resource-unknown.svg
+Iron Ingot,Crafting Material,resource-unknown.svg
+Copper Ingot,Crafting Material,resource-unknown.svg
+Bronze Ingot,Crafting Material,resource-unknown.svg
+Steel Ingot,Crafting Material,resource-unknown.svg
+Mithril Ingot,Crafting Material,resource-unknown.svg
+Silver Ingot,Crafting Material,resource-unknown.svg
+Gold Ingot,Crafting Material,resource-unknown.svg
 Plaster,Building Material,resource-unknown.svg
 Plaster 2,Building Material,resource-unknown.svg
 Wood Planks,Building Material,resource-unknown.svg
 Wood Planks 2,Building Material,resource-unknown.svg
-Animal Fat,Basics,resource-unknown.svg
+Animal Fat,Raw Material,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
 Plaster 3,Building Material,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
-Wheat Seed,Basics,resource-unknown.svg
-Potato Seed,Basics,resource-unknown.svg
-Carrot Seed,Basics,resource-unknown.svg
-Pumpkin Seed,Basics,resource-unknown.svg
-Turnip Seed,Basics,resource-unknown.svg
-Corn Seed,Basics,resource-unknown.svg
-Flax Seed,Basics,resource-unknown.svg
-Wheat,Basics,resource-unknown.svg
-Flax Fiber,Basics,resource-unknown.svg
-Rope,Basics,resource-unknown.svg
+Wheat Seed,Raw Material,resource-unknown.svg
+Potato Seed,Raw Material,resource-unknown.svg
+Carrot Seed,Raw Material,resource-unknown.svg
+Pumpkin Seed,Raw Material,resource-unknown.svg
+Turnip Seed,Raw Material,resource-unknown.svg
+Corn Seed,Raw Material,resource-unknown.svg
+Flax Seed,Raw Material,resource-unknown.svg
+Wheat,Raw Material,resource-unknown.svg
+Flax Fiber,Raw Material,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
 Fieldstone,Building Material,resource-unknown.svg
 Brick,Building Material,resource-unknown.svg
@@ -58,14 +58,14 @@ unknown,unknown,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
-unknown,unknown,resource-unknown.svg
-Copper Short Sword,Weapons,resource-unknown.svg
-Iron Broadsword,Weapons,resource-unknown.svg
-Bronze Broadsword,Weapons,resource-unknown.svg
-Steel Broadsword,Weapons,resource-unknown.svg
-Shortbow,Weapons,resource-unknown.svg
-Selfbow,Weapons,resource-unknown.svg
-Longbow,Weapons,resource-unknown.svg
+Hunting Knife,Hand Tool,resource-unknown.svg
+Copper Short Sword,Weapon,resource-unknown.svg
+Iron Broadsword,Weapon,resource-unknown.svg
+Bronze Broadsword,Weapon,resource-unknown.svg
+Steel Broadsword,Weapon,resource-unknown.svg
+Shortbow,Weapon,resource-unknown.svg
+Selfbow,Weapon,resource-unknown.svg
+Longbow,Weapon,resource-unknown.svg
 Copper Chainmail Coif,Armor,resource-unknown.svg
 Iron Chainmail Coif,Armor,resource-unknown.svg
 Bronze Chainmail Coif,Armor,resource-unknown.svg
@@ -77,6 +77,7 @@ Copper Chainmail Shirt,Armor,resource-unknown.svg
 Iron Chainmail Shirt,Armor,resource-unknown.svg
 Bronze Chainmail Shirt,Armor,resource-unknown.svg
 Steel Chainmail Shirt,Armor,resource-unknown.svg
+unknown,unknown,resource-unknown.svg
 Iron Cuirass,Armor,resource-unknown.svg
 Bronze Cuirass,Armor,resource-unknown.svg
 Steel Cuirass,Armor,resource-unknown.svg
@@ -84,35 +85,34 @@ Copper Plated Boots,Armor,resource-unknown.svg
 Iron Plated Boots,Armor,resource-unknown.svg
 Bronze Plated Boots,Armor,resource-unknown.svg
 Steel Plated Boots,Armor,resource-unknown.svg
-Stone Tipped Arrows,Weapons,resource-unknown.svg
-Copper Tipped Arrows,Weapons,resource-unknown.svg
-Iron Tipped Arrows,Weapons,resource-unknown.svg
-Bronze Tipped Arrows,Weapons,resource-unknown.svg
-Steel Tipped Arrows,Weapons,resource-unknown.svg
+Stone Tipped Arrows,Weapon,resource-unknown.svg
+Copper Tipped Arrows,Weapon,resource-unknown.svg
+Iron Tipped Arrows,Weapon,resource-unknown.svg
+Bronze Tipped Arrows,Weapon,resource-unknown.svg
+Steel Tipped Arrows,Weapon,resource-unknown.svg
+Stone Hammer,Hand Tool,resource-unknown.svg
+Iron Hammer,Hand Tool,resource-unknown.svg
+Bronze Hammer,Hand Tool,resource-unknown.svg
+Steel Hammer,Hand Tool,resource-unknown.svg
+Stone Axe,Hand Tool,resource-unknown.svg
+Copper Axe,Hand Tool,resource-unknown.svg
+Iron Axe,Hand Tool,resource-unknown.svg
+Bronze Axe,Hand Tool,resource-unknown.svg
+Steel Axe,Hand Tool,resource-unknown.svg
+Stone Pickaxe,Hand Tool,resource-unknown.svg
+Copper Pickaxe,Hand Tool,resource-unknown.svg
+Iron Pickaxe,Hand Tool,resource-unknown.svg
+Bronze Pickaxe,Hand Tool,resource-unknown.svg
+Steel Pickaxe,Hand Tool,resource-unknown.svg
+Stone Hoe,Hand Tool,resource-unknown.svg
+Copper Hoe,Hand Tool,resource-unknown.svg
+Iron Hoe,Hand Tool,resource-unknown.svg
+Bronze Hoe,Hand Tool,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
-Stone Hammer,Tools,resource-unknown.svg
-Iron Hammer,Tools,resource-unknown.svg
-Bronze Hammer,Tools,resource-unknown.svg
-Steel Hammer,Tools,resource-unknown.svg
-Stone Axe,Tools,resource-unknown.svg
-Copper Axe,Tools,resource-unknown.svg
-Iron Axe,Tools,resource-unknown.svg
-Bronze Axe,Tools,resource-unknown.svg
-Steel Axe,Tools,resource-unknown.svg
-Stone Pickaxe,Tools,resource-unknown.svg
-Copper Pickaxe,Tools,resource-unknown.svg
-Iron Pickaxe,Tools,resource-unknown.svg
-Bronze Pickaxe,Tools,resource-unknown.svg
-Steel Pickaxe,Tools,resource-unknown.svg
-Stone Hoe,Tools,resource-unknown.svg
-Copper Hoe,Tools,resource-unknown.svg
-Iron Hoe,Tools,resource-unknown.svg
-Bronze Hoe,Tools,resource-unknown.svg
-Steel Hoe,Tools,resource-unknown.svg
-Ladder,Tools,resource-unknown.svg
-unknown,unknown,resource-unknown.svg
-unknown,unknown,resource-unknown.svg
-unknown,unknown,resource-unknown.svg
+Steel Hoe,Hand Tool,resource-unknown.svg
+Ladder,Hand Tool,resource-unknown.svg
+Wooden Buckler,Armor,resource-unknown.svg
+Iron Heater Shield,Armor,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
 unknown,unknown,resource-unknown.svg
 unknown,unknown,resource-unknown.svg

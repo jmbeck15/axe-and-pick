@@ -56,15 +56,17 @@ Item {
             ToolbarTextInput {
                 id: dayInputButton
                 textLabel: "Day"
-                value: 6
+                value: 0
                 width: 45
+                disabled: true
             }
-            ToolbarTextInput {
-                id: hourInputButton
-                textLabel: "Hour"
-                value: 23
-                width: 38
-            }
+//            ToolbarTextInput {
+//                id: hourInputButton
+//                textLabel: "Hour"
+//                value: 0
+//                width: 38
+//                disabled: true
+//            }
         }
 
         Row {
@@ -200,7 +202,13 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "green"
+            color: "#FFeeeeee"
+
+            Text {
+                text: "Units aren't done yet."
+                color: "gray"
+                anchors.centerIn: parent
+            }
         }
     }
 

@@ -37,6 +37,6 @@ HEADERS += \
 RESOURCES +=
 
 OTHER_FILES += \
-    resource_list.txt \
     qml/AxeAndPick/ToolbarTextInput.qml \
-    qml/AxeAndPick/SavesOverviewDelegate.qml
+    qml/AxeAndPick/SavesOverviewDelegate.qml \
+    resource_list.csv

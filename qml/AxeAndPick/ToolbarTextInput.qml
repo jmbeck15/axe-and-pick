@@ -3,7 +3,9 @@ import QtQuick 2.0
 Rectangle {
     property int value
     property string textLabel
+    property bool disabled
 
+    disabled: false
     width: 34
     color: "#FFeeeeee"
 
@@ -24,7 +26,7 @@ Rectangle {
         anchors.rightMargin: 3
 
         Rectangle {
-            color: "white"
+            color: disabled ? "lightgray" : "white"
             height: parent.height-2
             width: parent.width-2
             clip: true
@@ -40,6 +42,7 @@ Rectangle {
                     leftMargin: 2;
                     centerIn: parent;
                 }
+                readOnly: disabled ? true : false
 
                 text: value
                 color: numberInput.acceptableInput ? "black" : "red"
