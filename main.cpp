@@ -15,6 +15,11 @@
 
 #define TESTING 0
 
+QString appVersion()
+{
+    return "0.1";
+}
+
 int main(int argc, char *argv[])
 {
 
@@ -55,6 +60,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Axe and Pick");
     QCoreApplication::setOrganizationDomain("potatominingcorp.com");
     QCoreApplication::setOrganizationName("Potato Mining Corporation");
+
+    app.setWindowIcon(QIcon());
+    viewer.setTitle(QCoreApplication::applicationName() + " v" + appVersion());
 
     // Register the list item types for the enumerations in QML
     qmlRegisterType<Resource>("Resource", 1,0, "Resource");

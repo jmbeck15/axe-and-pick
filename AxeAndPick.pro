@@ -15,6 +15,9 @@ QML_IMPORT_PATH =
 # for things like QFileDialog.
 QT += widgets
 
+# Adds the icon to the project
+RC_FILE = AxeAndPick.rc
+
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     listmodel.cpp \
@@ -39,4 +42,6 @@ RESOURCES +=
 OTHER_FILES += \
     qml/AxeAndPick/ToolbarTextInput.qml \
     qml/AxeAndPick/SavesOverviewDelegate.qml \
-    resource_list.csv
+    resource_list.csv \
+    AxeAndPick.rc \
+    application_icon.ico
