@@ -42,7 +42,7 @@ Item {
                     centerIn: parent;
                 }
 
-                onTextChanged: target.setFilterFixedString(text)
+                onTextChanged: target.setFilterRegExp("^(?!unknown).*" + text)
 
                 autoScroll: true
                 selectByMouse: true

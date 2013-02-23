@@ -17,7 +17,7 @@
 
 QString appVersion()
 {
-    return "0.1";
+    return "0.2";
 }
 
 int main(int argc, char *argv[])
@@ -93,6 +93,9 @@ int main(int argc, char *argv[])
     QSortFilterProxyModel * proxyResourceModel = new QSortFilterProxyModel();
     proxyResourceModel->setSourceModel(resourceModel);
     proxyResourceModel->setFilterRole(Resource::FilterStringRole);
+
+    // This prevents unknown items from showing up in the list.
+    proxyResourceModel->setFilterRegExp("^(?!unknown).*");
     viewer.rootContext()->setContextProperty("resourceModelProxy", proxyResourceModel);
 
     // Enable the case insensitivity

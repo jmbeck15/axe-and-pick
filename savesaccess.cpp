@@ -258,15 +258,25 @@ void SavesAccess::loadResourcesList()
                 // Create a new Resource with the quantity, and use the
                 // data from the ResourceAssetList to flush it out.
                 //
-                // Don't add the resource if it's unknown.
-                if (assetData[0].compare("unknown"))
-                {
+                // Check to see if the resource is unknown
+//                if (assetData[0].compare("unknown"))
+//                {
                     resourceModel->appendRow(new Resource(assetData[0],
                                               assetData[1],
                                               assetData[2],
                                               toLong(byteArray), // resource quantity
                                               index++));
-                }
+//                }
+//                else
+//                {
+//                    // Unknown resource! Hide it by marking it with a tick mark.
+//                    // TODO: This should be done better somehow.
+//                    resourceModel->appendRow(new Resource(assetData[0],
+//                                              assetData[1],
+//                                              assetData[2],
+//                                              toLong(byteArray), // resource quantity
+//                                              index++));
+//                }
             }
 
             if (!resourceFile.atEnd())
