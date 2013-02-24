@@ -17,7 +17,7 @@
 
 QString appVersion()
 {
-    return "0.3";
+    return "0.4";
 }
 
 int main(int argc, char *argv[])

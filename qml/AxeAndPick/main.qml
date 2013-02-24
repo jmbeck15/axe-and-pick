@@ -89,6 +89,8 @@ Item {
                     onClicked: {
                         openFileDialog.enabled = true;
                         openFileDialog.visible = true;
+                        // Unnecessary animation, right?
+                        //openFileButton.showClickAnimation();
                     }
                 }
             }
@@ -97,13 +99,12 @@ Item {
                 target: parent
                 icon: "images/saveIcon.svg"
                 color: "transparent"
+
                 MouseArea {
                     anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: { parent.color = "#0A000000" }
-                    onExited: { parent.color = "transparent" }
                     onClicked: {
                         savesAccess.saveSavedGame();
+                        saveSavedGamesButton.showClickAnimation();
                     }
                 }
             }

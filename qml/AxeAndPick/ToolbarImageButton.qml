@@ -4,6 +4,14 @@ Rectangle {
     property string icon
     property variant target
 
+    function showClickAnimation()
+    {
+        clickAnimationScale.enabled = false;
+        imageIcon.scale = 1.30;
+        clickAnimationScale.enabled = true;
+        imageIcon.scale = 1.00;
+    }
+
     // The width and color properties should be
     // customized by the caller. The image in the
     // button is always padded by six pixels on
@@ -24,5 +32,20 @@ Rectangle {
         height: parent.height
 
         anchors.centerIn: parent
+
+        Behavior on scale {
+            id: clickAnimationScale
+
+            PropertyAnimation {
+                duration: 500
+                easing.type: Easing.OutExpo
+            }
+        }
+    }
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        onEntered: { parent.color = "#0A000000" }
+        onExited: { parent.color = "transparent" }
     }
 }
