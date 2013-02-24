@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Item {
-    width: 800
+    width: 500
     height: 600
     id: rootWindow
 

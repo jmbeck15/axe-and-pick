@@ -43,6 +43,7 @@ Item {
                 }
 
                 onTextChanged: target.setFilterRegExp("^(?!unknown).*" + text)
+                //onTextChanged: target.setFilterRegExp(text)
 
                 autoScroll: true
                 selectByMouse: true
