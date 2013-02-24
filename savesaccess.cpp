@@ -33,7 +33,7 @@ void SavesAccess::saveSavedGame()
 void SavesAccess::openFileDialog()
 {
 
-    // TODO: Set the parent of this dialog so it returns propery.
+    // TODO: Set the parent of this dialog so it returns properly.
     // Not sure if this is the cause of the weird Windows behavior
     // or not. Something to try.
     QFileDialog fileDialog(0,"Timber and Stone saves.sav file");

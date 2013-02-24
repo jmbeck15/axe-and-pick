@@ -8,7 +8,7 @@ Component {
     Rectangle {
 
         color: "#FFeeeeee"
-        height: 36
+        height: 50
         anchors.left: parent.left
         anchors.right: parent.right
 

@@ -137,10 +137,39 @@ Item {
                 anchors.fill: parent
                 color: "silver"
             }
+            ToolbarImageButton {
+                id: test0
+                target: parent
+                icon: "images/saveIcon.svg"
+                color: "red"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        resourceList.model = resourceModelProxy2
+                        resourceList.delegate = resourceDelegateThick
+                        resourceSearchBox.clear()
+                    }
+                }
+            }
+            ToolbarImageButton {
+                id: test1
+                anchors.left: test0.right
+                target: parent
+                icon: "images/saveIcon.svg"
+                color: "blue"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        resourceList.model = resourceModelProxy
+                        resourceList.delegate = resourceDelegate
+                        resourceSearchBox.clear()
+                    }
+                }
+            }
 
             SearchBox {
                 id: resourceSearchBox
-                target: resourceModelProxy
+                target: resourceList
                 anchors.right: parent.right
 
                 anchors.verticalCenter: parent.verticalCenter
@@ -149,6 +178,9 @@ Item {
 
         ResourceDelegate {
             id: resourceDelegate
+        }
+        ResourceDelegateThick {
+            id: resourceDelegateThick
         }
 
         ListView {

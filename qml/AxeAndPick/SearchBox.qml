@@ -1,10 +1,19 @@
 import QtQuick 2.0
 
+
+
 Item {
     // This is the target for the regular expression.
     property variant target
 
     width: searchIcon.width + searchBoxOutline.width + searchBoxOutline.anchors.leftMargin
+
+    function clear()
+    {
+        // Force clearing the text and updating the model.
+        searchBox.text = ""
+        target.model.setFilterRegExp("^(?!unknown).*")
+    }
 
     Image {
         id: searchIcon
@@ -42,8 +51,8 @@ Item {
                     centerIn: parent;
                 }
 
-                onTextChanged: target.setFilterRegExp("^(?!unknown).*" + text)
-                //onTextChanged: target.setFilterRegExp(text)
+                onTextChanged: target.model.setFilterRegExp("^(?!unknown).*" + text)
+                //onTextChanged: target.model.setFilterRegExp(text)
 
                 autoScroll: true
                 selectByMouse: true
