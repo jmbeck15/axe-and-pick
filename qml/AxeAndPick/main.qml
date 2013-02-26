@@ -98,6 +98,7 @@ Item {
                 id: saveSavedGamesButton
                 target: parent
                 icon: "images/saveIcon.svg"
+                iconComplete: "images/saveIcon_green.svg"
                 color: "transparent"
 
                 MouseArea {
@@ -175,7 +176,7 @@ Item {
         id: containerSeperator
         anchors.top: mainToolbar.bottom
         anchors.bottom: parent.bottom
-        x: 300
+        x: 320
         width: 5
 
         Rectangle {

@@ -2,14 +2,15 @@ import QtQuick 2.0
 
 Rectangle {
     property string icon
+    property string iconComplete
     property variant target
 
     function showClickAnimation()
     {
-        clickAnimationScale.enabled = false;
-        imageIcon.scale = 1.30;
-        clickAnimationScale.enabled = true;
-        imageIcon.scale = 1.00;
+        clickAnimationOpacity.enabled = false;
+        imageIconOperationComplete.opacity = 0.5;
+        clickAnimationOpacity.enabled = true;
+        imageIconOperationComplete.opacity = 0.0;
     }
 
     // The width and color properties should be
@@ -32,16 +33,27 @@ Rectangle {
         height: parent.height
 
         anchors.centerIn: parent
+    }
+    Image {
+        id: imageIconOperationComplete
+        source: iconComplete
+        fillMode: Image.PreserveAspectFit
+        width: parent.width - 12
+        height: parent.height
+        opacity: 0.0
 
-        Behavior on scale {
-            id: clickAnimationScale
+        anchors.centerIn: parent
+
+        Behavior on opacity {
+            id: clickAnimationOpacity
 
             PropertyAnimation {
-                duration: 500
-                easing.type: Easing.OutExpo
+                duration: 3000
+                easing.type: Easing.InExpo
             }
         }
     }
+
     MouseArea {
         anchors.fill: parent
         hoverEnabled: true
