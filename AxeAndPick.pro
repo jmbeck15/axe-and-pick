@@ -24,8 +24,8 @@ SOURCES += main.cpp \
     settings.cpp \
     savesaccess.cpp \
     resourcelistmodel.cpp \
-    savesoverviewlistmodel.cpp \
-    humanlistmodel.cpp
+    humanlistmodel.cpp \
+    savedgamelistmodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
@@ -36,14 +36,14 @@ HEADERS += \
     settings.h \
     savesaccess.h \
     resourcelistmodel.h \
-    savesoverviewlistmodel.h \
-    humanlistmodel.h
+    humanlistmodel.h \
+    savedgamelistmodel.h
 
 RESOURCES +=
 
 OTHER_FILES += \
     qml/AxeAndPick/ToolbarTextInput.qml \
-    qml/AxeAndPick/SavesOverviewDelegate.qml \
     resource_list.csv \
     AxeAndPick.rc \
-    application_icon.ico
+    application_icon.ico \
+    qml/AxeAndPick/SavedGameDelegate.qml

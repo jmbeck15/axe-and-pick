@@ -10,7 +10,7 @@
 
 #include "resourcelistmodel.h"
 #include "humanlistmodel.h"
-#include "savesoverviewlistmodel.h"
+#include "savedgamelistmodel.h"
 #include "settings.h"
 #include "savesaccess.h"
 
@@ -72,17 +72,15 @@ int main(int argc, char *argv[])
     Settings settings;
     viewer.rootContext()->setContextProperty("settings", &settings);
 
+    // SAVED GAMES
     // This holds the info for all the saved games.
     SavesAccess savesAccess;
     savesAccess.setFilePath(settings.value("TimberAndStone/GameInstallationDirectory").toString());
-    SavesOverviewListModel * savesOverviewModel = new SavesOverviewListModel(new SavesOverviewItem, qApp);
-    savesAccess.setSavesOverviewListModel(savesOverviewModel);
+    SavedGameListModel * savedGameModel = new SavedGameListModel(new SavedGame, qApp);
+    savesAccess.setSavedGameListModel(savedGameModel);
     savesAccess.loadGamesList();
-
-    // Saved game list should be completely initialized. Now we can expose
-    // the data to QML.
     viewer.rootContext()->setContextProperty("savesAccess", &savesAccess);
-    viewer.rootContext()->setContextProperty("savesOverviewModel", savesOverviewModel);
+    viewer.rootContext()->setContextProperty("savedGameModel", savedGameModel);
 
     // RESOURCES
     // Create a model that holds our resource data, and

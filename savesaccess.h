@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QDir>
 
-#include "savesoverviewlistmodel.h"
+#include "savedgamelistmodel.h"
 #include "resourcelistmodel.h"
 #include "humanlistmodel.h"
 
@@ -29,18 +29,18 @@ public:
 
 
     //
-    // Saves Overview
+    // Saved Game List
     //
 public:
-    void setSavesOverviewListModel(SavesOverviewListModel * model);
+    void setSavedGameListModel(SavedGameListModel * model);
     Q_INVOKABLE void openFileDialog();
     Q_INVOKABLE QString getFilePath();
     Q_INVOKABLE void setFilePath(QString path);
     Q_INVOKABLE bool pathIsValid();
     Q_INVOKABLE void loadGamesList();
 private:
-    QFile savesOverviewFile;
-    SavesOverviewListModel * savesOverview;
+    QFile savedGameFile;
+    SavedGameListModel * savedGameModel;
 
 
     //

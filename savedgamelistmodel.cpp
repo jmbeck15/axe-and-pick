@@ -1,14 +1,14 @@
-#include "savesoverviewlistmodel.h"
+#include "savedgamelistmodel.h"
 
 #include <QDebug>
 #include <sstream>
 
-SavesOverviewItem::SavesOverviewItem(const QString &gameName,
-                   const QString &lastPlayed,
-                   const QString &worldSize,
-                   const long &day,
-                   const long &unitNumber,
-                   QObject * parent)
+SavedGame::SavedGame(const QString &gameName,
+                     const QString &lastPlayed,
+                     const QString &worldSize,
+                     const long &day,
+                     const long &unitNumber,
+                     QObject * parent)
     : ListItem(parent),
       m_name(gameName),
       m_date(lastPlayed),
@@ -18,7 +18,7 @@ SavesOverviewItem::SavesOverviewItem(const QString &gameName,
 {
 }
 
-void SavesOverviewItem::setDay(long newDay)
+void SavedGame::setDay(long newDay)
 {
     if(m_day != newDay)
     {
@@ -26,7 +26,7 @@ void SavesOverviewItem::setDay(long newDay)
         emit dataChanged();
     }
 }
-void SavesOverviewItem::setUnitNumber(long newUnitNumber)
+void SavedGame::setUnitNumber(long newUnitNumber)
 {
     if(m_unitNumber != newUnitNumber)
     {
@@ -35,7 +35,7 @@ void SavesOverviewItem::setUnitNumber(long newUnitNumber)
     }
 }
 
-QHash<int, QByteArray> SavesOverviewItem::roleNames() const
+QHash<int, QByteArray> SavedGame::roleNames() const
 {
     QHash<int, QByteArray> names;
     names[NameRole] = "name";
@@ -49,7 +49,7 @@ QHash<int, QByteArray> SavesOverviewItem::roleNames() const
     return names;
 }
 
-QVariant SavesOverviewItem::data(int role) const
+QVariant SavedGame::data(int role) const
 {
     switch(role) {
     case NameRole:
@@ -71,7 +71,7 @@ QVariant SavesOverviewItem::data(int role) const
     }
 }
 
-QString SavesOverviewItem::filterString() const
+QString SavedGame::filterString() const
 {
     std::stringstream completeString;
 
@@ -83,29 +83,29 @@ QString SavesOverviewItem::filterString() const
     return (QString(completeString.str().c_str()));
 }
 
-SavesOverviewListModel::SavesOverviewListModel(ListItem * prototype, QObject * parent )
+SavedGameListModel::SavedGameListModel(ListItem * prototype, QObject * parent )
     : ListModel(prototype, parent)
 {
 }
 
-void SavesOverviewListModel::setData(const long identification, const QVariant &value, int role)
+void SavedGameListModel::setData(const long identification, const QVariant &value, int role)
 {
     switch (role)
     {
-    case SavesOverviewItem::DayRole:
+    case SavedGame::DayRole:
     {
-        SavesOverviewItem * item = (SavesOverviewItem *)find(identification);
+        SavedGame * item = (SavedGame *)find(identification);
         item->setDay(value.toLongLong());
         break;
     }
-    case SavesOverviewItem::UnitNumberRole:
+    case SavedGame::UnitNumberRole:
     {
-        SavesOverviewItem * item = (SavesOverviewItem *)find(identification);
+        SavedGame * item = (SavedGame *)find(identification);
         item->setUnitNumber(value.toLongLong());
         break;
     }
     default:
-        qWarning() << "SavesOverviewListModel::setData does not understand what role" << role << "is.";
+        qWarning() << "SavedGameListModel::setData does not understand what role" << role << "is.";
         break;
     }
 }

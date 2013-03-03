@@ -7,7 +7,7 @@
 
 SavesAccess::SavesAccess(QObject *parent) :
     QObject(parent),
-    savesOverview(Q_NULLPTR),
+    savedGameModel(Q_NULLPTR),
     resourceModel(Q_NULLPTR)
 {
 }
@@ -45,7 +45,7 @@ void SavesAccess::openFileDialog()
         rootSavesDirectory.setPath(fileDialog.selectedFiles().first());
         rootSavesDirectory.cdUp(); // This trims off the saves.sav file.
 
-        savesOverviewFile.setFileName(rootSavesDirectory.absolutePath()
+        savedGameFile.setFileName(rootSavesDirectory.absolutePath()
                                       + "/" + "saves.sav");
     }
 }
@@ -55,20 +55,20 @@ void SavesAccess::setFilePath(QString path)
     rootSavesDirectory.setPath(path);
     rootSavesDirectory.cdUp();
 
-    savesOverviewFile.setFileName(path);
+    savedGameFile.setFileName(path);
 }
 
 QString SavesAccess::getFilePath()
 {
-    return savesOverviewFile.fileName();
+    return savedGameFile.fileName();
 }
 
 bool SavesAccess::pathIsValid()
 {
     // Return True if both the directory path is valid
     // and the saves.sav file exists.
-    QFileInfo fileInfo(savesOverviewFile);
-    if (savesOverviewFile.exists() && (fileInfo.fileName() == "saves.sav"))
+    QFileInfo fileInfo(savedGameFile);
+    if (savedGameFile.exists() && (fileInfo.fileName() == "saves.sav"))
     {
         return true;
     }
@@ -80,53 +80,53 @@ bool SavesAccess::pathIsValid()
 
 void SavesAccess::loadGamesList()
 {
-    if (savesOverview == Q_NULLPTR)
+    if (savedGameModel == Q_NULLPTR)
     {
         qDebug() << "SavedAccess model hasn't been set up yet.";
         return;
     }
 
     // Open file and make sure it went okay.
-    if (!savesOverviewFile.exists() || !savesOverviewFile.open(QFile::ReadOnly | QFile::Text))
+    if (!savedGameFile.exists() || !savedGameFile.open(QFile::ReadOnly | QFile::Text))
     {
 //        QMessageBox::warning(this, tr("Application"),
-//                                      tr("Cannot read savesOverviewFile %1:\n%2.")
-//                                      .arg(savesOverviewFile.savesOverviewFile())
-//                                      .arg(savesOverviewFile.errorString()));
-        qDebug() << "Can't open savesOverviewFile.";
+//                                      tr("Cannot read savedGameFile %1:\n%2.")
+//                                      .arg(savedGameFile.savedGameFile())
+//                                      .arg(savedGameFile.errorString()));
+        qDebug() << "Can't open savedGameFile.";
         return;
     }
     else
     {
 
-        QTextStream in(&savesOverviewFile);
+        QTextStream in(&savedGameFile);
         QStringList strings;
 
         long numberOfGames = in.readLine().toLongLong();
         qDebug() << "Loaded" << numberOfGames << "games.";
 
         // Remove all the games.
-        savesOverview->clear();
+        savedGameModel->clear();
 
         // Add the games from the saves.sav file.
         while (!in.atEnd())
         {
             strings = in.readLine().split("/", QString::KeepEmptyParts);
 
-            savesOverview->appendRow(new SavesOverviewItem(strings[0],
+            savedGameModel->appendRow(new SavedGame(strings[0],
                                  strings[3],
                                  strings[4],
                                  strings[1].toLongLong(),
                                  strings[2].toLongLong()));
         }
     }
-    savesOverviewFile.close();
+    savedGameFile.close();
 
 }
 
-void SavesAccess::setSavesOverviewListModel(SavesOverviewListModel * model)
+void SavesAccess::setSavedGameListModel(SavedGameListModel * model)
 {
-    savesOverview = model;
+    savedGameModel = model;
 }
 
 
@@ -201,9 +201,9 @@ void SavesAccess::loadResourcesList()
     if (!resourceFile.exists() || !resourceFile.open(QFile::ReadWrite))
     {
 //        QMessageBox::warning(this, tr("Application"),
-//                                      tr("Cannot read savesOverviewFile %1:\n%2.")
-//                                      .arg(savesOverviewFile.savesOverviewFile())
-//                                      .arg(savesOverviewFile.errorString()));
+//                                      tr("Cannot read savedGameFile %1:\n%2.")
+//                                      .arg(savedGameFile.savedGameFile())
+//                                      .arg(savedGameFile.errorString()));
         qDebug() << "Can't open resourceFile.";
         return;
     }
@@ -298,9 +298,9 @@ void SavesAccess::saveResourcesToFile()
     if (!resourceFile.open(QFile::ReadWrite))
     {
 //        QMessageBox::warning(this, tr("Application"),
-//                                      tr("Cannot read savesOverviewFile %1:\n%2.")
-//                                      .arg(savesOverviewFile.savesOverviewFile())
-//                                      .arg(savesOverviewFile.errorString()));
+//                                      tr("Cannot read savedGameFile %1:\n%2.")
+//                                      .arg(savedGameFile.savedGameFile())
+//                                      .arg(savedGameFile.errorString()));
         qDebug() << "Can't open resourceFile for writing.";
         return;
     }

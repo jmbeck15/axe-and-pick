@@ -1,5 +1,5 @@
-#ifndef SAVESOVERVIEWLISTMODEL_H
-#define SAVESOVERVIEWLISTMODEL_H
+#ifndef SAVEDGAMELISTMODEL_H
+#define SAVEDGAMELISTMODEL_H
 
 #include <QAbstractListModel>
 #include <QList>
@@ -7,8 +7,8 @@
 
 #include "listmodel.h"
 
-// SavesOverviewItems are stored in SavesOverviewListModels
-class SavesOverviewItem : public ListItem
+// SavedGame are stored in SavedGameListModel
+class SavedGame : public ListItem
 {
     Q_OBJECT
     Q_ENUMS(Roles)
@@ -24,8 +24,8 @@ public:
         FilterStringRole
     };
 
-    SavesOverviewItem(QObject * parent = 0): ListItem(parent){}
-    explicit SavesOverviewItem(const QString &gameName,
+    SavedGame(QObject * parent = 0): ListItem(parent){}
+    explicit SavedGame(const QString &gameName,
                       const QString &lastPlayed,
                       const QString &worldSize,
                       const long &day,
@@ -56,12 +56,13 @@ private:
 };
 
 // ResourceListModels store Resources
-class SavesOverviewListModel : public ListModel
+class SavedGameListModel : public ListModel
 {
 public:
-    SavesOverviewListModel(ListItem * prototype, QObject * parent = 0);
+    SavedGameListModel(ListItem * prototype, QObject * parent = 0);
 
     Q_INVOKABLE void setData(const long identification, const QVariant &value, int role);
 };
 
-#endif // SAVESOVERVIEWLISTMODEL_H
+#endif // SAVEDGAMELISTMODEL_H
+
