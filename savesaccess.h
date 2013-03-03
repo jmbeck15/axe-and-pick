@@ -12,7 +12,6 @@
 class SavesAccess : public QObject
 {
     Q_OBJECT
-    //Q_PROPERTY(QString fileName READ fileName)
 
 public:
     explicit SavesAccess(QObject *parent = 0);
@@ -56,7 +55,9 @@ private:
     QByteArray resourceExtraData;   // This is for holding the unexpected data
 
 
+    //
     // Human List
+    //
 public:
     void setHumanListModel(HumanListModel * model);
 private:

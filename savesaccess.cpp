@@ -14,20 +14,20 @@ SavesAccess::SavesAccess(QObject *parent) :
 
 void SavesAccess::loadSavedGame(QString gameName)
 {
-    // Load the game!
-
-
+    // Build the file name.
     resourceFile.setFileName(rootSavesDirectory.absolutePath()
                              + "/" + gameName
                              + "/" + "re.sav");
-    qDebug() << "Game to load" << resourceFile.fileName();
+    // Pull the resources into the list.
     loadResourcesList();
 }
 
 void SavesAccess::saveSavedGame()
 {
-    // Save the game!
     saveResourcesToFile();
+    //saveUnitsToFile();
+    //saveTimeToFile();
+    //saveGameOverviewToFile();
 }
 
 void SavesAccess::openFileDialog()
@@ -40,6 +40,7 @@ void SavesAccess::openFileDialog()
     fileDialog.setDirectory(rootSavesDirectory);
     fileDialog.setNameFilter("Saves File (saves.sav)");
 
+    // Open the file dialog so the user can select the saves.sav file.
     if (fileDialog.exec())
     {
         rootSavesDirectory.setPath(fileDialog.selectedFiles().first());
@@ -50,11 +51,16 @@ void SavesAccess::openFileDialog()
     }
 }
 
+
+// TODO: there are two areas which save the paths; this one and the one
+// above in the file dialog area. Combine these.
 void SavesAccess::setFilePath(QString path)
 {
+    // Save the path to the file.
     rootSavesDirectory.setPath(path);
     rootSavesDirectory.cdUp();
 
+    // Save the file name.
     savedGameFile.setFileName(path);
 }
 
@@ -89,16 +95,12 @@ void SavesAccess::loadGamesList()
     // Open file and make sure it went okay.
     if (!savedGameFile.exists() || !savedGameFile.open(QFile::ReadOnly | QFile::Text))
     {
-//        QMessageBox::warning(this, tr("Application"),
-//                                      tr("Cannot read savedGameFile %1:\n%2.")
-//                                      .arg(savedGameFile.savedGameFile())
-//                                      .arg(savedGameFile.errorString()));
+        // TODO: Make this error apparent on the interface somehow.
         qDebug() << "Can't open savedGameFile.";
         return;
     }
     else
     {
-
         QTextStream in(&savedGameFile);
         QStringList strings;
 
@@ -113,6 +115,7 @@ void SavesAccess::loadGamesList()
         {
             strings = in.readLine().split("/", QString::KeepEmptyParts);
 
+            // Add the games to the list.
             savedGameModel->appendRow(new SavedGame(strings[0],
                                  strings[3],
                                  strings[4],
@@ -120,15 +123,16 @@ void SavesAccess::loadGamesList()
                                  strings[2].toLongLong()));
         }
     }
-    savedGameFile.close();
 
+    // It's important to always close the file after reading/writing, so this
+    // app can remain running while Timber and Stone saves as it wishes.
+    savedGameFile.close();
 }
 
 void SavesAccess::setSavedGameListModel(SavedGameListModel * model)
 {
     savedGameModel = model;
 }
-
 
 QByteArray SavesAccess::toBinary(long value)
 {
@@ -156,7 +160,6 @@ QByteArray SavesAccess::toBinary(long value)
 //
 long SavesAccess::toLong(QByteArray bytes)
 {
-
     // Ensure the bytes have only their relevant bits visible.
     long value;
     if( bytes.size() > 2 )
@@ -181,8 +184,9 @@ long SavesAccess::toLong(QByteArray bytes)
     return value;
 }
 
-
+// =====================
 // RESOURCES
+// =====================
 
 void SavesAccess::setResourceListModel(ResourceListModel * model)
 {
@@ -200,10 +204,7 @@ void SavesAccess::loadResourcesList()
     // Open file and make sure it went okay.
     if (!resourceFile.exists() || !resourceFile.open(QFile::ReadWrite))
     {
-//        QMessageBox::warning(this, tr("Application"),
-//                                      tr("Cannot read savedGameFile %1:\n%2.")
-//                                      .arg(savedGameFile.savedGameFile())
-//                                      .arg(savedGameFile.errorString()));
+        // TODO: Make this error apparent on the interface somehow.
         qDebug() << "Can't open resourceFile.";
         return;
     }
@@ -258,7 +259,7 @@ void SavesAccess::loadResourcesList()
                                           assetData[1],
                                           assetData[2],
                                           toLong(byteArray), // resource quantity
-                                          index++));
+                                          index++));         // id
             }
 
             if (!resourceFile.atEnd())
@@ -266,11 +267,11 @@ void SavesAccess::loadResourcesList()
                 // Read the rest of the file into an array, and keep it for later.
                 resourceExtraData.clear();
                 resourceExtraData = resourceFile.readAll();
-                //qDebug() << resourceExtraData.toHex();
             }
         }
         else
         {
+            // TODO: Make this error apparent on the interface somehow.
             qDebug() << "Could not open " << assetFile.fileName();
         }
 
@@ -283,10 +284,6 @@ void SavesAccess::loadResourcesList()
 
 void SavesAccess::saveResourcesToFile()
 {
-    // This is where the storage stuff should go, I think.
-
-    qDebug() << "You want the resources saved, eh? Okay.";
-
     if (resourceModel == Q_NULLPTR
             || resourceModel->rowCount() <= 0)
     {
@@ -297,10 +294,8 @@ void SavesAccess::saveResourcesToFile()
     // Open file for write, and make sure it went okay.
     if (!resourceFile.open(QFile::ReadWrite))
     {
-//        QMessageBox::warning(this, tr("Application"),
-//                                      tr("Cannot read savedGameFile %1:\n%2.")
-//                                      .arg(savedGameFile.savedGameFile())
-//                                      .arg(savedGameFile.errorString()));
+        // TODO: Make this error apparent on the interface somehow.
+        // Perhaps by making the save icon be red instead of green.
         qDebug() << "Can't open resourceFile for writing.";
         return;
     }
@@ -320,9 +315,6 @@ void SavesAccess::saveResourcesToFile()
                 quantity = 30000;
 
                 // Update the resource.
-                //
-                // TODO: I don't know why this doesn't emit the signal that
-                // QML reads to update the view. setData() does emit...
                 resourceModel->setData(ndx,30000);
             }
             binaryData = toBinary(quantity);
@@ -335,7 +327,9 @@ void SavesAccess::saveResourcesToFile()
     }
 }
 
+// =====================
 // HUMANS
+// =====================
 
 void SavesAccess::setHumanListModel(HumanListModel * model)
 {
@@ -343,4 +337,3 @@ void SavesAccess::setHumanListModel(HumanListModel * model)
 }
 
 Q_DECLARE_METATYPE(SavesAccess*)
-
