@@ -8,6 +8,8 @@
 #include "savedgamelistmodel.h"
 #include "resourcelistmodel.h"
 #include "humanlistmodel.h"
+#include "neutralmoblistmodel.h"
+#include "violentmoblistmodel.h"
 
 class SavesAccess : public QObject
 {
@@ -18,13 +20,12 @@ public:
 
     Q_INVOKABLE void loadSavedGame(QString gameName);
     Q_INVOKABLE void saveSavedGame();
-private:
-    QDir rootSavesDirectory;
 
-public:
     // Functions to convert to/from binary format
     static long toLong(QByteArray bytes);
     static QByteArray toBinary(long value);
+private:
+    QDir rootSavesDirectory;
 
 
     //
@@ -38,7 +39,7 @@ public:
     Q_INVOKABLE bool pathIsValid();
     Q_INVOKABLE void loadGamesList();
 private:
-    QFile savedGameFile;
+    QFile savedGameFile;  // TODO: Remove this. Build it dynamically.
     SavedGameListModel * savedGameModel;
 
 
@@ -48,20 +49,30 @@ private:
 public:
     void setResourceListModel(ResourceListModel * model);
 private:
-    void loadResourcesList();
-    void saveResourcesToFile();
-    QFile resourceFile;
+    void loadResourceFile();
+    void saveResourceFile();
+
     ResourceListModel * resourceModel;
+
+    QFile resourceFile; // TODO: Remove this. Build dynamically in save/load function.
     QByteArray resourceExtraData;   // This is for holding the unexpected data
 
 
     //
-    // Human List
+    // Unit Lists
     //
 public:
-    void setHumanListModel(HumanListModel * model);
+    void setHumanModel(HumanListModel * model);
+    void setNeutralMobModel(NeutralMobListModel * model);
+    void setViolentMobModel(ViolentMobListModel * model);
+
+    void loadUnitFile();
+    void saveUnitFile();
+
 private:
     HumanListModel * humanModel;
+    NeutralMobListModel * neutralMobModel;
+    ViolentMobListModel * violentMobModel;
 
 };
 

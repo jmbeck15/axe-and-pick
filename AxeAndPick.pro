@@ -25,7 +25,9 @@ SOURCES += main.cpp \
     savesaccess.cpp \
     resourcelistmodel.cpp \
     humanlistmodel.cpp \
-    savedgamelistmodel.cpp
+    savedgamelistmodel.cpp \
+    violentmoblistmodel.cpp \
+    neutralmoblistmodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
@@ -37,7 +39,9 @@ HEADERS += \
     savesaccess.h \
     resourcelistmodel.h \
     humanlistmodel.h \
-    savedgamelistmodel.h
+    savedgamelistmodel.h \
+    violentmoblistmodel.h \
+    neutralmoblistmodel.h
 
 RESOURCES +=
 

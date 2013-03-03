@@ -19,12 +19,13 @@ void SavesAccess::loadSavedGame(QString gameName)
                              + "/" + gameName
                              + "/" + "re.sav");
     // Pull the resources into the list.
-    loadResourcesList();
+    loadResourceFile();
+    loadUnitFile();
 }
 
 void SavesAccess::saveSavedGame()
 {
-    saveResourcesToFile();
+    saveResourceFile();
     //saveUnitsToFile();
     //saveTimeToFile();
     //saveGameOverviewToFile();
@@ -193,7 +194,7 @@ void SavesAccess::setResourceListModel(ResourceListModel * model)
     resourceModel = model;
 }
 
-void SavesAccess::loadResourcesList()
+void SavesAccess::loadResourceFile()
 {
     if (resourceModel == Q_NULLPTR)
     {
@@ -282,7 +283,7 @@ void SavesAccess::loadResourcesList()
 }
 
 
-void SavesAccess::saveResourcesToFile()
+void SavesAccess::saveResourceFile()
 {
     if (resourceModel == Q_NULLPTR
             || resourceModel->rowCount() <= 0)
@@ -328,12 +329,31 @@ void SavesAccess::saveResourcesToFile()
 }
 
 // =====================
-// HUMANS
+// UNITS (human, neutral mobs, violent mobs)
 // =====================
 
-void SavesAccess::setHumanListModel(HumanListModel * model)
+void SavesAccess::setHumanModel(HumanListModel * model)
 {
     humanModel = model;
 }
+void SavesAccess::setNeutralMobModel(NeutralMobListModel * model)
+{
+    neutralMobModel = model;
+}
+void SavesAccess::setViolentMobModel(ViolentMobListModel * model)
+{
+    violentMobModel = model;
+}
+
+void SavesAccess::loadUnitFile()
+{
+    // TODO: Load the units from the saved game file.
+}
+
+void SavesAccess::saveUnitFile()
+{
+    // TODO: Save the units to the saved game file.
+}
+
 
 Q_DECLARE_METATYPE(SavesAccess*)

@@ -72,7 +72,9 @@ int main(int argc, char *argv[])
     Settings settings;
     viewer.rootContext()->setContextProperty("settings", &settings);
 
+    //
     // SAVED GAMES
+    //
     // This holds the info for all the saved games.
     SavesAccess savesAccess;
     savesAccess.setFilePath(settings.value("TimberAndStone/GameInstallationDirectory").toString());
@@ -82,7 +84,9 @@ int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("savesAccess", &savesAccess);
     viewer.rootContext()->setContextProperty("savedGameModel", savedGameModel);
 
+    //
     // RESOURCES
+    //
     // Create a model that holds our resource data, and
     // add the data to it. Then make it available to QML.
     ResourceListModel * resourceModel = new ResourceListModel(new Resource, qApp);
@@ -100,7 +104,7 @@ int main(int argc, char *argv[])
     QSortFilterProxyModel * proxyResourceModel2 = new QSortFilterProxyModel();
     proxyResourceModel2->setSourceModel(resourceModel);
     proxyResourceModel2->setFilterRole(Resource::FilterStringRole);
-    proxyResourceModel2->setFilterRegExp("^(?!unknown).*ore");
+    proxyResourceModel2->setFilterRegExp("^(?!unknown).*");
     viewer.rootContext()->setContextProperty("resourceModelProxy2", proxyResourceModel2);
 
     // Enable the case insensitivity
@@ -111,14 +115,35 @@ int main(int argc, char *argv[])
     //proxyResourceModel->setSortRole(Resource::TypeRole);
     //proxyResourceModel->sort(0);
 
-    // HUMANS
+
+    //
+    // UNITS
+    //
+    // Humans
     HumanListModel * humanModel = new HumanListModel(new Human, qApp);
-    savesAccess.setHumanListModel(humanModel);
+    savesAccess.setHumanModel(humanModel);
     viewer.rootContext()->setContextProperty("humanModel", humanModel);
     QSortFilterProxyModel * proxyHumanModel = new QSortFilterProxyModel();
     proxyHumanModel->setFilterRole(Human::FilterStringRole);
     proxyHumanModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     viewer.rootContext()->setContextProperty("humanModelProxy", proxyHumanModel);
+    // Neutral Mobs
+    NeutralMobListModel * neutralMobModel = new NeutralMobListModel(new NeutralMob, qApp);
+    savesAccess.setNeutralMobModel(neutralMobModel);
+    viewer.rootContext()->setContextProperty("neutralMobModel", neutralMobModel);
+    QSortFilterProxyModel * proxyNeutralMobModel = new QSortFilterProxyModel();
+    proxyNeutralMobModel->setFilterRole(NeutralMob::FilterStringRole);
+    proxyNeutralMobModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    viewer.rootContext()->setContextProperty("neutralMobModelProxy", proxyNeutralMobModel);
+    // Violent Mobs
+    ViolentMobListModel * violentMobModel = new ViolentMobListModel(new ViolentMob, qApp);
+    savesAccess.setViolentMobModel(violentMobModel);
+    viewer.rootContext()->setContextProperty("humanModel", violentMobModel);
+    QSortFilterProxyModel * proxyViolentMobModel = new QSortFilterProxyModel();
+    proxyViolentMobModel->setFilterRole(ViolentMob::FilterStringRole);
+    proxyViolentMobModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    viewer.rootContext()->setContextProperty("violentMobModelProxy", proxyViolentMobModel);
+
 
     // Load the QML
     viewer.setMainQmlFile(QStringLiteral("qml/AxeAndPick/main.qml"));
