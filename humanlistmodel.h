@@ -28,11 +28,10 @@ public:
                       const long &id,
                       QObject * parent = 0);
 
-    inline long id() const { return m_id; }
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;
 
-    void setProfession(long profession);
+    void setProfession(QString profession);
     inline QString name() const { return m_name; }
     inline QString profession() const { return m_profession; }
     inline long id() const { return m_id; }
@@ -50,7 +49,7 @@ class HumanListModel : public ListModel
 public:
     HumanListModel(ListItem * prototype, QObject * parent = 0);
 
-    Q_INVOKABLE void setData(const long id, const QVariant &value, int role = Resource::QuantityRole);
+    Q_INVOKABLE void setData(const long id, const QVariant &value, int role = Human::ProfessionRole);
 };
 
 #endif // HUMANLISTMODEL_H
