@@ -130,11 +130,6 @@ void SavesAccess::setSavesOverviewListModel(SavesOverviewListModel * model)
 }
 
 
-void SavesAccess::setResourceListModel(ResourceListModel * model)
-{
-    resourceModel = model;
-}
-
 QByteArray SavesAccess::toBinary(long value)
 {
     QByteArray bytes;
@@ -186,6 +181,14 @@ long SavesAccess::toLong(QByteArray bytes)
     return value;
 }
 
+
+// RESOURCES
+
+void SavesAccess::setResourceListModel(ResourceListModel * model)
+{
+    resourceModel = model;
+}
+
 void SavesAccess::loadResourcesList()
 {
     if (resourceModel == Q_NULLPTR)
@@ -235,10 +238,6 @@ void SavesAccess::loadResourcesList()
                 unsigned char byte; // Most Significant Byte
                 resourceFile.read((char *)&byte, 1);
 
-
-                // TODO: The format may call for a fourth byte, with a
-                // leading FOUR bits instead of three. This should be easy
-                // to impliment, but I haven't verified that it really exists.
                 if( byte >= 0xe0)
                 {
                     byteArray.append(byte);
@@ -255,28 +254,11 @@ void SavesAccess::loadResourcesList()
                 resourceFile.read((char *)&byte, 1);
                 byteArray.append(byte);
 
-                // Create a new Resource with the quantity, and use the
-                // data from the ResourceAssetList to flush it out.
-                //
-                // Check to see if the resource is unknown
-//                if (assetData[0].compare("unknown"))
-//                {
-                    resourceModel->appendRow(new Resource(assetData[0],
-                                              assetData[1],
-                                              assetData[2],
-                                              toLong(byteArray), // resource quantity
-                                              index++));
-//                }
-//                else
-//                {
-//                    // Unknown resource! Hide it by marking it with a tick mark.
-//                    // TODO: This should be done better somehow.
-//                    resourceModel->appendRow(new Resource(assetData[0],
-//                                              assetData[1],
-//                                              assetData[2],
-//                                              toLong(byteArray), // resource quantity
-//                                              index++));
-//                }
+                resourceModel->appendRow(new Resource(assetData[0],
+                                          assetData[1],
+                                          assetData[2],
+                                          toLong(byteArray), // resource quantity
+                                          index++));
             }
 
             if (!resourceFile.atEnd())
@@ -353,6 +335,12 @@ void SavesAccess::saveResourcesToFile()
     }
 }
 
+// HUMANS
+
+void SavesAccess::setHumanListModel(HumanListModel * model)
+{
+    humanModel = model;
+}
 
 Q_DECLARE_METATYPE(SavesAccess*)
 

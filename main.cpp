@@ -9,6 +9,7 @@
 #include "qtquick2applicationviewer.h"
 
 #include "resourcelistmodel.h"
+#include "humanlistmodel.h"
 #include "savesoverviewlistmodel.h"
 #include "settings.h"
 #include "savesaccess.h"
@@ -83,6 +84,7 @@ int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("savesAccess", &savesAccess);
     viewer.rootContext()->setContextProperty("savesOverviewModel", savesOverviewModel);
 
+    // RESOURCES
     // Create a model that holds our resource data, and
     // add the data to it. Then make it available to QML.
     ResourceListModel * resourceModel = new ResourceListModel(new Resource, qApp);
@@ -103,8 +105,6 @@ int main(int argc, char *argv[])
     proxyResourceModel2->setFilterRegExp("^(?!unknown).*ore");
     viewer.rootContext()->setContextProperty("resourceModelProxy2", proxyResourceModel2);
 
-
-
     // Enable the case insensitivity
     proxyResourceModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     proxyResourceModel2->setFilterCaseSensitivity(Qt::CaseInsensitive);
@@ -113,6 +113,16 @@ int main(int argc, char *argv[])
     //proxyResourceModel->setSortRole(Resource::TypeRole);
     //proxyResourceModel->sort(0);
 
+    // HUMANS
+    HumanListModel * humanModel = new HumanListModel(new Human, qApp);
+    savesAccess.setHumanListModel(humanModel);
+    viewer.rootContext()->setContextProperty("humanModel", humanModel);
+    QSortFilterProxyModel * proxyHumanModel = new QSortFilterProxyModel();
+    proxyHumanModel->setFilterRole(Human::FilterStringRole);
+    proxyHumanModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
+    viewer.rootContext()->setContextProperty("humanModelProxy", proxyHumanModel);
+
+    // Load the QML
     viewer.setMainQmlFile(QStringLiteral("qml/AxeAndPick/main.qml"));
 
     // Show the GUI

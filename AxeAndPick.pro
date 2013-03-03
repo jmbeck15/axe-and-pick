@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     settings.cpp \
     savesaccess.cpp \
     resourcelistmodel.cpp \
-    savesoverviewlistmodel.cpp
+    savesoverviewlistmodel.cpp \
+    humanlistmodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
@@ -35,7 +36,8 @@ HEADERS += \
     settings.h \
     savesaccess.h \
     resourcelistmodel.h \
-    savesoverviewlistmodel.h
+    savesoverviewlistmodel.h \
+    humanlistmodel.h
 
 RESOURCES +=
 

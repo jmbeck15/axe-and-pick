@@ -7,6 +7,7 @@
 
 #include "savesoverviewlistmodel.h"
 #include "resourcelistmodel.h"
+#include "humanlistmodel.h"
 
 class SavesAccess : public QObject
 {
@@ -53,6 +54,13 @@ private:
     QFile resourceFile;
     ResourceListModel * resourceModel;
     QByteArray resourceExtraData;   // This is for holding the unexpected data
+
+
+    // Human List
+public:
+    void setHumanListModel(HumanListModel * model);
+private:
+    HumanListModel * humanModel;
 
 };
 
