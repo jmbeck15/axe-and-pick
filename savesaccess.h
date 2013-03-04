@@ -26,6 +26,7 @@ public:
     static QByteArray toBinary(long value);
 private:
     QDir rootSavesDirectory;
+    QString selectedSaveName;
 
 
     //
@@ -34,12 +35,11 @@ private:
 public:
     void setSavedGameListModel(SavedGameListModel * model);
     Q_INVOKABLE void openFileDialog();
-    Q_INVOKABLE QString getFilePath();
+    Q_INVOKABLE QString getSavesPath();
     Q_INVOKABLE void setFilePath(QString path);
     Q_INVOKABLE bool pathIsValid();
     Q_INVOKABLE void loadGamesList();
 private:
-    QFile savedGameFile;  // TODO: Remove this. Build it dynamically.
     SavedGameListModel * savedGameModel;
 
 
@@ -54,7 +54,6 @@ private:
 
     ResourceListModel * resourceModel;
 
-    QFile resourceFile; // TODO: Remove this. Build dynamically in save/load function.
     QByteArray resourceExtraData;   // This is for holding the unexpected data
 
 

@@ -126,7 +126,7 @@ Item {
                             centerIn: parent;
                         }
 
-                        text: savesAccess.getFilePath();
+                        text: savesAccess.getSavesPath();
                         onTextChanged: {
                             settings.setValue("TimberAndStone/GameInstallationDirectory",
                                               text);
@@ -159,7 +159,7 @@ Item {
                     onClicked: {
                         // Open the file dialog
                         savesAccess.openFileDialog();
-                        directoryText.text = savesAccess.getFilePath();
+                        directoryText.text = savesAccess.getSavesPath();
                     }
                 }
             }

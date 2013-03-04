@@ -12,12 +12,12 @@ SavesAccess::SavesAccess(QObject *parent) :
 {
 }
 
+// Sets the path and loads the game.
 void SavesAccess::loadSavedGame(QString gameName)
 {
-    // Build the file name.
-    resourceFile.setFileName(rootSavesDirectory.absolutePath()
-                             + "/" + gameName
-                             + "/" + "re.sav");
+    // Set the game name.
+    selectedSaveName = gameName;
+
     // Pull the resources into the list.
     loadResourceFile();
     loadUnitFile();
@@ -46,34 +46,28 @@ void SavesAccess::openFileDialog()
     {
         rootSavesDirectory.setPath(fileDialog.selectedFiles().first());
         rootSavesDirectory.cdUp(); // This trims off the saves.sav file.
-
-        savedGameFile.setFileName(rootSavesDirectory.absolutePath()
-                                      + "/" + "saves.sav");
     }
 }
 
 
-// TODO: there are two areas which save the paths; this one and the one
-// above in the file dialog area. Combine these.
+// NOTE: Qml access this for types that are explicitly typed in.
 void SavesAccess::setFilePath(QString path)
 {
     // Save the path to the file.
     rootSavesDirectory.setPath(path);
     rootSavesDirectory.cdUp();
-
-    // Save the file name.
-    savedGameFile.setFileName(path);
 }
 
-QString SavesAccess::getFilePath()
+QString SavesAccess::getSavesPath()
 {
-    return savedGameFile.fileName();
+    return (rootSavesDirectory.absolutePath() + "/" + "saves.sav");
 }
 
 bool SavesAccess::pathIsValid()
 {
     // Return True if both the directory path is valid
     // and the saves.sav file exists.
+    QFile savedGameFile(getSavesPath());
     QFileInfo fileInfo(savedGameFile);
     if (savedGameFile.exists() && (fileInfo.fileName() == "saves.sav"))
     {
@@ -87,6 +81,10 @@ bool SavesAccess::pathIsValid()
 
 void SavesAccess::loadGamesList()
 {
+    // Save the file name.
+    QFile savedGameFile(rootSavesDirectory.absolutePath()
+                        + "/" + "saves.sav");
+
     if (savedGameModel == Q_NULLPTR)
     {
         qDebug() << "SavedAccess model hasn't been set up yet.";
@@ -196,6 +194,10 @@ void SavesAccess::setResourceListModel(ResourceListModel * model)
 
 void SavesAccess::loadResourceFile()
 {
+    QFile resourceFile(rootSavesDirectory.absolutePath()
+                       + "/" + selectedSaveName
+                       + "/" + "re.sav");
+
     if (resourceModel == Q_NULLPTR)
     {
         qDebug() << "Resource model hasn't been set up yet.";
@@ -292,6 +294,10 @@ void SavesAccess::saveResourceFile()
         return;
     }
 
+    QFile resourceFile(rootSavesDirectory.absolutePath()
+                       + "/" + selectedSaveName
+                       + "/" + "re.sav");
+
     // Open file for write, and make sure it went okay.
     if (!resourceFile.open(QFile::ReadWrite))
     {
@@ -347,7 +353,10 @@ void SavesAccess::setViolentMobModel(ViolentMobListModel * model)
 
 void SavesAccess::loadUnitFile()
 {
-    // TODO: Load the units from the saved game file.
+    // Compose the file name.
+    QFile unitFile(rootSavesDirectory.absolutePath()
+                   + "/" + selectedSaveName
+                   + "/" + "un.sav");
 }
 
 void SavesAccess::saveUnitFile()
