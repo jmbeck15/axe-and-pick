@@ -149,7 +149,7 @@ QByteArray SavesAccess::toBinary(long value)
     {
         bytes.append( (((value>>6) &0x1f) + 2) | 0xc0 );
     }
-    bytes.append(value&0x3f | 0x80);
+    bytes.append((value&0x3f) | 0x80);
 
     return bytes;
 }
@@ -357,6 +357,73 @@ void SavesAccess::loadUnitFile()
     QFile unitFile(rootSavesDirectory.absolutePath()
                    + "/" + selectedSaveName
                    + "/" + "un.sav");
+
+    if ((humanModel == Q_NULLPTR) |
+        (neutralMobModel == Q_NULLPTR) |
+        (violentMobModel == Q_NULLPTR) )
+    {
+        qDebug() << "Human, neutral, violent mob models haven't been set up yet.";
+        return;
+    }
+
+    // Open file and make sure it went okay.
+    if (!unitFile.exists() || !unitFile.open(QFile::ReadWrite))
+    {
+        // TODO: Make this error apparent on the interface somehow.
+        qDebug() << "Can't open unitFile.";
+        return;
+    }
+    else
+    {
+        qDebug() << "Opened unitFile." << unitFile.fileName();
+
+        // Remove all the humans.
+        humanModel->clear();
+
+        QTextStream unitStream(&unitFile);
+        QString unitString;
+        QStringList unitData;
+
+        // Load in all the Humans
+        int numberOfHumans = unitStream.readLine().toInt();
+        qDebug() << "Number of humans: " << numberOfHumans;
+        for (int i=0; i<numberOfHumans; i++)
+        {
+            unitString = unitStream.readLine();
+            unitData = unitString.split('/');
+            qDebug() << "   " << unitData[0];
+
+            humanModel->appendRow(new Human(unitData[4],
+                                  unitData[0],
+                                  i));
+        }
+        qDebug() << "In model: " << humanModel->rowCount();
+
+        // Load in all the Neutral Mobs
+        int numberOfNeutralMobs = unitStream.readLine().toInt();
+        qDebug() << "Number of neutral mobs: " << numberOfNeutralMobs;
+        for (int i=0; i<numberOfNeutralMobs; i++)
+        {
+            unitString = unitStream.readLine();
+            unitData = unitString.split('/');
+
+            qDebug() << "   " << unitData[0];
+        }
+
+        // Load in all the Violent Mobs
+        int numberOfViolentMobs = unitStream.readLine().toInt();
+        qDebug() << "Number of violent mobs: " << numberOfViolentMobs;
+        for (int i=0; i<numberOfViolentMobs; i++)
+        {
+            unitString = unitStream.readLine();
+            unitData = unitString.split('/');
+
+            qDebug() << "   " << unitData[0];
+        }
+
+        unitFile.close();
+    }
+
 }
 
 void SavesAccess::saveUnitFile()
