@@ -127,7 +127,7 @@ int main(int argc, char *argv[])
     proxyHumanModel->setFilterRole(Human::FilterStringRole);
     proxyHumanModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     viewer.rootContext()->setContextProperty("humanModelProxy", proxyHumanModel);
-    proxyHumanModel->setFilterRegExp(".*");
+    proxyHumanModel->setFilterRegExp("*");
 
     // Neutral Mobs
     NeutralMobListModel * neutralMobModel = new NeutralMobListModel(new NeutralMob, qApp);
@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
     // Violent Mobs
     ViolentMobListModel * violentMobModel = new ViolentMobListModel(new ViolentMob, qApp);
     savesAccess.setViolentMobModel(violentMobModel);
-    viewer.rootContext()->setContextProperty("humanModel", violentMobModel);
+    viewer.rootContext()->setContextProperty("violentMobModel", violentMobModel);
     QSortFilterProxyModel * proxyViolentMobModel = new QSortFilterProxyModel();
     proxyViolentMobModel->setFilterRole(ViolentMob::FilterStringRole);
     proxyViolentMobModel->setFilterCaseSensitivity(Qt::CaseInsensitive);

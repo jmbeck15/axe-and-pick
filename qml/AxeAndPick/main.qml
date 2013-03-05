@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Item {
-    width: 500
+    width: 800
     height: 600
     id: rootWindow
 
@@ -271,7 +271,7 @@ Item {
             anchors.rightMargin: 16
             anchors.bottom: parent.bottom
 
-            model: humanModelProxy
+            model: humanModel
             delegate: humanDelegate
 
             clip: true

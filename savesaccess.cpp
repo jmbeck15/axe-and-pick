@@ -386,39 +386,37 @@ void SavesAccess::loadUnitFile()
 
         // Load in all the Humans
         int numberOfHumans = unitStream.readLine().toInt();
-        qDebug() << "Number of humans: " << numberOfHumans;
+        qDebug() << "Number of humans:" << numberOfHumans;
         for (int i=0; i<numberOfHumans; i++)
         {
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
-            qDebug() << "   " << unitData[0];
 
             humanModel->appendRow(new Human(unitData[4],
                                   unitData[0],
                                   i));
         }
-        qDebug() << "In model: " << humanModel->rowCount();
 
         // Load in all the Neutral Mobs
         int numberOfNeutralMobs = unitStream.readLine().toInt();
-        qDebug() << "Number of neutral mobs: " << numberOfNeutralMobs;
+        qDebug() << "Number of neutral mobs:" << numberOfNeutralMobs;
         for (int i=0; i<numberOfNeutralMobs; i++)
         {
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            qDebug() << "   " << unitData[0];
+            //qDebug() << "   " << unitData[0];
         }
 
         // Load in all the Violent Mobs
         int numberOfViolentMobs = unitStream.readLine().toInt();
-        qDebug() << "Number of violent mobs: " << numberOfViolentMobs;
+        qDebug() << "Number of violent mobs:" << numberOfViolentMobs;
         for (int i=0; i<numberOfViolentMobs; i++)
         {
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            qDebug() << "   " << unitData[0];
+            //qDebug() << "   " << unitData[0];
         }
 
         unitFile.close();

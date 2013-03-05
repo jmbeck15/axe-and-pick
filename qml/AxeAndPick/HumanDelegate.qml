@@ -28,7 +28,7 @@ Component {
             Item
             {
                 id: nameAndProfession
-                anchors.left: parent.right
+                anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.leftMargin: 8
                 anchors.top: parent.top
