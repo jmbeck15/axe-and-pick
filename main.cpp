@@ -127,6 +127,8 @@ int main(int argc, char *argv[])
     proxyHumanModel->setFilterRole(Human::FilterStringRole);
     proxyHumanModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     viewer.rootContext()->setContextProperty("humanModelProxy", proxyHumanModel);
+    proxyHumanModel->setFilterRegExp(".*");
+
     // Neutral Mobs
     NeutralMobListModel * neutralMobModel = new NeutralMobListModel(new NeutralMob, qApp);
     savesAccess.setNeutralMobModel(neutralMobModel);

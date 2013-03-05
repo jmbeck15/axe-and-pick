@@ -234,15 +234,53 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
+        // Background for the unit container
         Rectangle {
             anchors.fill: parent
-            color: "#FFeeeeee"
-
+            color: "red"
             Text {
-                text: "Units aren't done yet."
-                color: "gray"
+                anchors.fill: parent.fill
                 anchors.centerIn: parent
+                text: "test"
+                color: "black"
             }
+        }
+
+        Item {
+            id: unitToolbar
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 30
+
+            Rectangle {
+                anchors.fill: parent
+                color: "silver"
+            }
+        }
+
+        HumanDelegate {
+            id: humanDelegate
+        }
+
+        ListView {
+            id: unitList
+            anchors.top: unitToolbar.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.rightMargin: 16
+            anchors.bottom: parent.bottom
+
+            model: humanModelProxy
+            delegate: humanDelegate
+
+            clip: true
+            boundsBehavior: Flickable.StopAtBounds
+        }
+
+        ScrollBar {
+            target: unitList
+            width: 16
         }
     }
 
