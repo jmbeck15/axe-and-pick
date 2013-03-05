@@ -124,24 +124,28 @@ int main(int argc, char *argv[])
     savesAccess.setHumanModel(humanModel);
     viewer.rootContext()->setContextProperty("humanModel", humanModel);
     QSortFilterProxyModel * proxyHumanModel = new QSortFilterProxyModel();
+    proxyHumanModel->setSourceModel(humanModel);
     proxyHumanModel->setFilterRole(Human::FilterStringRole);
     proxyHumanModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     viewer.rootContext()->setContextProperty("humanModelProxy", proxyHumanModel);
-    proxyHumanModel->setFilterRegExp("*");
+    proxyHumanModel->setFilterRegExp("^(?!unknown).*");
 
     // Neutral Mobs
     NeutralMobListModel * neutralMobModel = new NeutralMobListModel(new NeutralMob, qApp);
     savesAccess.setNeutralMobModel(neutralMobModel);
     viewer.rootContext()->setContextProperty("neutralMobModel", neutralMobModel);
     QSortFilterProxyModel * proxyNeutralMobModel = new QSortFilterProxyModel();
+    proxyNeutralMobModel->setSourceModel(neutralMobModel);
     proxyNeutralMobModel->setFilterRole(NeutralMob::FilterStringRole);
     proxyNeutralMobModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     viewer.rootContext()->setContextProperty("neutralMobModelProxy", proxyNeutralMobModel);
+
     // Violent Mobs
     ViolentMobListModel * violentMobModel = new ViolentMobListModel(new ViolentMob, qApp);
     savesAccess.setViolentMobModel(violentMobModel);
     viewer.rootContext()->setContextProperty("violentMobModel", violentMobModel);
     QSortFilterProxyModel * proxyViolentMobModel = new QSortFilterProxyModel();
+    proxyViolentMobModel->setSourceModel(violentMobModel);
     proxyViolentMobModel->setFilterRole(ViolentMob::FilterStringRole);
     proxyViolentMobModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
     viewer.rootContext()->setContextProperty("violentMobModelProxy", proxyViolentMobModel);

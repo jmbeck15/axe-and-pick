@@ -237,13 +237,7 @@ Item {
         // Background for the unit container
         Rectangle {
             anchors.fill: parent
-            color: "red"
-            Text {
-                anchors.fill: parent.fill
-                anchors.centerIn: parent
-                text: "test"
-                color: "black"
-            }
+            color: "silver"
         }
 
         Item {
@@ -271,7 +265,7 @@ Item {
             anchors.rightMargin: 16
             anchors.bottom: parent.bottom
 
-            model: humanModel
+            model: humanModelProxy
             delegate: humanDelegate
 
             clip: true
