@@ -36,7 +36,7 @@ Component {
 
                 Text {
                     id: nameText
-                    text: name
+                    text: name + " level " + experience
 
                     anchors.top: parent.top
                     anchors.left: parent.left

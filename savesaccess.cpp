@@ -392,9 +392,9 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            humanModel->appendRow(new Human(unitData[4],
-                                  unitData[0],
-                                  i));
+            humanModel->appendRow(new Human(i,
+                                      unitData[0],
+                                      unitData[4]));
         }
 
         // Load in all the Neutral Mobs
