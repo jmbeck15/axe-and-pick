@@ -36,7 +36,7 @@ Component {
 
                 Text {
                     id: nameText
-                    text: name + " level " + experience
+                    text: name + " miner:" + minerLevel + " stoneMason:" + stoneMasonLevel
 
                     anchors.top: parent.top
                     anchors.left: parent.left
@@ -47,7 +47,7 @@ Component {
                 }
                 Text {
                     id: typeProfession
-                    text: profession
+                    text: profession + " " + posX + " " + posY
 
                     anchors.top: nameText.bottom
                     anchors.left: parent.left

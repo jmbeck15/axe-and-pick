@@ -413,13 +413,15 @@ void SavesAccess::loadUnitFile()
             {
                 // Most significant byte
                 byte = rawLevelString[byteNumber];
+                byteNumber++;
 
                 if( byte >= 0xe0)
                 {
                     numberInBytes.append(byte);
 
                     // Another byte exists!
-                    byte = rawLevelString[byteNumber++];
+                    byte = rawLevelString[byteNumber];
+                    byteNumber++;
                     numberInBytes.append(byte);
                 }
                 else
@@ -427,15 +429,17 @@ void SavesAccess::loadUnitFile()
                     numberInBytes.append(byte);
                 }
 
-                byte = rawLevelString[byteNumber++];
+                byte = rawLevelString[byteNumber];
+                byteNumber++;
                 numberInBytes.append(byte);
 
                 // Convert the bytes to a long, and add to the list.
                 levels.append(toLong(numberInBytes));
 
-                byteNumber++;
+                numberInBytes.clear();
             }
-
+            qDebug() << levels;
+            byteNumber = 0;
 
             humanModel->appendRow(new Human(i,
                                       QString(unitData[0]),
