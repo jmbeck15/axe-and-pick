@@ -391,10 +391,94 @@ void SavesAccess::loadUnitFile()
         {
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
+            qDebug() << "There are " << unitData.length() << "items.";
+
+            // Break out the [5] element (experience levels) into numbers
+
+            // Store the bytes in an array instead of a normal string.
+            QByteArray rawLevelString( unitData[5].toStdString().c_str() );
+
+            QByteArray numberInBytes;
+            numberInBytes.clear();
+
+            unsigned char byte(0);
+            unsigned int byteNumber(0);
+            QList<unsigned int> levels;
+            levels.clear();
+
+
+            // For each job, compute the experience level.
+            // NOTE: There are 12 professions and associated levels.
+            for (int job=0; job<12; job++)
+            {
+                // Most significant byte
+                byte = rawLevelString[byteNumber];
+
+                if( byte >= 0xe0)
+                {
+                    numberInBytes.append(byte);
+
+                    // Another byte exists!
+                    byte = rawLevelString[byteNumber++];
+                    numberInBytes.append(byte);
+                }
+                else
+                {
+                    numberInBytes.append(byte);
+                }
+
+                byte = rawLevelString[byteNumber++];
+                numberInBytes.append(byte);
+
+                // Convert the bytes to a long, and add to the list.
+                levels.append(toLong(numberInBytes));
+
+                byteNumber++;
+            }
+
 
             humanModel->appendRow(new Human(i,
-                                      unitData[0],
-                                      unitData[4]));
+                                      QString(unitData[0]),
+                                      unitData[1].toFloat(),
+                                      unitData[2].toFloat(),
+                                      unitData[3].toFloat(),
+                                      QString(unitData[4]),
+
+                                      levels[0],
+                                      levels[1],
+                                      levels[2],
+                                      levels[3],
+                                      levels[4],
+                                      levels[5],
+                                      levels[6],
+                                      levels[7],
+                                      levels[8],
+                                      levels[9],
+                                      levels[10],
+                                      levels[11],
+
+                                      unitData[6].toInt(), // experience
+
+                                      unitData[7].compare("True") ? false : true,
+                                      unitData[8].compare("True") ? false : true,
+                                      unitData[9].compare("True") ? false : true,
+                                      unitData[10].compare("True") ? false : true,
+                                      unitData[11].compare("True") ? false : true,
+                                      unitData[12].compare("True") ? false : true,
+
+                                      unitData[13].toFloat(), // rotation
+
+                                      unitData[14].toInt(),
+                                      unitData[15].toInt(),
+                                      unitData[16].toInt(),
+                                      unitData[17].toInt(),
+                                      unitData[18].toInt(),
+
+                                      unitData[19].toInt(),
+
+                                      unitData[20].compare("True") ? false : true,
+                                      unitData[21].compare("True") ? false : true
+                                    ));
         }
 
         // Load in all the Neutral Mobs
