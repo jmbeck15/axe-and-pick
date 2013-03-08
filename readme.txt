@@ -23,12 +23,18 @@ How to Use
 Change Log
 ===========================
 
+Version 0.5 | March 8, 2013
+-----------------
+Updated for Timber and Stone v0.5
+Added Animal Hide and Spider Silk
+Fixed Hoes.
+-----------------
+
 Version 0.4 | February 24, 2013
 -----------------
 Added a heartbeat animation to the save button
 Nevermind! I changed it to a fading green save icon.
 -----------------
-
 
 Version 0.3 | February 24, 2013
 -----------------
@@ -37,7 +43,6 @@ Added fishing poles.
 The search string is: <name> <type> <quantity>
 Added regular expressions to search, eg. typing: steel.*armor will give you all steel armor.
 -----------------
-
 
 Version 0.2 | February 23, 2013
 -----------------
@@ -49,7 +54,6 @@ This does NOT run on Windows XP. I have absoutly no idea why, but I'll get it ev
 
 Fixed god-awful bug that happened because I "wanted to make it pretty". That'll show me.
 -----------------
-
 
 Version 0.1 | February 17, 2013
 -----------------
