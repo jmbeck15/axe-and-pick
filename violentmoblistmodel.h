@@ -15,28 +15,53 @@ class ViolentMob : public ListItem
 
 public:
     enum Roles {
-        TypeRole  = Qt::UserRole + 1,
+        IdRole  = Qt::UserRole + 1,
+        FilterStringRole,
 
-        IdRole,
-        FilterStringRole
+        TypeRole,
+        PosXRole,
+        PosYRole,
+        PosZRole,
+        RotationRole
     };
 
     ViolentMob(QObject * parent = 0): ListItem(parent){}
-    explicit ViolentMob(const QString &type,
-                        const long &id,
+    explicit ViolentMob(const long &id,
+                        const QString &type,
+                        const float &posX,
+                        const float &posY,
+                        const float &posZ,
+                        const float &rotation,
                         QObject * parent = 0);
+
 
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;
-
-    void setType(QString type);
-    inline QString type() const { return m_type; }
-    inline long id() const { return m_id; }
     QString filterString() const;
 
+    // Setters
+    void setType(QString type);
+
+    // Getters
+    inline long id() const { return m_id; }
+
+    inline QString type() const { return m_type; }
+    inline float posX() const { return m_posX; }
+    inline float posY() const { return m_posY; }
+    inline float posZ() const { return m_posZ; }
+    inline float rotation() const { return m_rotation; }
+
+    // Utilities
+    void print();
+
 private:
-    QString m_type;
     long m_id;
+
+    QString m_type;
+    float m_posX;
+    float m_posY;
+    float m_posZ;
+    float m_rotation;
 };
 
 // ViolentMobListModel store ViolentMobs
@@ -49,4 +74,3 @@ public:
 };
 
 #endif // VIOLENTMOBLISTMODEL_H
-

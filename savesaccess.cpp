@@ -386,7 +386,7 @@ void SavesAccess::loadUnitFile()
 
         // Load in all the Humans
         int numberOfHumans = unitStream.readLine().toInt();
-        qDebug() << "Number of humans:" << numberOfHumans;
+        qDebug() << "Loaded" << numberOfHumans << "humans";
         for (int i=0; i<numberOfHumans; i++)
         {
             unitString = unitStream.readLine();
@@ -440,11 +440,11 @@ void SavesAccess::loadUnitFile()
             byteNumber = 0;
 
             humanModel->appendRow(new Human(i,
-                                      QString(unitData[0]),
+                                      unitData[0],
                                       unitData[1].toFloat(),
                                       unitData[2].toFloat(),
                                       unitData[3].toFloat(),
-                                      QString(unitData[4]),
+                                      unitData[4],
 
                                       levels[0],
                                       levels[1],
@@ -482,29 +482,43 @@ void SavesAccess::loadUnitFile()
                                       unitData[21].compare("True") ? false : true
                                     ));
 
-            ((Human *)humanModel->find(i))->print();
+            //((Human *)humanModel->find(i))->print();
         }
 
         // Load in all the Neutral Mobs
         int numberOfNeutralMobs = unitStream.readLine().toInt();
-        qDebug() << "Number of neutral mobs:" << numberOfNeutralMobs;
+        qDebug() << "Loaded" << numberOfNeutralMobs << "neutral mobs";
         for (int i=0; i<numberOfNeutralMobs; i++)
         {
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            //qDebug() << "   " << unitData[0];
+            neutralMobModel->appendRow(new NeutralMob( i,
+                                      unitData[0],
+                                      unitData[1].toFloat(),
+                                      unitData[2].toFloat(),
+                                      unitData[3].toFloat(),
+                                      unitData[4].toFloat()) );
+
+            ((NeutralMob *)neutralMobModel->find(i))->print();
         }
 
         // Load in all the Violent Mobs
         int numberOfViolentMobs = unitStream.readLine().toInt();
-        qDebug() << "Number of violent mobs:" << numberOfViolentMobs;
+        qDebug() << "Loaded" << numberOfViolentMobs << "violent mobs";
         for (int i=0; i<numberOfViolentMobs; i++)
         {
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            //qDebug() << "   " << unitData[0];
+            violentMobModel->appendRow(new ViolentMob( i,
+                                      unitData[0],
+                                      unitData[1].toFloat(),
+                                      unitData[2].toFloat(),
+                                      unitData[3].toFloat(),
+                                      unitData[4].toFloat()) );
+
+            ((ViolentMob *)violentMobModel->find(i))->print();
         }
 
         unitFile.close();

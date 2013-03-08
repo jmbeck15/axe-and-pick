@@ -213,7 +213,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "silver"
+            color: "#ff949494"
         }
         MouseArea {
             anchors.fill: parent
