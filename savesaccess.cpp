@@ -391,7 +391,6 @@ void SavesAccess::loadUnitFile()
         {
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
-            qDebug() << "There are " << unitData.length() << "items.";
 
             // Break out the [5] element (experience levels) into numbers
 
@@ -438,7 +437,6 @@ void SavesAccess::loadUnitFile()
 
                 numberInBytes.clear();
             }
-            qDebug() << levels;
             byteNumber = 0;
 
             humanModel->appendRow(new Human(i,
@@ -461,7 +459,7 @@ void SavesAccess::loadUnitFile()
                                       levels[10],
                                       levels[11],
 
-                                      unitData[6].toInt(), // experience
+                                      toLong(unitData[6].toStdString().c_str()), // experience
 
                                       unitData[7].compare("True") ? false : true,
                                       unitData[8].compare("True") ? false : true,
@@ -472,17 +470,19 @@ void SavesAccess::loadUnitFile()
 
                                       unitData[13].toFloat(), // rotation
 
-                                      unitData[14].toInt(),
-                                      unitData[15].toInt(),
-                                      unitData[16].toInt(),
-                                      unitData[17].toInt(),
-                                      unitData[18].toInt(),
+                                      toLong(unitData[14].toStdString().c_str()),
+                                      toLong(unitData[15].toStdString().c_str()),
+                                      toLong(unitData[16].toStdString().c_str()),
+                                      toLong(unitData[17].toStdString().c_str()),
+                                      toLong(unitData[18].toStdString().c_str()),
 
-                                      unitData[19].toInt(),
+                                      toLong(unitData[19].toStdString().c_str()),
 
                                       unitData[20].compare("True") ? false : true,
                                       unitData[21].compare("True") ? false : true
                                     ));
+
+            ((Human *)humanModel->find(i))->print();
         }
 
         // Load in all the Neutral Mobs

@@ -156,6 +156,10 @@ public:
     inline bool autoEquip() const { return m_autoEquip; }
     inline bool returnToCampfire() const { return m_returnToCampfire; }
 
+    // Utilities
+    void print();
+
+
 private:
     long m_id;
 

@@ -244,6 +244,15 @@ QString Human::filterString() const
     return (QString(completeString.str().c_str()));
 }
 
+void Human::print()
+{
+    qDebug() << name() << "-" << profession();
+    qDebug() << "   Exp:" << experience() << "  Health:" << health();
+    qDebug() << "   Auto-equip:" << autoEquip() << "   Auto-chop:" << autoChop();
+    qDebug() << "   Return to campfire:" << returnToCampfire();
+}
+
+
 HumanListModel::HumanListModel(ListItem * prototype, QObject * parent )
     : ListModel(prototype, parent)
 {
@@ -264,3 +273,4 @@ void HumanListModel::setData(const long id, const QVariant &value, int role)
         break;
     }
 }
+
