@@ -528,7 +528,34 @@ void SavesAccess::loadUnitFile()
 
 void SavesAccess::saveUnitFile()
 {
-    // TODO: Save the units to the saved game file.
+    // Compile all the units into the unit file.
+
+    if (   humanModel == Q_NULLPTR
+        || neutralMobModel == Q_NULLPTR
+        || violentMobModel == Q_NULLPTR )
+    {
+        qDebug() << "One of the unit models hasn't been set up yet.";
+        return;
+    }
+
+    QFile unitFile(rootSavesDirectory.absolutePath()
+                       + "/" + selectedSaveName
+                       + "/" + "un.sav");
+
+    // Open file for write, and make sure it went okay.
+    if (!unitFile.open(QFile::ReadWrite))
+    {
+        // TODO: Make this error apparent on the interface somehow.
+        // Perhaps by making the save icon be red instead of green.
+        qDebug() << "Can't open unitFile for writing.";
+        return;
+    }
+    else
+    {
+        // Save the numans, then the neutral mobs, then the violent mobs.
+        QString unitString;
+
+    }
 }
 
 
