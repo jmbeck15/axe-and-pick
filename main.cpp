@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
     QSortFilterProxyModel * proxyResourceModel2 = new QSortFilterProxyModel();
     proxyResourceModel2->setSourceModel(resourceModel);
     proxyResourceModel2->setFilterRole(Resource::FilterStringRole);
-    proxyResourceModel2->setFilterRegExp("^(?!unknown).*");
+    proxyResourceModel2->setFilterRegExp("^(?!unknown).*ore");
     viewer.rootContext()->setContextProperty("resourceModelProxy2", proxyResourceModel2);
 
     // Enable the case insensitivity

@@ -50,4 +50,6 @@ OTHER_FILES += \
     resource_list.csv \
     AxeAndPick.rc \
     application_icon.ico \
-    qml/AxeAndPick/SavedGameDelegate.qml
+    qml/AxeAndPick/SavedGameDelegate.qml \
+    qml/AxeAndPick/NeutralMobDelegate.qml \
+    qml/AxeAndPick/ViolentMobDelegate.qml

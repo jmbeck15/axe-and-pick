@@ -1,5 +1,4 @@
 import QtQuick 2.0
-//import Human 1.0
 
 // This is the component that displays each human in the list
 Component {
@@ -14,9 +13,9 @@ Component {
         border.width: 1
         border.color: "#FFE3E3E3"
 
-        // Name and Type and Human Icon
+        // Name and Type and Icon
         Item {
-            id: humanID
+            id: mobID
 
             anchors.left: parent.left
             anchors.right: parent.right
@@ -27,7 +26,6 @@ Component {
             // Name and Profession
             Item
             {
-                id: nameAndProfession
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
@@ -35,8 +33,8 @@ Component {
                 height: childrenRect.height
 
                 Text {
-                    id: nameText
-                    text: name
+                    id: typeText
+                    text: type
 
                     anchors.top: parent.top
                     anchors.left: parent.left
@@ -46,10 +44,10 @@ Component {
                     clip: true
                 }
                 Text {
-                    id: typeProfession
-                    text: profession
+                    id: positionText
+                    text: "x:" + posX + ", y:" + posY + ", z:" + posZ
 
-                    anchors.top: nameText.bottom
+                    anchors.top: typeText.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
 

@@ -32,7 +32,7 @@ QHash<int, QByteArray> NeutralMob::roleNames() const
     names[IdRole] = "id";
     names[FilterStringRole] = "filterString";
 
-    names[TypeRole] = "profession";
+    names[TypeRole] = "type";
     names[PosXRole] = "posX";
     names[PosYRole] = "posY";
     names[PosZRole] = "posZ";

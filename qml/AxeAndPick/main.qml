@@ -137,32 +137,44 @@ Item {
                 anchors.fill: parent
                 color: "silver"
             }
-            ToolbarImageButton {
+            Rectangle {
                 id: test0
-                target: parent
-                icon: "images/saveIcon.svg"
-                color: "red"
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                height: 25
+                width: 35
+                color: "light gray"
+                Text {
+                    anchors.centerIn: parent
+                    text: "Ore"
+                }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         resourceList.model = resourceModelProxy2
                         resourceList.delegate = resourceDelegateThick
-                        resourceSearchBox.clear()
+                        //resourceSearchBox.clear()
                     }
                 }
             }
-            ToolbarImageButton {
+            Rectangle {
                 id: test1
                 anchors.left: test0.right
-                target: parent
-                icon: "images/saveIcon.svg"
-                color: "blue"
+                anchors.leftMargin: 1
+                anchors.verticalCenter: parent.verticalCenter
+                height: 25
+                width: 35
+                color: "light gray"
+                Text {
+                    anchors.centerIn: parent
+                    text: "All"
+                }
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         resourceList.model = resourceModelProxy
                         resourceList.delegate = resourceDelegate
-                        resourceSearchBox.clear()
+                        //resourceSearchBox.clear()
                     }
                 }
             }
@@ -251,10 +263,91 @@ Item {
                 anchors.fill: parent
                 color: "silver"
             }
+
+            // The buttons for selecting unit type
+            Rectangle {
+                id: unitButtonBox
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+
+                //border.color: "dark gray"
+                border.color: "gray"
+                color: "gray"
+
+                height: 25
+                width: 35 * 3 + 4
+
+                Rectangle {
+                    id: humanButton
+                    anchors.left: parent.left
+                    anchors.leftMargin: 1
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: parent.height - 2
+                    width: 35
+                    color: "lightgray"
+                    Text {
+                        anchors.centerIn: parent
+                        text: "H"
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            unitList.model = humanModelProxy
+                            unitList.delegate = humanDelegate
+                        }
+                    }
+                }
+                Rectangle {
+                    id: neutralMobButton
+                    anchors.centerIn: parent
+                    height: parent.height - 2
+                    width: 35
+                    color: "lightgray"
+                    Text {
+                        anchors.centerIn: parent
+                        text: "N"
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            unitList.model = neutralMobModelProxy
+                            unitList.delegate = neutralMobDelegate
+                        }
+                    }
+                }
+                Rectangle {
+                    id: violentMobButton
+                    anchors.right: parent.right
+                    anchors.rightMargin: 1
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: parent.height - 2
+                    width: 35
+                    color: "lightgray"
+                    Text {
+                        anchors.centerIn: parent
+                        text: "V"
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            unitList.model = violentMobModelProxy
+                            unitList.delegate = violentMobDelegate
+                        }
+                    }
+                }
+            }
+
         }
 
         HumanDelegate {
             id: humanDelegate
+        }
+        NeutralMobDelegate {
+            id: neutralMobDelegate
+        }
+        ViolentMobDelegate {
+            id: violentMobDelegate
         }
 
         ListView {

@@ -94,6 +94,7 @@ Human::Human(const long &id,
 void Human::setProfession(QString profession)
 {
     // Placeholder for when things are changed.
+    m_profession = profession;
 }
 
 QHash<int, QByteArray> Human::roleNames() const
