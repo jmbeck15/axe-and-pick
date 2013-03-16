@@ -29,7 +29,7 @@ Rectangle {
         id: imageIcon
         source: icon
         fillMode: Image.PreserveAspectFit
-        width: parent.width - 12
+        width: parent.width - 16
         height: parent.height
 
         anchors.centerIn: parent
@@ -38,7 +38,7 @@ Rectangle {
         id: imageIconOperationComplete
         source: iconComplete
         fillMode: Image.PreserveAspectFit
-        width: parent.width - 12
+        width: parent.width - 16
         height: parent.height
         opacity: 0.0
 
