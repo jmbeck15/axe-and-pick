@@ -55,7 +55,6 @@ Component {
                 anchors.right: parent.right
                 horizontalAlignment: Text.AlignHCenter
 
-                font.family: localNameFont.name
                 font.pointSize: 14
 
                 clip: true
@@ -69,9 +68,8 @@ Component {
                 anchors.right: parent.right
                 horizontalAlignment: Text.AlignHCenter
 
-                font.family: localNameFont.name
                 font.italic: true
-                font.pointSize: 8
+                font.pointSize: 7
                 color: "grey"
                 clip: true
             }
@@ -109,7 +107,6 @@ Component {
 
                     //anchors.horizontalCenter: parent.horizontalCenter
                     text: model.worldSize
-                    font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
                 }
@@ -144,7 +141,6 @@ Component {
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
                     text: model.day
-                    font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
                 }
@@ -178,7 +174,6 @@ Component {
                     anchors.topMargin: (parent.height - font.pixelSize)/2 - 2
 
                     text: model.unitNumber
-                    font.family: localNameFont.name
                     font.pointSize: 10
                     color: "#FF565656"
                 }

@@ -1,6 +1,7 @@
 #include "humanlistmodel.h"
 
 #include <QDebug>
+#include <QStringList>
 #include <sstream>
 
 Human::Human(const long &id,
@@ -251,6 +252,24 @@ void Human::print()
     qDebug() << "   Exp:" << experience() << "  Health:" << health();
     qDebug() << "   Auto-equip:" << autoEquip() << "   Auto-chop:" << autoChop();
     qDebug() << "   Return to campfire:" << returnToCampfire();
+}
+
+QStringList Human::getTypeList()
+{
+    QStringList types;
+    types << "Archer"
+          << "Blacksmith"
+          << "Builder"
+          << "Carpenter"
+          << "Engineer"
+          << "Farmer"
+          << "Fisherman"
+          << "Forager"
+          << "Infantry"
+          << "Miner"
+          << "Stone Mason"
+          << "Wood Chopper";
+    return types;
 }
 
 

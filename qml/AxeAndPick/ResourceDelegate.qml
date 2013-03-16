@@ -50,7 +50,6 @@ Component {
                     anchors.left: parent.left
                     anchors.right: parent.right
 
-                    font.family: localNameFont.name
                     font.pointSize: 10
                     clip: true
                 }
@@ -62,7 +61,6 @@ Component {
                     anchors.left: parent.left
                     anchors.right: parent.right
 
-                    font.family: localNameFont.name
                     font.pointSize: 7
                     color: "grey"
                     clip: true

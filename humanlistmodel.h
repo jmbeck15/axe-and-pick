@@ -109,10 +109,10 @@ public:
     QHash<int, QByteArray> roleNames() const;
     QString filterString() const;
 
-    // Setters
+    // Setters for properties
     void setProfession(QString profession);
 
-    // Getters
+    // Getters for properties
     inline long    id() const { return m_id; }
 
     inline QString profession() const { return m_profession; }
@@ -156,9 +156,10 @@ public:
     inline bool autoEquip() const { return m_autoEquip; }
     inline bool returnToCampfire() const { return m_returnToCampfire; }
 
-    // Utilities
-    void print();
 
+    // Utilities and Helpers
+    void print();
+    QStringList static getTypeList();
 
 private:
     long m_id;

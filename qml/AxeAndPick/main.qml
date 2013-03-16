@@ -5,12 +5,6 @@ Item {
     height: 600
     id: rootWindow
 
-    FontLoader {
-        id: localNameFont
-        name: "Arial"
-        //source: "ITCEDSCR.TTF" // TODO: This doesn't work with OTF fonts.
-    }
-
     Item {
         id: mainToolbar
         anchors.top: parent.top
@@ -20,7 +14,7 @@ Item {
 
         Rectangle {
             anchors.fill: parent
-            color: "lightgray"
+            color: "#FFeeeeee"
         }
         Row {
             spacing: 5
@@ -36,12 +30,12 @@ Item {
 
                 Text {
                     id: saveGameName
-                    text: "Save Game Name"
+                    text: ""
                     font.pixelSize: 18
                 }
                 Text {
                     id: saveGameDate
-                    text: "January 01 23:59 PM"
+                    text: ""
                     font.pixelSize: 10
                     font.italic: true
                     color: "gray"
@@ -131,52 +125,11 @@ Item {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            height: 30
+            height: 26
 
             Rectangle {
                 anchors.fill: parent
                 color: "silver"
-            }
-            Rectangle {
-                id: test0
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-                height: 25
-                width: 35
-                color: "light gray"
-                Text {
-                    anchors.centerIn: parent
-                    text: "Ore"
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        resourceList.model = resourceModelProxy2
-                        resourceList.delegate = resourceDelegateThick
-                        //resourceSearchBox.clear()
-                    }
-                }
-            }
-            Rectangle {
-                id: test1
-                anchors.left: test0.right
-                anchors.leftMargin: 1
-                anchors.verticalCenter: parent.verticalCenter
-                height: 25
-                width: 35
-                color: "light gray"
-                Text {
-                    anchors.centerIn: parent
-                    text: "All"
-                }
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        resourceList.model = resourceModelProxy
-                        resourceList.delegate = resourceDelegate
-                        //resourceSearchBox.clear()
-                    }
-                }
             }
 
             SearchBox {
@@ -257,7 +210,7 @@ Item {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            height: 30
+            height: 26
 
             Rectangle {
                 anchors.fill: parent
@@ -271,70 +224,107 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 10
 
-                //border.color: "dark gray"
-                border.color: "gray"
                 color: "gray"
 
-                height: 25
-                width: 35 * 3 + 4
+                height: 22
+                width: (32 * 3) + 2
 
-                Rectangle {
+                Image {
                     id: humanButton
                     anchors.left: parent.left
-                    anchors.leftMargin: 1
                     anchors.verticalCenter: parent.verticalCenter
-                    height: parent.height - 2
-                    width: 35
-                    color: "lightgray"
-                    Text {
-                        anchors.centerIn: parent
-                        text: "H"
-                    }
+                    source: "images/humanButton.svg"
+                    property bool selected: true
                     MouseArea {
+                        id: humanButtonArea
                         anchors.fill: parent
                         onClicked: {
+                            humanButton.selected = true
+                            neutralMobButton.selected = false
+                            violentMobButton.selected = false
                             unitList.model = humanModelProxy
                             unitList.delegate = humanDelegate
                         }
                     }
+                    states: [
+                        State { // Pressed
+                            when: humanButtonArea.pressed
+                            PropertyChanges {
+                                target: humanButton
+                                source: "images/humanButtonPressed.svg"
+                            }
+                        },
+                        State { // Selected
+                            when: humanButton.selected
+                            PropertyChanges {
+                                target: humanButton
+                                source: "images/humanButtonSelected.svg"
+                            }
+                        }]
                 }
-                Rectangle {
+                Image {
                     id: neutralMobButton
                     anchors.centerIn: parent
-                    height: parent.height - 2
-                    width: 35
-                    color: "lightgray"
-                    Text {
-                        anchors.centerIn: parent
-                        text: "N"
-                    }
+                    source: "images/neutralMobButton.svg"
+                    property bool selected
                     MouseArea {
+                        id: neutralMobButtonArea
                         anchors.fill: parent
                         onClicked: {
+                            humanButton.selected = false
+                            neutralMobButton.selected = true
+                            violentMobButton.selected = false
                             unitList.model = neutralMobModelProxy
                             unitList.delegate = neutralMobDelegate
                         }
                     }
+                    states: [
+                        State { // Pressed
+                            when: neutralMobButtonArea.pressed
+                            PropertyChanges {
+                                target: neutralMobButton
+                                source: "images/neutralMobButtonPressed.svg"
+                            }
+                        },
+                        State { // Selected
+                            when: neutralMobButton.selected
+                            PropertyChanges {
+                                target: neutralMobButton
+                                source: "images/neutralMobButtonSelected.svg"
+                            }
+                        }]
                 }
-                Rectangle {
+                Image {
                     id: violentMobButton
                     anchors.right: parent.right
-                    anchors.rightMargin: 1
-                    anchors.verticalCenter: parent.verticalCenter
-                    height: parent.height - 2
-                    width: 35
-                    color: "lightgray"
-                    Text {
-                        anchors.centerIn: parent
-                        text: "V"
-                    }
+                    source: "images/violentMobButton.svg"
+                    property bool selected
                     MouseArea {
+                        id: violentMobButtonArea
                         anchors.fill: parent
                         onClicked: {
                             unitList.model = violentMobModelProxy
                             unitList.delegate = violentMobDelegate
+                            humanButton.selected = false
+                            neutralMobButton.selected = false
+                            violentMobButton.selected = true
                         }
                     }
+                    states: [
+                        State { // Pressed
+                            when: violentMobButtonArea.pressed
+                            PropertyChanges {
+                                target: violentMobButton
+                                source: "images/violentMobButtonPressed.svg"
+                            }
+                        },
+                        State { // Selected
+                            when: violentMobButton.selected
+                            PropertyChanges {
+                                target: violentMobButton
+                                source: "images/violentMobButtonSelected.svg"
+                            }
+                        }]
                 }
             }
 

@@ -52,7 +52,6 @@ Item {
                 }
 
                 onTextChanged: target.model.setFilterRegExp("^(?!unknown).*" + text)
-                //onTextChanged: target.model.setFilterRegExp(text)
 
                 autoScroll: true
                 selectByMouse: true
