@@ -93,3 +93,15 @@ void ResourceListModel::setData(const long identification, const QVariant &value
         break;
     }
 }
+
+void ResourceListModel::setUnknownQuantities()
+{
+    for (int i=0; i<rowCount(); i++)
+    {
+        Resource * resource = (Resource*)find(i);
+        if( resource->name().compare("unknown") == 0 )
+        {
+            resource->setQuantity(i+1000);
+        }
+    }
+}

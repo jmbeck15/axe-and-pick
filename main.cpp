@@ -100,16 +100,9 @@ int main(int argc, char *argv[])
     // This prevents unknown items from showing up in the list.
     proxyResourceModel->setFilterRegExp("^(?!unknown).*");
     viewer.rootContext()->setContextProperty("resourceModelProxy", proxyResourceModel);
-    // TEST MODEL
-    QSortFilterProxyModel * proxyResourceModel2 = new QSortFilterProxyModel();
-    proxyResourceModel2->setSourceModel(resourceModel);
-    proxyResourceModel2->setFilterRole(Resource::FilterStringRole);
-    proxyResourceModel2->setFilterRegExp("^(?!unknown).*ore");
-    viewer.rootContext()->setContextProperty("resourceModelProxy2", proxyResourceModel2);
 
     // Enable the case insensitivity
     proxyResourceModel->setFilterCaseSensitivity(Qt::CaseInsensitive);
-    proxyResourceModel2->setFilterCaseSensitivity(Qt::CaseInsensitive);
 
     // Setup sorting the resources
     //proxyResourceModel->setSortRole(Resource::TypeRole);

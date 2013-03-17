@@ -60,6 +60,8 @@ public:
 
     Q_INVOKABLE void setData(const long identification, const QVariant &value, int role = Resource::QuantityRole);
 
+    // Utilities
+    Q_INVOKABLE void setUnknownQuantities();
 
 };
 

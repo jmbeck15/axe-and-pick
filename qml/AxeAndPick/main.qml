@@ -132,6 +132,20 @@ Item {
                 color: "silver"
             }
 
+            Rectangle {
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                height: 22
+                width: 32
+                color: "red"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        resourceModel.setUnknownQuantities()
+                    }
+                }
+            }
+
             SearchBox {
                 id: resourceSearchBox
                 target: resourceList
