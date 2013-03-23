@@ -141,7 +141,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        resourceModel.setUnknownQuantities()
+                        savesAccess.writeToMatlab();
                     }
                 }
             }

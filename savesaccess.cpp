@@ -558,5 +558,82 @@ void SavesAccess::saveUnitFile()
     }
 }
 
+void SavesAccess::writeToMatlab()
+{
+    qDebug() << "Opening file...";
+
+    // Create a new file for storing all these points. Comma seperated.
+    QFile matlabFile(rootSavesDirectory.absolutePath()
+                    + "/" + selectedSaveName
+                    + "/" + "cd.dat");
+    matlabFile.open(QFile::WriteOnly);
+    QTextStream matlabStream(&matlabFile);
+
+    QFile worldFile(rootSavesDirectory.absolutePath()
+                    + "/" + selectedSaveName
+                    + "/" + "cd.sav");
+    worldFile.open(QFile::ReadOnly);
+
+    int xMax(0);
+    int yMax(0);
+    int zMax(0);
+
+    while( !worldFile.atEnd() )
+    {
+        // Temporary array to hold the bytes we read from the file.
+        QByteArray byteArray;
+        byteArray.clear();
+
+        unsigned char byte; // Most Significant Byte
+        worldFile.read((char *)&byte, 1);
+
+//        if( byte >= 0xe0)
+//        {
+//            byteArray.append(byte);
+//
+//            // Another byte exists!
+//            worldFile.read((char *)&byte, 1);
+//            byteArray.append(byte);
+//        }
+//        else
+//        {
+            byteArray.append(byte);
+//        }
+        worldFile.read((char *)&byte, 1);
+        byteArray.append(byte);
+
+        // Add the byte to the array.
+        matlabStream << xMax << ","
+                       << yMax << ","
+                       << zMax << ","
+                       << toLong(byteArray)
+                       << endl;
+
+        // Roll the position
+        int square = 128;
+        xMax++;
+        if (xMax>=square)
+        {
+            xMax = 0;
+            yMax++;
+            if (yMax>=square)
+            {
+                yMax = 0;
+                zMax++;
+                if (zMax >=32)
+                {
+                    qDebug() << "Nope. Not the right dimensions.";
+                }
+            }
+        }
+    }
+    matlabFile.close();
+    worldFile.close();
+
+    qDebug() << "Closed file.";
+}
+
+
 
 Q_DECLARE_METATYPE(SavesAccess*)
+
