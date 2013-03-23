@@ -267,6 +267,7 @@ Item {
                             violentMobButton.selected = false
                             unitList.model = humanModelProxy
                             unitList.delegate = humanDelegate
+                            addUnitGrid.model = humanTypeModel
                         }
                     }
                     states: [
@@ -299,6 +300,7 @@ Item {
                             violentMobButton.selected = false
                             unitList.model = neutralMobModelProxy
                             unitList.delegate = neutralMobDelegate
+                            addUnitGrid.model = neutralMobTypeModel
                         }
                     }
                     states: [
@@ -331,6 +333,7 @@ Item {
                             humanButton.selected = false
                             neutralMobButton.selected = false
                             violentMobButton.selected = true
+                            addUnitGrid.model = violentMobTypeModel
                         }
                     }
                     states: [
@@ -432,13 +435,13 @@ Item {
             height: addButton.selected *
                     (Math.ceil(addUnitGrid.count /
                      Math.floor( addUnitGrid.width / addUnitGrid.cellWidth )
-                     )) * addUnitGrid.cellHeight
+                     )) * addUnitGrid.cellHeight + addButton.selected*8
             color: "gray"
 
             GridView {
                 id: addUnitGrid
-                model: neutralMobTypeModel
-                delegate: neutralMobTypeDelegate
+                model: humanTypeModel
+                delegate: unitTypeDelegate
 
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -448,7 +451,7 @@ Item {
                 // hide under the edge of the window border.
                 width: Math.floor((parent.width-16) / (cellWidth)) * cellWidth
                 anchors.top: parent.top
-                anchors.topMargin: 1
+                anchors.topMargin: 4
                 anchors.bottom: parent.bottom
 
                 cellWidth: 34
@@ -508,70 +511,92 @@ Item {
         settingsObject: settings
     }
 
+
+    //
     // Unit Types
+    //
+    //
+    ListModel {
+        id: humanTypeModel
+        ListElement {
+            name: "Archer"
+        }
+        ListElement {
+            name: "Blacksmith"
+        }
+        ListElement {
+            name: "Builder"
+        }
+        ListElement {
+            name: "Carpenter"
+        }
+        ListElement {
+            name: "Engineer"
+        }
+        ListElement {
+            name: "Farmer"
+        }
+        ListElement {
+            name: "Fisherman"
+        }
+        ListElement {
+            name: "Forager"
+        }
+        ListElement {
+            name: "Infantry"
+        }
+        ListElement {
+            name: "Miner"
+        }
+        ListElement {
+            name: "Stone Mason"
+        }
+        ListElement {
+            name: "Wood Chopper"
+        }
+        ListElement {
+            name: "Tailor"
+        }
+    }
     ListModel {
         id: neutralMobTypeModel
         ListElement {
-            name: "Pig"
-        }
-        ListElement {
             name: "Boar"
         }
         ListElement {
             name: "Chicken"
         }
+    }
+    ListModel {
+        id: violentMobTypeModel
         ListElement {
-            name: "Bird"
+            name: "Goblin"
         }
         ListElement {
-            name: "Pig"
+            name: "Necromancer"
         }
         ListElement {
-            name: "Boar"
+            name: "Skeleton"
         }
         ListElement {
-            name: "Chicken"
+            name: "Spider"
         }
         ListElement {
-            name: "Bird"
-        }
-        ListElement {
-            name: "Pig"
-        }
-        ListElement {
-            name: "Boar"
-        }
-        ListElement {
-            name: "Chicken"
-        }
-        ListElement {
-            name: "Bird"
-        }
-        ListElement {
-            name: "Pig"
-        }
-        ListElement {
-            name: "Boar"
-        }
-        ListElement {
-            name: "Chicken"
-        }
-        ListElement {
-            name: "Bird"
+            name: "Wolf"
         }
     }
     Component {
-        id: neutralMobTypeDelegate
+        id: unitTypeDelegate
+
         Rectangle {
-            width: 32
-            height: 22
-            color: "red"
-            border.width: 1
-            border.color: "orange"
+            Image {
+                id: unitTypeIcon
+                source: "images/units/" + name + ".svg"
+            }
             Text {
-                anchors.centerIn: parent
-                text: name
-                font.pointSize: 8
+                text: "+"
+                color: "white"
+                anchors.bottom: unitTypeIcon.bottom
             }
         }
     }

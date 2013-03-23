@@ -21,7 +21,7 @@ Component {
             anchors.verticalCenter: parent.verticalCenter
             height: 22
             width: 35
-            source: "images/professions/" + profession + ".svg"
+            source: "images/units/" + profession + ".svg"
             fillMode: Image.PreserveAspectFit
         }
 

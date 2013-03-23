@@ -16,7 +16,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: "#80000000"
+        //color: "#80000000"
+        color: "#80dddddd"
     }
 
     MouseArea {
@@ -79,31 +80,34 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            height: 59
-            color: "lightgray"
+            height: 32
+            color: "gray"
 
-            Text {
-                id: directoryTextTag
-                text: "Timber and Stone 'saves.sav' file"
-                color: "#FF303030"
-                font.pixelSize: 11
-                font.italic: true
-                anchors.top: parent.top
-                anchors.topMargin: 10
-                anchors.left: parent.left
-                anchors.leftMargin: 10
-            }
+//            Text {
+//                id: directoryTextTag
+//                text: "Timber and Stone 'saves.sav' file"
+//                color: "#FF303030"
+//                font.pixelSize: 11
+//                font.italic: true
+//                anchors.top: parent.top
+//                anchors.topMargin: 10
+//                anchors.left: parent.left
+//                anchors.leftMargin: 10
+//            }
 
             Rectangle {
                 id: directoryTextOutline
                 color: "gray"
-                height: 22
+                height: 24
 
-                anchors.left: directoryTextTag.left
-                anchors.right: openFileButton.left
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.right: parent.right
                 anchors.rightMargin: 0
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: 10
+                anchors.top: parent.top
+                anchors.topMargin: 4
+//                anchors.bottom: parent.bottom
+//                anchors.bottomMargin: 4
 
                 Rectangle {
                     id: directoryTextBackground
@@ -113,7 +117,7 @@ Item {
                     clip: true
                     anchors.left: parent.left
                     anchors.leftMargin: 1
-                    anchors.right: parent.right
+                    anchors.right: openFileButton.left
                     anchors.rightMargin: 1
                     anchors.verticalCenter: parent.verticalCenter
 
@@ -126,7 +130,7 @@ Item {
                             centerIn: parent;
                         }
 
-                        text: savesAccess.getSavesPath();
+                        text: savesAccess.pathIsValid() ? savesAccess.getSavesPath() : "Timber and Stone 'saves.sav' file";
                         onTextChanged: {
                             settings.setValue("TimberAndStone/GameInstallationDirectory",
                                               text);
@@ -140,38 +144,31 @@ Item {
                         font.pointSize: 10
                     }
                 }
-            }
-
-            ToolbarImageButton {
-                id: openFileButton
-                target: directoryTextOutline
-                icon: "images/openIcon.svg"
-                color: "transparent"
-                width: 40
-                anchors.right: parent.right
-                anchors.rightMargin: 6
-
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    onEntered: { parent.color = "#0A000000" }
-                    onExited: { parent.color = "transparent" }
-                    onClicked: {
-                        // Open the file dialog
-                        savesAccess.openFileDialog();
-                        directoryText.text = savesAccess.getSavesPath();
+                Image {
+                    id: openFileButton
+                    anchors.right: parent.right
+                    anchors.rightMargin: 1
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "images/openButton.svg"
+                    MouseArea {
+                        id: openFileButtonArea
+                        anchors.fill: parent
+                        onClicked: {
+                            // Open the file dialog
+                            savesAccess.openFileDialog();
+                            directoryText.text = savesAccess.getSavesPath();
+                        }
                     }
+                    states:
+                        State { // Pressed
+                            when: openFileButtonArea.pressed
+                            PropertyChanges {
+                                target: openFileButton
+                                source: "images/openButtonPressed.svg"
+                            }
+                        }
                 }
             }
-        }
-
-        Rectangle {
-            id: listBorder
-            anchors.top: savesFileDirectoryBackground.bottom
-            anchors.left: parent.left
-            anchors.right: parent.right
-            height: 3
-            color: "silver"
         }
 
         SavedGameDelegate {
@@ -181,7 +178,7 @@ Item {
         ListView {
             id: savedGameList
 
-            anchors.top: listBorder.bottom
+            anchors.top: savesFileDirectoryBackground.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
