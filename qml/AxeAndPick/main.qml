@@ -358,29 +358,39 @@ Item {
                 anchors.leftMargin: 5
                 anchors.verticalCenter: parent.verticalCenter
                 source: "images/addButton.svg"
-                property bool selected
+                property int selected
                 MouseArea {
                     id: addButtonArea
                     anchors.fill: parent
                     onClicked: {
                         if (parent.selected) {
-                            addUnitContainer.height = 0;
-                            parent.selected = false;
+                            parent.selected = 0;
+                            //addUnitContainer.open(addButton.selected);
+                            //addUnitContainer.height = 0;
                         }
                         else {
-                            addUnitContainer.height = 40;
-                            parent.selected = true;
+                            parent.selected = 1;
+                            //addUnitContainer.open(addButton.selected);
+                            //addUnitContainer.height = 40; //addUnitGrid.count;
                         }
                     }
                 }
-                states:
+                states: [
                     State { // Pressed
                         when: addButtonArea.pressed
                         PropertyChanges {
                             target: addButton
                             source: "images/addButtonPressed.svg"
                         }
+                    },
+                    State { // Selected
+                        when: addButton.selected
+                        PropertyChanges {
+                            target: addButton
+                            source: "images/addButtonPressed.svg"
+                        }
                     }
+                ]
             }
 
             // Utility for doing things.
@@ -414,29 +424,48 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.top: unitToolbar.bottom
-            height: 0
-            opacity: 1.0
 
+            // I'd break up this equation a bit, but I want all the variables
+            // bound to this height property. This makes sure that all the
+            // items fit in the grid. Toggle addButton.selected to zero the
+            // height if you want to "close" the menu.
+            height: addButton.selected *
+                    (Math.ceil(addUnitGrid.count /
+                     Math.floor( addUnitGrid.width / addUnitGrid.cellWidth )
+                     )) * addUnitGrid.cellHeight
             color: "gray"
 
             GridView {
+                id: addUnitGrid
                 model: neutralMobTypeModel
                 delegate: neutralMobTypeDelegate
 
-                anchors.fill: parent
-                anchors.rightMargin: 16
+                anchors.left: parent.left
                 anchors.leftMargin: 10
+                // This width is being used instead of anchoring, because the
+                // QtQuick2 GridView has a bug that doesn't wrap items properly.
+                // The "16" in there is to act as a buffer so the items don't
+                // hide under the edge of the window border.
+                width: Math.floor((parent.width-16) / (cellWidth)) * cellWidth
+                anchors.top: parent.top
+                anchors.topMargin: 1
+                anchors.bottom: parent.bottom
 
-                cellWidth: 32
-                cellHeight: 22
+                cellWidth: 34
+                cellHeight: 24
 
                 clip: true
+                interactive: false
             }
 
             // Animate height transitions
             Behavior on height {
                 PropertyAnimation { easing.type: Easing.InOutQuad;
                                     duration: 300 }
+            }
+            Behavior on opacity {
+                PropertyAnimation { easing.type: Easing.InOutQuad;
+                                    duration: 100 }
             }
         }
 
@@ -482,6 +511,42 @@ Item {
     // Unit Types
     ListModel {
         id: neutralMobTypeModel
+        ListElement {
+            name: "Pig"
+        }
+        ListElement {
+            name: "Boar"
+        }
+        ListElement {
+            name: "Chicken"
+        }
+        ListElement {
+            name: "Bird"
+        }
+        ListElement {
+            name: "Pig"
+        }
+        ListElement {
+            name: "Boar"
+        }
+        ListElement {
+            name: "Chicken"
+        }
+        ListElement {
+            name: "Bird"
+        }
+        ListElement {
+            name: "Pig"
+        }
+        ListElement {
+            name: "Boar"
+        }
+        ListElement {
+            name: "Chicken"
+        }
+        ListElement {
+            name: "Bird"
+        }
         ListElement {
             name: "Pig"
         }
