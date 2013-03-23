@@ -162,7 +162,7 @@ Component {
                                 text = 30000;
                             }
 
-                            resourceModel.setData(identification, parseInt(text,10), Resource.QuantityRole)
+                            resourceModel.setData(id, parseInt(text,10), Resource.QuantityRole)
                         }
                     }
                 }

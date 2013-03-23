@@ -34,7 +34,7 @@ QHash<int, QByteArray> Resource::roleNames() const
     names[TypeRole] = "type";
     names[IconRole] = "icon";
     names[QuantityRole] = "quantity";
-    names[IdRole] = "identification";
+    names[IdRole] = "id";
     names[FileOffsetRole] = "fileOffset";
     names[FilterStringRole] = "filterString";
 

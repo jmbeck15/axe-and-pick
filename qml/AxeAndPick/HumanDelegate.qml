@@ -11,8 +11,8 @@ Component {
         anchors.right: parent.right
 
 
-//        border.width: 1
-//        border.color: "#FFE3E3E3"
+        border.width: 1
+        border.color: "#FFE3E3E3"
 
         Image {
             id: typeIcon
@@ -24,8 +24,6 @@ Component {
             source: "images/professions/" + profession + ".svg"
             fillMode: Image.PreserveAspectFit
         }
-
-
 
         // Name and Type
         Item {
@@ -70,15 +68,40 @@ Component {
                     clip: true
                 }
             }
-
-            // Item seperator
-            Rectangle {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
-                height: 1
-                color: "#FFE3E3E3"
-            }
         }
+
+        Image {
+            id: deleteButton
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+            source: "images/deleteButton.svg"
+
+            MouseArea {
+                id: deleteButtonArea
+                anchors.fill: parent
+                onClicked: {
+                    humanModel.remove(id)
+                }
+            }
+            states:
+                State { // Pressed
+                    when: deleteButtonArea.pressed
+                    PropertyChanges {
+                        target: deleteButton
+                        source: "images/deleteButtonPressed.svg"
+                    }
+                }
+        }
+
+
+//        // Item seperator
+//        Rectangle {
+//            anchors.left: parent.left
+//            anchors.right: parent.right
+//            anchors.bottom: parent.bottom
+//            height: 1
+//            color: "#FFE3E3E3"
+//        }
     }
 }

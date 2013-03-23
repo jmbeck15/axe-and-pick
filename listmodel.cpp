@@ -7,7 +7,6 @@
 
 #include <QDebug>
 #include "listmodel.h"
-#include "resourcelistmodel.h"
 
 ListModel::ListModel(ListItem* prototype, QObject *parent) :
     QAbstractListModel(parent), m_prototype(prototype)

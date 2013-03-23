@@ -67,10 +67,14 @@ private:
 // NeutralMobListModel store NeutralMobs
 class NeutralMobListModel : public ListModel
 {
+private:
+    Q_OBJECT
+
 public:
     NeutralMobListModel(ListItem * prototype, QObject * parent = 0);
 
     Q_INVOKABLE void setData(const long id, const QVariant &value, int role = NeutralMob::TypeRole);
+    Q_INVOKABLE void remove(const long id);
 };
 
 #endif // NEUTRALMOBLISTMODEL_H

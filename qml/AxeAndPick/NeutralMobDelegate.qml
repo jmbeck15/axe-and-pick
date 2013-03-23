@@ -1,21 +1,19 @@
 import QtQuick 2.0
 
-// This is the component that displays each human in the list
 Component {
 
     Rectangle {
 
         color: "#FFeeeeee"
-        height: 36
+        height: 26
         anchors.left: parent.left
         anchors.right: parent.right
 
         border.width: 1
         border.color: "#FFE3E3E3"
 
-        // Name and Type and Icon
         Item {
-            id: mobID
+            id: mobDetails
 
             anchors.left: parent.left
             anchors.right: parent.right
@@ -23,39 +21,39 @@ Component {
             anchors.bottom: parent.bottom
             anchors.leftMargin: 10
 
-            // Name and Profession
-            Item
-            {
-                anchors.left: parent.left
-                anchors.right: parent.right
+            // Name of the mob
+            Text {
+                id: typeText
+                text: type
+
                 anchors.verticalCenter: parent.verticalCenter
-                anchors.leftMargin: 8
-                height: childrenRect.height
+                font.pointSize: 10
+                clip: true
+            }
+        }
 
-                Text {
-                    id: typeText
-                    text: type
+        Image {
+            id: deleteButton
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+            source: "images/deleteButton.svg"
 
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-
-                    font.pointSize: 10
-                    clip: true
-                }
-                Text {
-                    id: positionText
-                    text: "x:" + posX + ", y:" + posY + ", z:" + posZ
-
-                    anchors.top: typeText.bottom
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-
-                    font.pointSize: 7
-                    color: "grey"
-                    clip: true
+            MouseArea {
+                id: deleteButtonArea
+                anchors.fill: parent
+                onClicked: {
+                    neutralMobModel.remove(id)
                 }
             }
+            states:
+                State { // Pressed
+                    when: deleteButtonArea.pressed
+                    PropertyChanges {
+                        target: deleteButton
+                        source: "images/deleteButtonPressed.svg"
+                    }
+                }
         }
     }
 }

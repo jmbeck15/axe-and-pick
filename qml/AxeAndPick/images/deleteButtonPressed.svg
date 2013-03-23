@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="32px" height="22px" viewBox="0 -0.001 32 22" enable-background="new 0 -0.001 32 22"
+	 xml:space="preserve">
+<defs>
+</defs>
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="-25.8535" y1="262.9277" x2="-3.8535" y2="262.9277" gradientTransform="matrix(0 1 -1 0 278.9277 25.8535)">
+		<stop  offset="0.5368" style="stop-color:#D9D9D9"/>
+		<stop  offset="1" style="stop-color:#DEDEDE"/>
+	</linearGradient>
+	<rect fill="url(#SVGID_1_)" width="32" height="22"/>
+</g>
+<line fill="#58595B" stroke="#939598" stroke-width="2.3471" stroke-linecap="round" stroke-miterlimit="10" x1="12.841" y1="8.839" x2="19.159" y2="15.158"/>
+<line fill="#58595B" stroke="#939598" stroke-width="2.3471" stroke-linecap="round" stroke-miterlimit="10" x1="12.839" y1="15.159" x2="19.157" y2="8.84"/>
+</svg>

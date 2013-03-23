@@ -55,6 +55,7 @@ private:
 // ResourceListModels store Resources
 class ResourceListModel : public ListModel
 {
+private:
     Q_OBJECT
 
 public:

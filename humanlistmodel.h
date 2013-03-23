@@ -209,10 +209,14 @@ private:
 // HumanListModel store Humans
 class HumanListModel : public ListModel
 {
+private:
+    Q_OBJECT
+
 public:
     HumanListModel(ListItem * prototype, QObject * parent = 0);
 
     Q_INVOKABLE void setData(const long id, const QVariant &value, int role = Human::ProfessionRole);
+    Q_INVOKABLE void remove(const long id);
 };
 
 #endif // HUMANLISTMODEL_H

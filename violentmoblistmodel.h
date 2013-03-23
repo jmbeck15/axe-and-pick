@@ -67,10 +67,14 @@ private:
 // ViolentMobListModel store ViolentMobs
 class ViolentMobListModel : public ListModel
 {
+private:
+    Q_OBJECT
+
 public:
     ViolentMobListModel(ListItem * prototype, QObject * parent = 0);
 
     Q_INVOKABLE void setData(const long id, const QVariant &value, int role = ViolentMob::TypeRole);
+    Q_INVOKABLE void remove(const long id);
 };
 
 #endif // VIOLENTMOBLISTMODEL_H

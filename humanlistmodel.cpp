@@ -294,3 +294,9 @@ void HumanListModel::setData(const long id, const QVariant &value, int role)
     }
 }
 
+void HumanListModel::remove(const long id)
+{
+    // Find the id of the item you want to delete,
+    // get the index of that item, and remove it.
+    removeRow(indexFromItem(find( id )).row());
+}
