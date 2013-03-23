@@ -5,17 +5,11 @@
 ]>
 <svg version="1.1"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
-	 x="0px" y="0px" width="32px" height="22px" viewBox="0.001 0 32 22" enable-background="new 0.001 0 32 22" xml:space="preserve">
+	 x="0px" y="0px" width="32px" height="22px" viewBox="0 0 32 22" enable-background="new 0 0 32 22" xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#F9EDA6" width="31.999" height="22"/>
-<path fill="none" stroke="#006838" stroke-miterlimit="10" d="M5.905,20.947c0-6.75,0.789-12.833-3.273-15.75"/>
-<path fill="none" stroke="#006838" stroke-miterlimit="10" d="M7.706,20.947c0-6.75-0.789-10.124,3.273-13.041"/>
-<line fill="none" stroke="#006838" stroke-miterlimit="10" x1="7.644" y1="20.947" x2="7.644" y2="1.052"/>
-<path fill="none" stroke="#006838" stroke-miterlimit="10" d="M14.253,20.947c0-6.75,0.787-12.833-3.273-15.75"/>
-<path fill="none" stroke="#006838" stroke-miterlimit="10" d="M16.052,20.947c0-6.75-0.789-10.124,3.273-13.041"/>
-<line fill="none" stroke="#006838" stroke-miterlimit="10" x1="15.989" y1="20.947" x2="15.989" y2="1.052"/>
-<path fill="none" stroke="#006838" stroke-miterlimit="10" d="M23.349,20.947c0-6.75,0.787-12.833-3.273-15.75"/>
-<path fill="none" stroke="#006838" stroke-miterlimit="10" d="M25.147,20.947c0-6.75-0.789-10.124,3.273-13.041"/>
-<line fill="none" stroke="#006838" stroke-miterlimit="10" x1="25.085" y1="20.947" x2="25.085" y2="1.052"/>
+<rect fill="#00AEEF" width="32" height="22"/>
+<path fill="#21409A" d="M19.345,6.404c-3.59,0-6.689,1.031-8.203,2.53l-1.106-0.448L5.094,4.987l0.839,5.997l-0.561,6.029
+	l4.773-3.724l0.839-0.386c1.448,1.587,4.643,2.693,8.36,2.693c5.076,0,9.192-2.057,9.192-4.596
+	C28.537,8.462,24.421,6.404,19.345,6.404z"/>
 </svg>
