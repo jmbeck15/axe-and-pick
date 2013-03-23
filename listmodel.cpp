@@ -73,6 +73,7 @@ ListItem * ListModel::find(const long &id) const
   foreach(ListItem * item, m_list) {
     if(item->id() == id) return item;
   }
+  qDebug() << "Could not find item with ID: " + id;
   return 0;
 }
 

@@ -104,4 +104,5 @@ void ResourceListModel::setUnknownQuantities()
             resource->setQuantity(i+1000);
         }
     }
+    qDebug() << "Set unknown quantities. Remember to save.";
 }

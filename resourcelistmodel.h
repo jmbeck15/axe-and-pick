@@ -55,6 +55,8 @@ private:
 // ResourceListModels store Resources
 class ResourceListModel : public ListModel
 {
+    Q_OBJECT
+
 public:
     ResourceListModel(ListItem * prototype, QObject * parent = 0);
 
