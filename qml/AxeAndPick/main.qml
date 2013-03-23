@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Item {
-    width: 800
+    width: 700
     height: 600
     id: rootWindow
 
@@ -132,18 +132,27 @@ Item {
                 color: "silver"
             }
 
-            Rectangle {
+            Image {
+                id: resourceDiscoverButton
                 anchors.left: parent.left
+                anchors.leftMargin: 10
                 anchors.verticalCenter: parent.verticalCenter
-                height: 22
-                width: 32
-                color: "red"
+                source: "images/resourceDiscoverButton.svg"
                 MouseArea {
+                    id: resourceDiscoverButtonArea
                     anchors.fill: parent
                     onClicked: {
-                        savesAccess.writeToMatlab();
+                        resourceModel.setUnknownQuantities();
                     }
                 }
+                states:
+                    State { // Pressed
+                        when: resourceDiscoverButtonArea.pressed
+                        PropertyChanges {
+                            target: resourceDiscoverButton
+                            source: "images/resourceDiscoverButtonPressed.svg"
+                        }
+                    }
             }
 
             SearchBox {
@@ -342,6 +351,93 @@ Item {
                 }
             }
 
+            // Button for adding units.
+            Image {
+                id: addButton
+                anchors.left: unitButtonBox.right
+                anchors.leftMargin: 5
+                anchors.verticalCenter: parent.verticalCenter
+                source: "images/addButton.svg"
+                property bool selected
+                MouseArea {
+                    id: addButtonArea
+                    anchors.fill: parent
+                    onClicked: {
+                        if (parent.selected) {
+                            addUnitContainer.height = 0;
+                            parent.selected = false;
+                        }
+                        else {
+                            addUnitContainer.height = 40;
+                            parent.selected = true;
+                        }
+                    }
+                }
+                states:
+                    State { // Pressed
+                        when: addButtonArea.pressed
+                        PropertyChanges {
+                            target: addButton
+                            source: "images/addButtonPressed.svg"
+                        }
+                    }
+            }
+
+            // Utility for doing things.
+            Image {
+                id: utilityButton
+                anchors.right: parent.right
+                anchors.rightMargin: 10 + 16 // 16 is for the scroll bar
+                anchors.verticalCenter: parent.verticalCenter
+                source: "images/utilityButton.svg"
+                MouseArea {
+                    id: utilityButtonArea
+                    anchors.fill: parent
+                    onClicked: {
+                        savesAccess.writeToMatlab();
+                    }
+                }
+                states:
+                    State { // Pressed
+                        when: utilityButtonArea.pressed
+                        PropertyChanges {
+                            target: utilityButton
+                            source: "images/utilityButtonPressed.svg"
+                        }
+                    }
+            }
+        }
+
+        // Container for things you can add to the list.
+        Rectangle {
+            id: addUnitContainer
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: unitToolbar.bottom
+            height: 0
+            opacity: 1.0
+
+            color: "gray"
+
+            GridView {
+                model: neutralMobTypeModel
+                delegate: neutralMobTypeDelegate
+
+                anchors.fill: parent
+                anchors.rightMargin: 16
+                anchors.leftMargin: 10
+
+                cellWidth: 32
+                cellHeight: 22
+
+                clip: true
+            }
+
+            // Animate height transitions
+            Behavior on height {
+                PropertyAnimation { easing.type: Easing.InOutQuad;
+                                    duration: 300 }
+            }
         }
 
         HumanDelegate {
@@ -356,10 +452,11 @@ Item {
 
         ListView {
             id: unitList
-            anchors.top: unitToolbar.bottom
+            anchors.top: addUnitContainer.bottom
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.rightMargin: 16
+
             anchors.bottom: parent.bottom
 
             model: humanModelProxy
@@ -380,6 +477,38 @@ Item {
         visible: true
         windowWidth: 300
         settingsObject: settings
+    }
+
+    // Unit Types
+    ListModel {
+        id: neutralMobTypeModel
+        ListElement {
+            name: "Pig"
+        }
+        ListElement {
+            name: "Boar"
+        }
+        ListElement {
+            name: "Chicken"
+        }
+        ListElement {
+            name: "Bird"
+        }
+    }
+    Component {
+        id: neutralMobTypeDelegate
+        Rectangle {
+            width: 32
+            height: 22
+            color: "red"
+            border.width: 1
+            border.color: "orange"
+            Text {
+                anchors.centerIn: parent
+                text: name
+                font.pointSize: 8
+            }
+        }
     }
 }
 
