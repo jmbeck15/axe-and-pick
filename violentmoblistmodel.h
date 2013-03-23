@@ -10,8 +10,11 @@
 // ViolentMob are stored in ViolentMobListModel
 class ViolentMob : public ListItem
 {
+private:
     Q_OBJECT
     Q_ENUMS(Roles)
+
+    static long id_counter;
 
 public:
     enum Roles {
@@ -25,9 +28,8 @@ public:
         RotationRole
     };
 
-    ViolentMob(QObject * parent = 0): ListItem(parent){}
-    explicit ViolentMob(const long &id,
-                        const QString &type,
+    ViolentMob(QObject * parent = 0): ListItem(parent){id_counter++;}
+    explicit ViolentMob(const QString &type,
                         const float &posX,
                         const float &posY,
                         const float &posZ,

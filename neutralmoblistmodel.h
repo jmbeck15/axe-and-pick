@@ -10,8 +10,11 @@
 // NeutralMob are stored in NeutralMobListModel
 class NeutralMob : public ListItem
 {
+private:
     Q_OBJECT
     Q_ENUMS(Roles)
+
+    static long id_counter;
 
 public:
     enum Roles {
@@ -25,9 +28,8 @@ public:
         RotationRole
     };
 
-    NeutralMob(QObject * parent = 0): ListItem(parent){}
-    explicit NeutralMob(const long &id,
-                        const QString &type,
+    NeutralMob(QObject * parent = 0): ListItem(parent){id_counter++;}
+    explicit NeutralMob(const QString &type,
                         const float &posX,
                         const float &posY,
                         const float &posZ,

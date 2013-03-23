@@ -225,7 +225,6 @@ void SavesAccess::loadResourceFile()
             resourceModel->clear();
 
             QTextStream assetStream(&assetFile);
-            long index(0);
 
             while (!assetStream.atEnd())
             {
@@ -261,8 +260,7 @@ void SavesAccess::loadResourceFile()
                 resourceModel->appendRow(new Resource(assetData[0],
                                           assetData[1],
                                           assetData[2],
-                                          toLong(byteArray), // resource quantity
-                                          index++));         // id
+                                          toLong(byteArray))); // resource quantity
             }
 
             if (!resourceFile.atEnd())
@@ -439,7 +437,7 @@ void SavesAccess::loadUnitFile()
             }
             byteNumber = 0;
 
-            humanModel->appendRow(new Human(i,
+            humanModel->appendRow(new Human(
                                       unitData[0],
                                       unitData[1].toFloat(),
                                       unitData[2].toFloat(),
@@ -493,14 +491,12 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            neutralMobModel->appendRow(new NeutralMob( i,
+            neutralMobModel->appendRow(new NeutralMob(
                                       unitData[0],
                                       unitData[1].toFloat(),
                                       unitData[2].toFloat(),
                                       unitData[3].toFloat(),
                                       unitData[4].toFloat()) );
-
-            ((NeutralMob *)neutralMobModel->find(i))->print();
         }
 
         // Load in all the Violent Mobs
@@ -511,14 +507,12 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            violentMobModel->appendRow(new ViolentMob( i,
+            violentMobModel->appendRow(new ViolentMob(
                                       unitData[0],
                                       unitData[1].toFloat(),
                                       unitData[2].toFloat(),
                                       unitData[3].toFloat(),
                                       unitData[4].toFloat()) );
-
-            ((ViolentMob *)violentMobModel->find(i))->print();
         }
 
         unitFile.close();

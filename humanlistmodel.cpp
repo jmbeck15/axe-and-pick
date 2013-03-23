@@ -4,8 +4,11 @@
 #include <QStringList>
 #include <sstream>
 
-Human::Human(const long &id,
-             const QString &profession,
+
+// Initialize the counter
+long Human::id_counter = 0;
+
+Human::Human(const QString &profession,
              const float &posX,
              const float &posY,
              const float &posZ,
@@ -47,7 +50,7 @@ Human::Human(const long &id,
              const bool &returnToCampfire,
              QObject * parent)
     : ListItem(parent),
-    m_id(id),
+    m_id(id_counter),
 
     m_profession(profession),
     m_posX(posX),
@@ -90,6 +93,7 @@ Human::Human(const long &id,
     m_autoEquip(autoEquip),
     m_returnToCampfire(returnToCampfire)
 {
+    id_counter++;
 }
 
 void Human::setProfession(QString profession)
@@ -300,3 +304,10 @@ void HumanListModel::remove(const long id)
     // get the index of that item, and remove it.
     removeRow(indexFromItem(find( id )).row());
 }
+
+void HumanListModel::add(const QString type)
+{
+    //appendRow(Human());
+}
+
+

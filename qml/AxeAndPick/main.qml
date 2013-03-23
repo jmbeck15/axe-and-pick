@@ -592,8 +592,24 @@ Item {
             Image {
                 id: unitTypeIcon
                 source: "images/units/" + name + ".svg"
+                MouseArea {
+                    id: unitTypeIconArea
+                    anchors.fill: parent
+                    onClicked: {
+                    }
+                }
+                states:
+                    State { // Pressed
+                        when: unitTypeIconArea.pressed
+                        PropertyChanges {
+                            target: plus
+                            color: "green"
+                            font.bold: true
+                        }
+                    }
             }
             Text {
+                id: plus
                 text: "+"
                 color: "white"
                 anchors.bottom: unitTypeIcon.bottom

@@ -3,21 +3,24 @@
 #include <QDebug>
 #include <sstream>
 
-NeutralMob::NeutralMob( const long &id,
-                        const QString &type,
-                        const float &posX,
-                        const float &posY,
-                        const float &posZ,
-                        const float &rotation,
-                        QObject * parent)
+// Initialize the counter
+long NeutralMob::id_counter = 0;
+
+NeutralMob::NeutralMob(const QString &type,
+                       const float &posX,
+                       const float &posY,
+                       const float &posZ,
+                       const float &rotation,
+                       QObject * parent)
     : ListItem(parent),
-      m_id(id),
+      m_id(id_counter),
       m_type(type),
       m_posX(posX),
       m_posY(posY),
       m_posZ(posZ),
       m_rotation(rotation)
 {
+    id_counter++;
 }
 
 void NeutralMob::setType(QString type)

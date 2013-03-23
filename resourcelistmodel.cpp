@@ -3,19 +3,22 @@
 #include <QDebug>
 #include <sstream>
 
+// Initialize the counter
+long Resource::id_counter = 0;
+
 Resource::Resource(const QString &name,
                    const QString &type,
                    const QString &icon,
                    const long &quantity,
-                   const long &fileOffset,
                    QObject * parent)
     : ListItem(parent),
+      m_id(id_counter),
       m_name(name),
       m_type(type),
       m_icon(icon),
-      m_quantity(quantity),
-      m_fileOffset(fileOffset)
+      m_quantity(quantity)
 {
+    id_counter++;
 }
 
 void Resource::setQuantity(long quantity)
@@ -30,12 +33,11 @@ void Resource::setQuantity(long quantity)
 QHash<int, QByteArray> Resource::roleNames() const
 {
     QHash<int, QByteArray> names;
+    names[IdRole] = "id";
     names[NameRole] = "name";
     names[TypeRole] = "type";
     names[IconRole] = "icon";
     names[QuantityRole] = "quantity";
-    names[IdRole] = "id";
-    names[FileOffsetRole] = "fileOffset";
     names[FilterStringRole] = "filterString";
 
     return names;
@@ -44,6 +46,8 @@ QHash<int, QByteArray> Resource::roleNames() const
 QVariant Resource::data(int role) const
 {
     switch(role) {
+    case IdRole:
+        return (unsigned int)id();
     case NameRole:
         return name();
     case TypeRole:
@@ -52,10 +56,6 @@ QVariant Resource::data(int role) const
         return icon();
     case QuantityRole:
         return (unsigned int)quantity();
-    case IdRole:
-        return (unsigned int)id();
-    case FileOffsetRole:
-        return (unsigned int)fileOffset();
     case FilterStringRole:
         return filterString();
     default:
@@ -78,13 +78,13 @@ ResourceListModel::ResourceListModel(ListItem * prototype, QObject * parent )
 {
 }
 
-void ResourceListModel::setData(const long identification, const QVariant &value, int role)
+void ResourceListModel::setData(const long id, const QVariant &value, int role)
 {
     switch (role)
     {
     case Resource::QuantityRole:
     {
-        Resource * item = (Resource *)find(identification);
+        Resource * item = (Resource *)find(id);
         item->setQuantity(value.toLongLong());
         break;
     }
@@ -96,6 +96,7 @@ void ResourceListModel::setData(const long identification, const QVariant &value
 
 void ResourceListModel::setUnknownQuantities()
 {
+    // TODO: Redo this without find() failing because i is wrong.
     for (int i=0; i<rowCount(); i++)
     {
         Resource * resource = (Resource*)find(i);

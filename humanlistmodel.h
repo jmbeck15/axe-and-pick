@@ -10,8 +10,11 @@
 // Human are stored in HumanListModel
 class Human : public ListItem
 {
+private:
     Q_OBJECT
     Q_ENUMS(Roles)
+
+    static long id_counter;
 
 public:
     enum Roles {
@@ -61,9 +64,8 @@ public:
 
     };
 
-    Human(QObject * parent = 0): ListItem(parent){}
-    explicit Human(const long &id,
-                   const QString &profession,
+    Human(QObject * parent = 0): ListItem(parent){id_counter++;}
+    explicit Human(const QString &profession,
                    const float &posX,
                    const float &posY,
                    const float &posZ,
@@ -217,6 +219,7 @@ public:
 
     Q_INVOKABLE void setData(const long id, const QVariant &value, int role = Human::ProfessionRole);
     Q_INVOKABLE void remove(const long id);
+    Q_INVOKABLE void add(const QString type);
 };
 
 #endif // HUMANLISTMODEL_H

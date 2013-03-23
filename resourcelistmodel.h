@@ -10,29 +10,30 @@
 // Resources are stored in ResourceListModels
 class Resource : public ListItem
 {
+private:
     Q_OBJECT
     Q_ENUMS(Roles)
 
+    static long id_counter;
+
 public:
     enum Roles {
-        NameRole  = Qt::UserRole + 1,
+        IdRole = Qt::UserRole + 1,
+        FilterStringRole,
+        NameRole,
         TypeRole,
         IconRole,
-        QuantityRole,
-        IdRole,
-        FileOffsetRole,
-        FilterStringRole
+        QuantityRole
     };
 
-    Resource(QObject * parent = 0): ListItem(parent){}
+    Resource(QObject * parent = 0): ListItem(parent){id_counter++;}
     explicit Resource(const QString &name,
                       const QString &type,
                       const QString &icon,
                       const long &quantity,
-                      const long &fileOffset,
                       QObject * parent = 0);
 
-    inline long id() const { return m_fileOffset; }
+    inline long id() const { return m_id; }
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;
 
@@ -41,15 +42,15 @@ public:
     inline QString type() const { return m_type; }
     inline QString icon() const { return m_icon; }
     inline long quantity() const { return m_quantity; }
-    inline long fileOffset() const { return m_fileOffset; }
     QString filterString() const;
 
 private:
+    long m_id;
     QString m_name;
     QString m_type;
     QString m_icon;
     long m_quantity;
-    long m_fileOffset;
+
 };
 
 // ResourceListModels store Resources
