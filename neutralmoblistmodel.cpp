@@ -117,13 +117,13 @@ void NeutralMobListModel::remove(const long id)
 float NeutralMobListModel::getFirstPosition(const char label)
 {
     if (getList().size() != 0) {
-        if (label=='x') {
+        if (label==0) {
             return ((NeutralMob*)getList().first())->posX();
         }
-        else if (label=='y') {
+        else if (label==1) {
             return ((NeutralMob*)getList().first())->posY();
         }
-        else if (label=='z') {
+        else if (label==2) {
             return ((NeutralMob*)getList().first())->posZ();
         }
     }

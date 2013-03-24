@@ -355,7 +355,7 @@ void SavesAccess::loadUnitFile()
     // Compose the file name.
     QFile unitFile(rootSavesDirectory.absolutePath()
                    + "/" + selectedSaveName
-                   + "/" + "un_orig.sav");
+                   + "/" + "un.sav");
 
     if ((humanModel == Q_NULLPTR) |
         (neutralMobModel == Q_NULLPTR) |
@@ -507,11 +507,11 @@ void SavesAccess::loadUnitFile()
             unitData = unitString.split('/');
 
             neutralMobModel->appendRow(new NeutralMob(
-                                      unitData[0],
-                                      unitData[1].toFloat(),
-                                      unitData[2].toFloat(),
-                                      unitData[3].toFloat(),
-                                      unitData[4].toFloat()) );
+                                       unitData[0],
+                                       unitData[1].toFloat(),
+                                       unitData[2].toFloat(),
+                                       unitData[3].toFloat(),
+                                       unitData[4].toFloat()) );
         }
 
         // Load in all the Violent Mobs
@@ -523,11 +523,12 @@ void SavesAccess::loadUnitFile()
             unitData = unitString.split('/');
 
             violentMobModel->appendRow(new ViolentMob(
-                                      unitData[0],
-                                      unitData[1].toFloat(),
-                                      unitData[2].toFloat(),
-                                      unitData[3].toFloat(),
-                                      unitData[4].toFloat()) );
+                                       unitData[0],
+                                       unitData[1].toFloat(),
+                                       unitData[2].toFloat(),
+                                       unitData[3].toFloat(),
+                                       unitData[4].toFloat(),
+                                       unitData[5].toFloat()) );
         }
 
         unitFile.close();
@@ -550,10 +551,7 @@ void SavesAccess::saveUnitFile()
     QFile unitFile(rootSavesDirectory.absolutePath()
                        + "/" + selectedSaveName
                        + "/" + "un.sav");
-    QFile testFile(rootSavesDirectory.absolutePath()
-                       + "/" + selectedSaveName
-                       + "/" + "un_test.sav");
-    testFile.open(QIODevice::WriteOnly);
+
 
     // Open file for write, and make sure it went okay.
     if (!unitFile.open(QIODevice::WriteOnly))
@@ -566,7 +564,6 @@ void SavesAccess::saveUnitFile()
     else
     {
         QTextStream unitStream(&unitFile);
-        QDataStream testStream(&testFile);
 
         // Save the humans, then the neutral mobs, then the violent mobs.
 
@@ -576,57 +573,55 @@ void SavesAccess::saveUnitFile()
         {
             Human* human = (Human*)*itr;
 
-            testStream.writeBytes(toBinary(human->archerLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->blacksmithLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->builderLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->carpenterLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->engineerLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->farmerLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->fishermanLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->foragerLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->infantryLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->minerLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->stoneMasonLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->woodChopperLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->tailorLevel()).constData(),2);
-            testStream.writeBytes(toBinary(human->unknownUnit1Level()).constData(),2);
-            testStream.writeBytes(toBinary(human->unknownUnit2Level()).constData(),2);
-            testStream.writeBytes(QByteArray("\n\r"),2);
-
             unitStream << human->profession() << "/"
                        << QString("%1").arg(human->posX(),0,'g',8) << "/"
-                       << human->posY() << "/"
-                       << human->posZ() << "/"
-                       << human->name() << "/"
-                       << toBinary(human->archerLevel())
-                       << toBinary(human->blacksmithLevel())
-                       << toBinary(human->builderLevel())
-                       << toBinary(human->carpenterLevel()).constData()
-                       << toBinary(human->engineerLevel()).constData()
-                       << toBinary(human->farmerLevel()).constData()
-                       << toBinary(human->fishermanLevel()).constData()
-                       << toBinary(human->foragerLevel()).constData()
-                       << toBinary(human->infantryLevel()).constData()
-                       << toBinary(human->minerLevel()).constData()
-                       << toBinary(human->stoneMasonLevel()).constData()
-                       << toBinary(human->woodChopperLevel()).constData()
-                       << toBinary(human->tailorLevel()).constData()
-                       << toBinary(human->unknownUnit1Level()).constData()
-                       << toBinary(human->unknownUnit2Level()).constData() << "/"
-                       << toBinary(human->experience()).constData() << "/"
-                       << QString(human->autoChop()?"True":"False") << "/"
+                       << QString("%1").arg(human->posY(),0,'g',8) << "/"
+                       << QString("%1").arg(human->posZ(),0,'g',8) << "/"
+                       << human->name() << "/";
+            unitStream.flush();
+
+            unitFile.write(toBinary(human->archerLevel()));
+            unitFile.write(toBinary(human->blacksmithLevel()));
+            unitFile.write(toBinary(human->builderLevel()));
+            unitFile.write(toBinary(human->carpenterLevel()).constData());
+            unitFile.write(toBinary(human->engineerLevel()).constData());
+            unitFile.write(toBinary(human->farmerLevel()).constData());
+            unitFile.write(toBinary(human->fishermanLevel()).constData());
+            unitFile.write(toBinary(human->foragerLevel()).constData());
+            unitFile.write(toBinary(human->infantryLevel()).constData());
+            unitFile.write(toBinary(human->minerLevel()).constData());
+            unitFile.write(toBinary(human->stoneMasonLevel()).constData());
+            unitFile.write(toBinary(human->woodChopperLevel()).constData());
+            unitFile.write(toBinary(human->tailorLevel()).constData());
+            unitFile.write(toBinary(human->unknownUnit1Level()).constData());
+            unitFile.write(toBinary(human->unknownUnit2Level()).constData());
+            unitStream << "/"; unitStream.flush();
+
+            unitFile.write(toBinary(human->experience()).constData());
+            unitStream << "/"; unitStream.flush();
+
+            unitStream << QString(human->autoChop()?"True":"False") << "/"
                        << QString(human->gatherBerries()?"True":"False") << "/"
                        << QString(human->huntChicken()?"True":"False") << "/"
                        << QString(human->huntBoar()?"True":"False") << "/"
                        << QString(human->showBowRange()?"True":"False") << "/"
                        << QString(human->trainNearTarget()?"True":"False") << "/"
-                       << QString("%1").arg(human->rotation(),0,'g',8) << "/"
-                       << toBinary(human->equipHand()).constData() << "/"
-                       << toBinary(human->equipOffhand()).constData() << "/"
-                       << toBinary(human->equipHead()).constData() << "/"
-                       << toBinary(human->equipBody()).constData() << "/"
-                       << toBinary(human->equipFeet()).constData() << "/"
-                       << toBinary(human->health()).constData() << "/";
+                       << QString("%1").arg(human->rotation(),0,'g',8) << "/";
+            unitStream.flush();
+
+            unitFile.write(toBinary(human->equipHand()).constData());
+            unitStream << "/"; unitStream.flush();
+            unitFile.write(toBinary(human->equipOffhand()).constData());
+            unitStream << "/"; unitStream.flush();
+            unitFile.write(toBinary(human->equipHead()).constData());
+            unitStream << "/"; unitStream.flush();
+            unitFile.write(toBinary(human->equipBody()).constData());
+            unitStream << "/"; unitStream.flush();
+            unitFile.write(toBinary(human->equipFeet()).constData());
+            unitStream << "/"; unitStream.flush();
+            unitFile.write(toBinary(human->health()).constData());
+            unitStream << "/"; unitStream.flush();
+
             // Dump all the options in the file.
             for (unsigned int i = 0; i<52; i++) {
                 unitStream << QString(human->option(i)?"True":"False") << "/";
@@ -636,7 +631,9 @@ void SavesAccess::saveUnitFile()
                        << human->unknownFloat3() << "/"
                        << human->unknownFloat4() << "/"
                        << QString(human->unknownBool1()?"True":"False") << "/";
+
             unitStream << endl;
+            unitStream.flush();
         }
 
         // Neutral Mobs
@@ -661,13 +658,13 @@ void SavesAccess::saveUnitFile()
                        << mob->posX() << "/"
                        << mob->posY() << "/"
                        << mob->posZ() << "/"
-                       << mob->rotation() << "/";
+                       << mob->rotation() << "/"
+                       << mob->health() << "/";
             unitStream << endl;
         }
     }
 
     unitFile.close();
-    testFile.close();
 }
 
 void SavesAccess::writeToMatlab()

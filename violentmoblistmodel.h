@@ -25,7 +25,8 @@ public:
         PosXRole,
         PosYRole,
         PosZRole,
-        RotationRole
+        RotationRole,
+        HealthRole
     };
 
     ViolentMob(QObject * parent = 0): ListItem(parent){id_counter++;}
@@ -34,6 +35,7 @@ public:
                         const float &posY,
                         const float &posZ,
                         const float &rotation,
+                        const float &health,
                         QObject * parent = 0);
 
 
@@ -52,6 +54,7 @@ public:
     inline float posY() const { return m_posY; }
     inline float posZ() const { return m_posZ; }
     inline float rotation() const { return m_rotation; }
+    inline float health() const { return m_health; }
 
     // Utilities
     void print();
@@ -64,6 +67,7 @@ private:
     float m_posY;
     float m_posZ;
     float m_rotation;
+    float m_health; // I'm not sure if this is actual health or not.
 };
 
 // ViolentMobListModel store ViolentMobs

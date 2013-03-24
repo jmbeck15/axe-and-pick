@@ -307,13 +307,13 @@ void HumanListModel::remove(const long id)
 float HumanListModel::getFirstPosition(const char label)
 {
     if (getList().size() != 0) {
-        if (label=='x') {
+        if (label==0) {
             return ((Human*)getList().first())->posX();
         }
-        else if (label=='y') {
+        else if (label==1) {
             return ((Human*)getList().first())->posY();
         }
-        else if (label=='z') {
+        else if (label==2) {
             return ((Human*)getList().first())->posZ();
         }
     }
@@ -325,6 +325,16 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     int high = 5;
     int low = 1;
 
+    // Set the options
+    QBitArray options(52, false);
+    for (int i=2; i<13; i++) {
+        options[i] = true;  // These settings seem to be on by default.
+    }
+    options[14] = true; // Set default sleep settings.
+    options[16] = true;
+    options[18] = true;
+
+    // Build the Human and add it to the list.
     appendRow(new Human(
                   type,
                   x, y, z,
@@ -346,7 +356,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
                   qrand() % ((high + 1) - low) + low,  // unknown
                   qrand() % ((high + 1) - low) + low,  // unknown
 
-                  0, // experience
+                  1, // experience
 
                   false,
                   false,
@@ -357,13 +367,13 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   0.0, // rotation
 
-                  0,0,0,0,0, // equip
+                  127,127,127,127,127, // equip
 
                   100, // health
 
-                  QBitArray(52, false), // options (all false)
+                  options,
 
-                  0.0, 0.0, 0.0, 0.0,   // unknown floats
+                  14.0, 0.9, 0.8, 0.0,   // unknown floats
                   false                 // unknown bool
                   )
               );

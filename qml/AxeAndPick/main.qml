@@ -609,31 +609,32 @@ Item {
             // stuff out automatically.
             //
             function addUnit() {
+
                 if (humanButton.selected) {
                     if (humanModel.rowCount()) {
-                        humanModel.add(name,humanModel.getFirstPosition(x),humanModel.getFirstPosition(y),humanModel.getFirstPosition(z));
+                        humanModel.add(name,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
                     } else if (neutralMobModel.rowCount()) {
-                        humanModel.add(name,neutralMobModel.getFirstPosition(x),neutralMobModel.getFirstPosition(y),neutralMobModel.getFirstPosition(z));
+                        humanModel.add(name,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
                     } else if (violentMobModel.rowCount()) {
-                        humanModel.add(name,violentMobModel.getFirstPosition(x),violentMobModel.getFirstPosition(y),violentMobModel.getFirstPosition(z));
+                        humanModel.add(name,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
                     }
                 }
                 else if (neutralMobButton.selected) {
                     if (neutralMobModel.rowCount()) {
-                        neutralMobModel.add(name,neutralMobModel.getFirstPosition(x),neutralMobModel.getFirstPosition(y),neutralMobModel.getFirstPosition(z));
+                        neutralMobModel.add(name,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
                     } else if (humanModel.rowCount()) {
-                        neutralMobModel.add(name,humanModel.getFirstPosition(x),humanModel.getFirstPosition(y),humanModel.getFirstPosition(z));
+                        neutralMobModel.add(name,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
                     } else if (violentMobModel.rowCount()) {
-                        neutralMobModel.add(name,violentMobModel.getFirstPosition(x),violentMobModel.getFirstPosition(y),violentMobModel.getFirstPosition(z));
+                        neutralMobModel.add(name,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
                     }
                 }
                 else if (violentMobButton.selected) {
                     if (violentMobModel.rowCount()) {
-                        violentMobModel.add(name,violentMobModel.getFirstPosition(x),violentMobModel.getFirstPosition(y),violentMobModel.getFirstPosition(z));
+                        violentMobModel.add(name,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
                     } else if (neutralMobModel.rowCount()) {
-                        violentMobModel.add(name,neutralMobModel.getFirstPosition(x),neutralMobModel.getFirstPosition(y),neutralMobModel.getFirstPosition(z));
+                        violentMobModel.add(name,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
                     } else if (humanModel.rowCount()) {
-                        violentMobModel.add(name,humanModel.getFirstPosition(x),humanModel.getFirstPosition(y),humanModel.getFirstPosition(z));
+                        violentMobModel.add(name,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
                     }
                 }
                 else { console.log("No unit type buttons are enabled. Where do I add this unit?") }
