@@ -96,14 +96,15 @@ void ResourceListModel::setData(const long id, const QVariant &value, int role)
 
 void ResourceListModel::setUnknownQuantities()
 {
-    // TODO: Redo this without find() failing because i is wrong.
-    for (int i=0; i<rowCount(); i++)
+    long counter = 0;
+    for (QList<ListItem*>::iterator itr = getList().begin(); itr != getList().end(); itr++)
     {
-        Resource * resource = (Resource*)find(i);
-        if( resource->name().compare("unknown") == 0 )
+        if(((Resource*)*itr)->name().compare("unknown") == 0)
         {
-            resource->setQuantity(i+1000);
+            ((Resource*)*itr)->setQuantity(counter+1000);
         }
+        counter++;
     }
+
     qDebug() << "Set unknown quantities. Remember to save.";
 }
