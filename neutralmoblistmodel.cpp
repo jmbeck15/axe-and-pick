@@ -112,3 +112,31 @@ void NeutralMobListModel::remove(const long id)
     removeRow(indexFromItem(find( id )).row());
 }
 
+// This function only exists because we can't parse the map file.
+// TODO: change how units are placed.
+float NeutralMobListModel::getFirstPosition(const char label)
+{
+    if (getList().size() != 0) {
+        if (label=='x') {
+            return ((NeutralMob*)getList().first())->posX();
+        }
+        else if (label=='y') {
+            return ((NeutralMob*)getList().first())->posY();
+        }
+        else if (label=='z') {
+            return ((NeutralMob*)getList().first())->posZ();
+        }
+    }
+    return 0.0;
+}
+
+void NeutralMobListModel::add(const QString type, float x, float y, float z)
+{
+    appendRow(new NeutralMob(
+                  type,
+                  x, y, z,  // position
+                  0.0 ));    // rotation
+
+    qDebug() << "Added a mob of type" << type;
+}
+

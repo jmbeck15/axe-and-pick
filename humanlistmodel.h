@@ -219,7 +219,7 @@ public:
 
     Q_INVOKABLE void setData(const long id, const QVariant &value, int role = Human::ProfessionRole);
     Q_INVOKABLE void remove(const long id);
-    Q_INVOKABLE long getFirstPosition(const char label);
+    Q_INVOKABLE float getFirstPosition(const char label);
     Q_INVOKABLE void add(const QString type, float x, float y, float z);
 };
 

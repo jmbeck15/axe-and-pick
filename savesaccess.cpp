@@ -546,7 +546,7 @@ void SavesAccess::saveUnitFile()
     }
     else
     {
-        // Save the numans, then the neutral mobs, then the violent mobs.
+        // Save the humans, then the neutral mobs, then the violent mobs.
         QString unitString;
 
     }

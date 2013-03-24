@@ -619,10 +619,22 @@ Item {
                     }
                 }
                 else if (neutralMobButton.selected) {
-                    neutralMobModel.add(name);
+                    if (neutralMobModel.rowCount()) {
+                        neutralMobModel.add(name,neutralMobModel.getFirstPosition(x),neutralMobModel.getFirstPosition(y),neutralMobModel.getFirstPosition(z));
+                    } else if (humanModel.rowCount()) {
+                        neutralMobModel.add(name,humanModel.getFirstPosition(x),humanModel.getFirstPosition(y),humanModel.getFirstPosition(z));
+                    } else if (violentMobModel.rowCount()) {
+                        neutralMobModel.add(name,violentMobModel.getFirstPosition(x),violentMobModel.getFirstPosition(y),violentMobModel.getFirstPosition(z));
+                    }
                 }
                 else if (violentMobButton.selected) {
-                    violentMobModel.add(name);
+                    if (violentMobModel.rowCount()) {
+                        violentMobModel.add(name,violentMobModel.getFirstPosition(x),violentMobModel.getFirstPosition(y),violentMobModel.getFirstPosition(z));
+                    } else if (neutralMobModel.rowCount()) {
+                        violentMobModel.add(name,neutralMobModel.getFirstPosition(x),neutralMobModel.getFirstPosition(y),neutralMobModel.getFirstPosition(z));
+                    } else if (humanModel.rowCount()) {
+                        violentMobModel.add(name,humanModel.getFirstPosition(x),humanModel.getFirstPosition(y),humanModel.getFirstPosition(z));
+                    }
                 }
                 else { console.log("No unit type buttons are enabled. Where do I add this unit?") }
             }

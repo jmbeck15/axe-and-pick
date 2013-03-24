@@ -19,7 +19,13 @@
 
 QString appVersion()
 {
-    return "0.5";
+    // Version History
+    // ---------------------
+    // 0.4 - first release, only resource editing
+    // 0.5 - second release, only tweaked resource list
+    // 1.0 - units: add and remove
+    //
+    return "1.0";
 }
 
 int main(int argc, char *argv[])

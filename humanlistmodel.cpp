@@ -307,7 +307,7 @@ void HumanListModel::remove(const long id)
 
 // This function only exists because we can't parse the map file.
 // TODO: change how units are placed.
-long HumanListModel::getFirstPosition(const char label)
+float HumanListModel::getFirstPosition(const char label)
 {
     if (getList().size() != 0) {
         if (label=='x') {
@@ -320,6 +320,7 @@ long HumanListModel::getFirstPosition(const char label)
             return ((Human*)getList().first())->posZ();
         }
     }
+    return 0.0;
 }
 
 void HumanListModel::add(const QString type, float x, float y, float z)

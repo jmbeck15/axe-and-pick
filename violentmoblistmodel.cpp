@@ -111,3 +111,33 @@ void ViolentMobListModel::remove(const long id)
     // get the index of that item, and remove it.
     removeRow(indexFromItem(find( id )).row());
 }
+
+// This function only exists because we can't parse the map file.
+// TODO: change how units are placed.
+float ViolentMobListModel::getFirstPosition(const char label)
+{
+    if (getList().size() != 0) {
+        if (label=='x') {
+            return ((ViolentMob*)getList().first())->posX();
+        }
+        else if (label=='y') {
+            return ((ViolentMob*)getList().first())->posY();
+        }
+        else if (label=='z') {
+            return ((ViolentMob*)getList().first())->posZ();
+        }
+    }
+    return 0.0;
+}
+
+void ViolentMobListModel::add(const QString type, float x, float y, float z)
+{
+    appendRow(new ViolentMob(
+                  type,
+                  x, y, z,  // position
+                  0.0 ));    // rotation
+
+    qDebug() << "Added a mob of type" << type;
+}
+
+
