@@ -6,6 +6,7 @@
 #include <QQmlContext>
 #include <QSortFilterProxyModel>
 #include <QtWidgets/QFileDialog>
+#include <QTime>
 #include "qtquick2applicationviewer.h"
 
 #include "resourcelistmodel.h"
@@ -23,6 +24,9 @@ QString appVersion()
 
 int main(int argc, char *argv[])
 {
+    // Seed the random number generator
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
 
     QApplication app(argc, argv);
     QtQuick2ApplicationViewer viewer;

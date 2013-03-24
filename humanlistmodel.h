@@ -95,11 +95,11 @@ public:
 
                    const float &rotation,
 
-                   const bool &equipHand,
-                   const bool &equipOffhand,
-                   const bool &equipHead,
-                   const bool &equipBody,
-                   const bool &equipFeet,
+                   const unsigned int &equipHand,
+                   const unsigned int &equipOffhand,
+                   const unsigned int &equipHead,
+                   const unsigned int &equipBody,
+                   const unsigned int &equipFeet,
 
                    const unsigned int &health,
 
@@ -219,7 +219,8 @@ public:
 
     Q_INVOKABLE void setData(const long id, const QVariant &value, int role = Human::ProfessionRole);
     Q_INVOKABLE void remove(const long id);
-    Q_INVOKABLE void add(const QString type);
+    Q_INVOKABLE long getFirstPosition(const char label);
+    Q_INVOKABLE void add(const QString type, float x, float y, float z);
 };
 
 #endif // HUMANLISTMODEL_H

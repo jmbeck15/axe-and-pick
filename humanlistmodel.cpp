@@ -38,11 +38,11 @@ Human::Human(const QString &profession,
 
              const float &rotation,
 
-             const bool &equipHand,
-             const bool &equipOffhand,
-             const bool &equipHead,
-             const bool &equipBody,
-             const bool &equipFeet,
+             const unsigned int &equipHand,
+             const unsigned int &equipOffhand,
+             const unsigned int &equipHead,
+             const unsigned int &equipBody,
+             const unsigned int &equipFeet,
 
              const unsigned int &health,
 
@@ -305,9 +305,70 @@ void HumanListModel::remove(const long id)
     removeRow(indexFromItem(find( id )).row());
 }
 
-void HumanListModel::add(const QString type)
+// This function only exists because we can't parse the map file.
+// TODO: change how units are placed.
+long HumanListModel::getFirstPosition(const char label)
 {
-    //appendRow(Human());
+    if (getList().size() != 0) {
+        if (label=='x') {
+            return ((Human*)getList().first())->posX();
+        }
+        else if (label=='y') {
+            return ((Human*)getList().first())->posY();
+        }
+        else if (label=='z') {
+            return ((Human*)getList().first())->posZ();
+        }
+    }
+}
+
+void HumanListModel::add(const QString type, float x, float y, float z)
+{
+    int high = 5;
+    int low = 1;
+
+    appendRow(new Human(
+                  type,
+                  x, y, z,
+                  "Drone",
+
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,
+
+                  qrand() % ((high + 1) - low) + low, // experience
+
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+
+                  0.0, // rotation
+
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+
+                  100, // health
+
+                  true, // auto-equip
+                  false )
+              );
+
+    qDebug() << "Added a human of type" << type;
 }
 
 

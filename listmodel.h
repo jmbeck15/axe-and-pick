@@ -34,7 +34,7 @@ class ListModel : public QAbstractListModel
 public:
   explicit ListModel(ListItem* prototype, QObject* parent = 0);
   ~ListModel();
-  int rowCount(const QModelIndex &parent = QModelIndex()) const;
+  Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const;
   QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
   void appendRow(ListItem* item);
   void appendRows(const QList<ListItem*> &items);

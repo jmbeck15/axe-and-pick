@@ -515,6 +515,8 @@ Item {
     //
     // Unit Types
     //
+    // The names reflect the <name>.svg image name too,
+    // so make sure there is a valid image in the units/ folder.
     //
     ListModel {
         id: humanTypeModel
@@ -589,6 +591,42 @@ Item {
         id: unitTypeDelegate
 
         Rectangle {
+
+            // First, we have to figure out where this unit should be placed.
+            //
+            // Ideally, this position should be taken from the map data, so we
+            // know the location is valid (not in a tree, not under sand, etc).
+            // But I can't figure out the file format. Instead, this will simply
+            // copy the x/y/z location of the first human already on the map.
+            // If there are no humans, it takes the first neutral mob. If there
+            // are no neutral mobs, it takes the first violent mob. I can't think
+            // of any better solution. Placing the new units around the campfire
+            // could fail depending on land geometry, and wouldn't work if the
+            // campfire was removed. So for now, this is how it'll have to work.
+            //
+            // NOTE: I don't want the user changing the x/y/z location because
+            // that's just annoying. The program should be able to figure this
+            // stuff out automatically.
+            //
+            function addUnit() {
+                if (humanButton.selected) {
+                    if (humanModel.rowCount()) {
+                        humanModel.add(name,humanModel.getFirstPosition(x),humanModel.getFirstPosition(y),humanModel.getFirstPosition(z));
+                    } else if (neutralMobModel.rowCount()) {
+                        humanModel.add(name,neutralMobModel.getFirstPosition(x),neutralMobModel.getFirstPosition(y),neutralMobModel.getFirstPosition(z));
+                    } else if (violentMobModel.rowCount()) {
+                        humanModel.add(name,violentMobModel.getFirstPosition(x),violentMobModel.getFirstPosition(y),violentMobModel.getFirstPosition(z));
+                    }
+                }
+                else if (neutralMobButton.selected) {
+                    neutralMobModel.add(name);
+                }
+                else if (violentMobButton.selected) {
+                    violentMobModel.add(name);
+                }
+                else { console.log("No unit type buttons are enabled. Where do I add this unit?") }
+            }
+
             Image {
                 id: unitTypeIcon
                 source: "images/units/" + name + ".svg"
@@ -596,6 +634,7 @@ Item {
                     id: unitTypeIconArea
                     anchors.fill: parent
                     onClicked: {
+                        addUnit();
                     }
                 }
                 states:
