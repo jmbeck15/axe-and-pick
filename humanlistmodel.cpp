@@ -26,6 +26,9 @@ Human::Human(const QString &profession,
              const unsigned int &minerLevel,
              const unsigned int &stoneMasonLevel,
              const unsigned int &woodChopperLevel,
+             const unsigned int &tailorLevel,
+             const unsigned int &unknownUnit1Level,
+             const unsigned int &unknownUnit2Level,
 
              const unsigned int &experience,
 
@@ -46,8 +49,13 @@ Human::Human(const QString &profession,
 
              const unsigned int &health,
 
-             const bool &autoEquip,
-             const bool &returnToCampfire,
+             const QBitArray &options,
+
+             const float &unknownFloat1,
+             const float &unknownFloat2,
+             const float &unknownFloat3,
+             const float &unknownFloat4,
+             const bool &unknownBool1,
              QObject * parent)
     : ListItem(parent),
     m_id(id_counter),
@@ -70,6 +78,9 @@ Human::Human(const QString &profession,
     m_minerLevel(minerLevel),
     m_stoneMasonLevel(stoneMasonLevel),
     m_woodChopperLevel(woodChopperLevel),
+    m_tailorLevel(tailorLevel),
+    m_unknownUnit1Level(unknownUnit1Level),
+    m_unknownUnit2Level(unknownUnit2Level),
 
     m_experience(experience),
 
@@ -90,8 +101,13 @@ Human::Human(const QString &profession,
 
     m_health(health),
 
-    m_autoEquip(autoEquip),
-    m_returnToCampfire(returnToCampfire)
+    m_options(options),
+
+    m_unknownFloat1(unknownFloat1),
+    m_unknownFloat2(unknownFloat2),
+    m_unknownFloat3(unknownFloat3),
+    m_unknownFloat4(unknownFloat4),
+    m_unknownBool1(unknownBool1)
 {
     id_counter++;
 }
@@ -128,6 +144,9 @@ QHash<int, QByteArray> Human::roleNames() const
     names[MinerLevelRole] = "minerLevel";
     names[StoneMasonLevelRole] = "stoneMasonLevel";
     names[WoodChopperLevelRole] = "woodChopperLevel";
+    names[TailorLevelRole] = "tailorLevel";
+    names[UnknownUnit1LevelRole] = "unknownUnit1Level";
+    names[UnknownUnit2LevelRole] = "unknownUnit2Level";
 
     names[ExperienceRole] = "experience";
 
@@ -147,9 +166,6 @@ QHash<int, QByteArray> Human::roleNames() const
     names[EquipFeetRole] = "equipFeet";
 
     names[HealthRole] = "health";
-
-    names[AutoequipRole] = "autoEquip";
-    names[ReturnToCampfireRole] = "returnToCampfire";
 
     return names;
 }
@@ -197,6 +213,12 @@ QVariant Human::data(int role) const
         return stoneMasonLevel();
     case WoodChopperLevelRole:
         return woodChopperLevel();
+    case TailorLevelRole:
+        return tailorLevel();
+    case UnknownUnit1LevelRole:
+        return unknownUnit1Level();
+    case UnknownUnit2LevelRole:
+        return unknownUnit2Level();
 
     case ExperienceRole:
         return experience();
@@ -231,11 +253,6 @@ QVariant Human::data(int role) const
     case HealthRole:
         return health();
 
-    case AutoequipRole:
-        return autoEquip();
-    case ReturnToCampfireRole:
-        return returnToCampfire();
-
     default:
         return QVariant();
     }
@@ -254,26 +271,6 @@ void Human::print()
 {
     qDebug() << name() << "-" << profession();
     qDebug() << "   Exp:" << experience() << "  Health:" << health();
-    qDebug() << "   Auto-equip:" << autoEquip() << "   Auto-chop:" << autoChop();
-    qDebug() << "   Return to campfire:" << returnToCampfire();
-}
-
-QStringList Human::getTypeList()
-{
-    QStringList types;
-    types << "Archer"
-          << "Blacksmith"
-          << "Builder"
-          << "Carpenter"
-          << "Engineer"
-          << "Farmer"
-          << "Fisherman"
-          << "Forager"
-          << "Infantry"
-          << "Miner"
-          << "Stone Mason"
-          << "Wood Chopper";
-    return types;
 }
 
 
@@ -345,6 +342,9 @@ void HumanListModel::add(const QString type, float x, float y, float z)
                   qrand() % ((high + 1) - low) + low,
                   qrand() % ((high + 1) - low) + low,
                   qrand() % ((high + 1) - low) + low,
+                  qrand() % ((high + 1) - low) + low,  // tailor
+                  qrand() % ((high + 1) - low) + low,  // unknown
+                  qrand() % ((high + 1) - low) + low,  // unknown
 
                   qrand() % ((high + 1) - low) + low, // experience
 
@@ -357,16 +357,15 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   0.0, // rotation
 
-                  0,
-                  0,
-                  0,
-                  0,
-                  0,
+                  0,0,0,0,0, // equip
 
                   100, // health
 
-                  true, // auto-equip
-                  false )
+                  QBitArray(52, false), // options (all false)
+
+                  0.0, 0.0, 0.0, 0.0,   // unknown floats
+                  false                 // unknown bool
+                  )
               );
 
     qDebug() << "Added a human of type" << type;

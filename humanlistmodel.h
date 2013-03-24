@@ -4,6 +4,7 @@
 #include <QAbstractListModel>
 #include <QList>
 #include <QVariant>
+#include <QBitArray>
 
 #include "listmodel.h"
 
@@ -39,6 +40,9 @@ public:
         MinerLevelRole,
         StoneMasonLevelRole,
         WoodChopperLevelRole,
+        TailorLevelRole,
+        UnknownUnit1LevelRole,
+        UnknownUnit2LevelRole,
 
         ExperienceRole,
 
@@ -57,14 +61,13 @@ public:
         EquipBodyRole,
         EquipFeetRole,
 
-        HealthRole,
+        HealthRole
 
-        AutoequipRole,
-        ReturnToCampfireRole
-
+        // NOTE: Options and unknown quantities are yet to be added.
     };
 
     Human(QObject * parent = 0): ListItem(parent){id_counter++;}
+
     explicit Human(const QString &profession,
                    const float &posX,
                    const float &posY,
@@ -83,6 +86,9 @@ public:
                    const unsigned int &minerLevel,
                    const unsigned int &stoneMasonLevel,
                    const unsigned int &woodChopperLevel,
+                   const unsigned int &tailorLevel,
+                   const unsigned int &unknownUnit1Level,
+                   const unsigned int &unknownUnit2Level,
 
                    const unsigned int &experience,
 
@@ -103,8 +109,13 @@ public:
 
                    const unsigned int &health,
 
-                   const bool &autoEquip,
-                   const bool &returnToCampfire,
+                   const QBitArray &options,
+
+                   const float &unknownFloat1,
+                   const float &unknownFloat2,
+                   const float &unknownFloat3,
+                   const float &unknownFloat4,
+                   const bool &unknownBool1,
                    QObject * parent = 0);
 
     QVariant data(int role) const;
@@ -135,6 +146,9 @@ public:
     inline unsigned int minerLevel() const { return m_minerLevel; }
     inline unsigned int stoneMasonLevel() const { return m_stoneMasonLevel; }
     inline unsigned int woodChopperLevel() const { return m_woodChopperLevel; }
+    inline unsigned int tailorLevel() const { return m_tailorLevel; }
+    inline unsigned int unknownUnit1Level() const { return m_unknownUnit1Level; }
+    inline unsigned int unknownUnit2Level() const { return m_unknownUnit2Level; }
 
     inline unsigned int experience() const { return m_experience; }
 
@@ -155,13 +169,17 @@ public:
 
     inline unsigned int health() const { return m_health; }
 
-    inline bool autoEquip() const { return m_autoEquip; }
-    inline bool returnToCampfire() const { return m_returnToCampfire; }
+    inline bool option(unsigned int optionNumber) const { return m_options[optionNumber]; }
 
+    inline float unknownFloat1() const { return m_unknownFloat1; }
+    inline float unknownFloat2() const { return m_unknownFloat2; }
+    inline float unknownFloat3() const { return m_unknownFloat3; }
+    inline float unknownFloat4() const { return m_unknownFloat4; }
+
+    inline float unknownBool1() const { return m_unknownBool1; }
 
     // Utilities and Helpers
     void print();
-    QStringList static getTypeList();
 
 private:
     long m_id;
@@ -184,6 +202,9 @@ private:
     unsigned int m_minerLevel;
     unsigned int m_stoneMasonLevel;
     unsigned int m_woodChopperLevel;
+    unsigned int m_tailorLevel;
+    unsigned int m_unknownUnit1Level;
+    unsigned int m_unknownUnit2Level;
 
     unsigned int m_experience;
 
@@ -204,8 +225,14 @@ private:
 
     unsigned int m_health;
 
-    bool m_autoEquip;
-    bool m_returnToCampfire;
+    QBitArray m_options; // These contain the options for this unit.
+
+    float m_unknownFloat1;
+    float m_unknownFloat2;
+    float m_unknownFloat3;
+    float m_unknownFloat4;
+
+    bool m_unknownBool1;
 };
 
 // HumanListModel store Humans

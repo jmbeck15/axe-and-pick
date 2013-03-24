@@ -26,7 +26,7 @@ void SavesAccess::loadSavedGame(QString gameName)
 void SavesAccess::saveSavedGame()
 {
     saveResourceFile();
-    //saveUnitsToFile();
+    saveUnitFile();
     //saveTimeToFile();
     //saveGameOverviewToFile();
 }
@@ -390,6 +390,8 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
+            qDebug() << "Size of human data:" << unitData.size();
+
             // Break out the [5] element (experience levels) into numbers
 
             // Store the bytes in an array instead of a normal string.
@@ -405,8 +407,8 @@ void SavesAccess::loadUnitFile()
 
 
             // For each job, compute the experience level.
-            // NOTE: There are 12 professions and associated levels.
-            for (int job=0; job<12; job++)
+            // NOTE: There are 15 professions and associated levels.
+            for (int job=0; job<15; job++)
             {
                 // Most significant byte
                 byte = rawLevelString[byteNumber];
@@ -437,6 +439,13 @@ void SavesAccess::loadUnitFile()
             }
             byteNumber = 0;
 
+            // Load in all the options at once.
+            QBitArray loadedOptions(52);
+            for(unsigned int i=0; i<52; i++)
+            {
+                loadedOptions[i] = unitData[i+23].compare("True") ? false : true;
+            }
+
             humanModel->appendRow(new Human(
                                       unitData[0],
                                       unitData[1].toFloat(),
@@ -456,6 +465,9 @@ void SavesAccess::loadUnitFile()
                                       levels[9],
                                       levels[10],
                                       levels[11],
+                                      levels[12],
+                                      levels[13],
+                                      levels[14],
 
                                       toLong(unitData[6].toStdString().c_str()), // experience
 
@@ -476,8 +488,13 @@ void SavesAccess::loadUnitFile()
 
                                       toLong(unitData[19].toStdString().c_str()),
 
-                                      unitData[20].compare("True") ? false : true,
-                                      unitData[21].compare("True") ? false : true
+                                      loadedOptions,
+
+                                      unitData[72].toFloat(), // unknown options
+                                      unitData[73].toFloat(),
+                                      unitData[74].toFloat(),
+                                      unitData[75].toFloat(),
+                                      unitData[76].compare("True") ? false : true
                                     ));
 
             //((Human *)humanModel->find(i))->print();
@@ -534,10 +551,10 @@ void SavesAccess::saveUnitFile()
 
     QFile unitFile(rootSavesDirectory.absolutePath()
                        + "/" + selectedSaveName
-                       + "/" + "un.sav");
+                       + "/" + "un_test.sav");
 
     // Open file for write, and make sure it went okay.
-    if (!unitFile.open(QFile::ReadWrite))
+    if (!unitFile.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         // TODO: Make this error apparent on the interface somehow.
         // Perhaps by making the save icon be red instead of green.
@@ -547,9 +564,56 @@ void SavesAccess::saveUnitFile()
     else
     {
         // Save the humans, then the neutral mobs, then the violent mobs.
-        QString unitString;
-
+        QTextStream unitStream(&unitFile);
+        unitStream << humanModel->rowCount() << endl;
+        for (QList<ListItem*>::iterator itr = humanModel->getList().begin(); itr != humanModel->getList().end(); itr++)
+        {
+            Human* human = (Human*)*itr;
+            unitStream << human->profession() << "/"
+                       << human->posX() << "/"
+                       << human->posY() << "/"
+                       << human->posZ() << "/"
+                       << human->name() << "/"
+                       << toBinary(human->archerLevel())
+                       << toBinary(human->blacksmithLevel())
+                       << toBinary(human->builderLevel())
+                       << toBinary(human->carpenterLevel())
+                       << toBinary(human->engineerLevel())
+                       << toBinary(human->farmerLevel())
+                       << toBinary(human->fishermanLevel())
+                       << toBinary(human->foragerLevel())
+                       << toBinary(human->infantryLevel())
+                       << toBinary(human->minerLevel())
+                       << toBinary(human->stoneMasonLevel())
+                       << toBinary(human->woodChopperLevel()) << "/"
+                       << toBinary(human->experience()) << "/"
+                       << human->autoChop() << "/"
+                       << human->gatherBerries() << "/"
+                       << human->huntChicken() << "/"
+                       << human->huntBoar() << "/"
+                       << human->showBowRange() << "/"
+                       << human->trainNearTarget() << "/"
+                       << human->rotation() << "/"
+                       << toBinary(human->equipHand()) << "/"
+                       << toBinary(human->equipOffhand()) << "/"
+                       << toBinary(human->equipHead()) << "/"
+                       << toBinary(human->equipBody()) << "/"
+                       << toBinary(human->equipFeet()) << "/"
+                       << toBinary(human->health()) << "/";
+            // Dump all the options in the file.
+            for (unsigned int i = 0; i<52; i++) {
+                unitStream << human->option(i) << "/";
+            }
+            unitStream << human->unknownFloat1() << "/"
+                       << human->unknownFloat2() << "/"
+                       << human->unknownFloat3() << "/"
+                       << human->unknownFloat4() << "/"
+                       << human->unknownBool1() << "/";
+            unitStream << endl;
+        }
     }
+
+    unitFile.close();
 }
 
 void SavesAccess::writeToMatlab()
