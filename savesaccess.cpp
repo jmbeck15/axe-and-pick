@@ -133,9 +133,10 @@ void SavesAccess::setSavedGameListModel(SavedGameListModel * model)
     savedGameModel = model;
 }
 
-QByteArray SavesAccess::toBinary(long value)
+QByteArray SavesAccess::toBinary(unsigned int value)
 {
     QByteArray bytes;
+    bytes.clear();
 
     // NOTE: I do not understand this. I understand what it's doing, but
     // I have no idea why. I suspect it's much more simple, and I've
@@ -157,10 +158,10 @@ QByteArray SavesAccess::toBinary(long value)
 // This format handling can certainly be simplified. There's little
 // chance that the game designer made it complicated on purpose.
 //
-long SavesAccess::toLong(QByteArray bytes)
+unsigned int SavesAccess::toInt(QByteArray bytes)
 {
     // Ensure the bytes have only their relevant bits visible.
-    long value;
+    unsigned int value;
     if( bytes.size() > 2 )
     {
         bytes[0] = bytes[0] & 0x1f; // Two or more bytes exist, so this one has an extra id bit.
@@ -260,7 +261,7 @@ void SavesAccess::loadResourceFile()
                 resourceModel->appendRow(new Resource(assetData[0],
                                           assetData[1],
                                           assetData[2],
-                                          toLong(byteArray))); // resource quantity
+                                          toInt(byteArray))); // resource quantity
             }
 
             if (!resourceFile.atEnd())
@@ -354,7 +355,7 @@ void SavesAccess::loadUnitFile()
     // Compose the file name.
     QFile unitFile(rootSavesDirectory.absolutePath()
                    + "/" + selectedSaveName
-                   + "/" + "un.sav");
+                   + "/" + "un_orig.sav");
 
     if ((humanModel == Q_NULLPTR) |
         (neutralMobModel == Q_NULLPTR) |
@@ -390,13 +391,10 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            qDebug() << "Size of human data:" << unitData.size();
-
             // Break out the [5] element (experience levels) into numbers
 
             // Store the bytes in an array instead of a normal string.
-            QByteArray rawLevelString( unitData[5].toStdString().c_str() );
-
+            QByteArray rawLevelString( unitData[5].toLocal8Bit() );
             QByteArray numberInBytes;
             numberInBytes.clear();
 
@@ -433,7 +431,7 @@ void SavesAccess::loadUnitFile()
                 numberInBytes.append(byte);
 
                 // Convert the bytes to a long, and add to the list.
-                levels.append(toLong(numberInBytes));
+                levels.append(toInt(numberInBytes));
 
                 numberInBytes.clear();
             }
@@ -443,7 +441,7 @@ void SavesAccess::loadUnitFile()
             QBitArray loadedOptions(52);
             for(unsigned int i=0; i<52; i++)
             {
-                loadedOptions[i] = unitData[i+23].compare("True") ? false : true;
+                loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
             }
 
             humanModel->appendRow(new Human(
@@ -469,7 +467,7 @@ void SavesAccess::loadUnitFile()
                                       levels[13],
                                       levels[14],
 
-                                      toLong(unitData[6].toStdString().c_str()), // experience
+                                      toInt(unitData[6].toLocal8Bit()), // experience
 
                                       unitData[7].compare("True") ? false : true,
                                       unitData[8].compare("True") ? false : true,
@@ -480,13 +478,13 @@ void SavesAccess::loadUnitFile()
 
                                       unitData[13].toFloat(), // rotation
 
-                                      toLong(unitData[14].toStdString().c_str()),
-                                      toLong(unitData[15].toStdString().c_str()),
-                                      toLong(unitData[16].toStdString().c_str()),
-                                      toLong(unitData[17].toStdString().c_str()),
-                                      toLong(unitData[18].toStdString().c_str()),
+                                      toInt(unitData[14].toLocal8Bit()),
+                                      toInt(unitData[15].toLocal8Bit()),
+                                      toInt(unitData[16].toLocal8Bit()),
+                                      toInt(unitData[17].toLocal8Bit()),
+                                      toInt(unitData[18].toLocal8Bit()),
 
-                                      toLong(unitData[19].toStdString().c_str()),
+                                      toInt(unitData[19].toLocal8Bit()),
 
                                       loadedOptions,
 
@@ -551,10 +549,14 @@ void SavesAccess::saveUnitFile()
 
     QFile unitFile(rootSavesDirectory.absolutePath()
                        + "/" + selectedSaveName
+                       + "/" + "un.sav");
+    QFile testFile(rootSavesDirectory.absolutePath()
+                       + "/" + selectedSaveName
                        + "/" + "un_test.sav");
+    testFile.open(QIODevice::WriteOnly);
 
     // Open file for write, and make sure it went okay.
-    if (!unitFile.open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!unitFile.open(QIODevice::WriteOnly))
     {
         // TODO: Make this error apparent on the interface somehow.
         // Perhaps by making the save icon be red instead of green.
@@ -563,57 +565,109 @@ void SavesAccess::saveUnitFile()
     }
     else
     {
-        // Save the humans, then the neutral mobs, then the violent mobs.
         QTextStream unitStream(&unitFile);
+        QDataStream testStream(&testFile);
+
+        // Save the humans, then the neutral mobs, then the violent mobs.
+
+        // Humans
         unitStream << humanModel->rowCount() << endl;
         for (QList<ListItem*>::iterator itr = humanModel->getList().begin(); itr != humanModel->getList().end(); itr++)
         {
             Human* human = (Human*)*itr;
+
+            testStream.writeBytes(toBinary(human->archerLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->blacksmithLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->builderLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->carpenterLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->engineerLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->farmerLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->fishermanLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->foragerLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->infantryLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->minerLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->stoneMasonLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->woodChopperLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->tailorLevel()).constData(),2);
+            testStream.writeBytes(toBinary(human->unknownUnit1Level()).constData(),2);
+            testStream.writeBytes(toBinary(human->unknownUnit2Level()).constData(),2);
+            testStream.writeBytes(QByteArray("\n\r"),2);
+
             unitStream << human->profession() << "/"
-                       << human->posX() << "/"
+                       << QString("%1").arg(human->posX(),0,'g',8) << "/"
                        << human->posY() << "/"
                        << human->posZ() << "/"
                        << human->name() << "/"
                        << toBinary(human->archerLevel())
                        << toBinary(human->blacksmithLevel())
                        << toBinary(human->builderLevel())
-                       << toBinary(human->carpenterLevel())
-                       << toBinary(human->engineerLevel())
-                       << toBinary(human->farmerLevel())
-                       << toBinary(human->fishermanLevel())
-                       << toBinary(human->foragerLevel())
-                       << toBinary(human->infantryLevel())
-                       << toBinary(human->minerLevel())
-                       << toBinary(human->stoneMasonLevel())
-                       << toBinary(human->woodChopperLevel()) << "/"
-                       << toBinary(human->experience()) << "/"
-                       << human->autoChop() << "/"
-                       << human->gatherBerries() << "/"
-                       << human->huntChicken() << "/"
-                       << human->huntBoar() << "/"
-                       << human->showBowRange() << "/"
-                       << human->trainNearTarget() << "/"
-                       << human->rotation() << "/"
-                       << toBinary(human->equipHand()) << "/"
-                       << toBinary(human->equipOffhand()) << "/"
-                       << toBinary(human->equipHead()) << "/"
-                       << toBinary(human->equipBody()) << "/"
-                       << toBinary(human->equipFeet()) << "/"
-                       << toBinary(human->health()) << "/";
+                       << toBinary(human->carpenterLevel()).constData()
+                       << toBinary(human->engineerLevel()).constData()
+                       << toBinary(human->farmerLevel()).constData()
+                       << toBinary(human->fishermanLevel()).constData()
+                       << toBinary(human->foragerLevel()).constData()
+                       << toBinary(human->infantryLevel()).constData()
+                       << toBinary(human->minerLevel()).constData()
+                       << toBinary(human->stoneMasonLevel()).constData()
+                       << toBinary(human->woodChopperLevel()).constData()
+                       << toBinary(human->tailorLevel()).constData()
+                       << toBinary(human->unknownUnit1Level()).constData()
+                       << toBinary(human->unknownUnit2Level()).constData() << "/"
+                       << toBinary(human->experience()).constData() << "/"
+                       << QString(human->autoChop()?"True":"False") << "/"
+                       << QString(human->gatherBerries()?"True":"False") << "/"
+                       << QString(human->huntChicken()?"True":"False") << "/"
+                       << QString(human->huntBoar()?"True":"False") << "/"
+                       << QString(human->showBowRange()?"True":"False") << "/"
+                       << QString(human->trainNearTarget()?"True":"False") << "/"
+                       << QString("%1").arg(human->rotation(),0,'g',8) << "/"
+                       << toBinary(human->equipHand()).constData() << "/"
+                       << toBinary(human->equipOffhand()).constData() << "/"
+                       << toBinary(human->equipHead()).constData() << "/"
+                       << toBinary(human->equipBody()).constData() << "/"
+                       << toBinary(human->equipFeet()).constData() << "/"
+                       << toBinary(human->health()).constData() << "/";
             // Dump all the options in the file.
             for (unsigned int i = 0; i<52; i++) {
-                unitStream << human->option(i) << "/";
+                unitStream << QString(human->option(i)?"True":"False") << "/";
             }
             unitStream << human->unknownFloat1() << "/"
                        << human->unknownFloat2() << "/"
                        << human->unknownFloat3() << "/"
                        << human->unknownFloat4() << "/"
-                       << human->unknownBool1() << "/";
+                       << QString(human->unknownBool1()?"True":"False") << "/";
+            unitStream << endl;
+        }
+
+        // Neutral Mobs
+        unitStream << neutralMobModel->rowCount() << endl;
+        for (QList<ListItem*>::iterator itr = neutralMobModel->getList().begin(); itr != neutralMobModel->getList().end(); itr++)
+        {
+            NeutralMob* mob = (NeutralMob*)*itr;
+            unitStream << mob->type() << "/"
+                       << mob->posX() << "/"
+                       << mob->posY() << "/"
+                       << mob->posZ() << "/"
+                       << mob->rotation() << "/";
+            unitStream << endl;
+        }
+
+        // Violent Mobs
+        unitStream << violentMobModel->rowCount() << endl;
+        for (QList<ListItem*>::iterator itr = violentMobModel->getList().begin(); itr != violentMobModel->getList().end(); itr++)
+        {
+            ViolentMob* mob = (ViolentMob*)*itr;
+            unitStream << mob->type() << "/"
+                       << mob->posX() << "/"
+                       << mob->posY() << "/"
+                       << mob->posZ() << "/"
+                       << mob->rotation() << "/";
             unitStream << endl;
         }
     }
 
     unitFile.close();
+    testFile.close();
 }
 
 void SavesAccess::writeToMatlab()
@@ -664,7 +718,7 @@ void SavesAccess::writeToMatlab()
         matlabStream << xMax << ","
                        << yMax << ","
                        << zMax << ","
-                       << toLong(byteArray)
+                       << toInt(byteArray)
                        << endl;
 
         // Roll the position

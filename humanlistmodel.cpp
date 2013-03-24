@@ -346,7 +346,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
                   qrand() % ((high + 1) - low) + low,  // unknown
                   qrand() % ((high + 1) - low) + low,  // unknown
 
-                  qrand() % ((high + 1) - low) + low, // experience
+                  0, // experience
 
                   false,
                   false,

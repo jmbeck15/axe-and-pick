@@ -22,8 +22,8 @@ public:
     Q_INVOKABLE void saveSavedGame();
 
     // Functions to convert to/from binary format
-    static long toLong(QByteArray bytes);
-    static QByteArray toBinary(long value);
+    static unsigned int toInt(QByteArray bytes);
+    static QByteArray toBinary(unsigned int value);
 private:
     QDir rootSavesDirectory;
     QString selectedSaveName;

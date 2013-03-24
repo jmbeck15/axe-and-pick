@@ -45,12 +45,12 @@ int main(int argc, char *argv[])
 
 #if TESTING
     QByteArray binary;
-    long result;
+    unsigned int result;
     bool failed(false);
-    for( long value=0; value<700000; value++ )
+    for( unsigned int value=0; value<65000; value++ )
     {
         binary = SavesAccess::toBinary(value);
-        result = SavesAccess::toLong(binary);
+        result = SavesAccess::toInt(binary);
         if( result != value)
         {
             qDebug() << "Value" << value << "returned" << result;
