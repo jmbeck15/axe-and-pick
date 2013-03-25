@@ -397,28 +397,28 @@ Item {
             }
 
             // Utility for doing things.
-            Image {
-                id: utilityButton
-                anchors.right: parent.right
-                anchors.rightMargin: 10 + 16 // 16 is for the scroll bar
-                anchors.verticalCenter: parent.verticalCenter
-                source: "images/utilityButton.svg"
-                MouseArea {
-                    id: utilityButtonArea
-                    anchors.fill: parent
-                    onClicked: {
-                        savesAccess.writeToMatlab();
-                    }
-                }
-                states:
-                    State { // Pressed
-                        when: utilityButtonArea.pressed
-                        PropertyChanges {
-                            target: utilityButton
-                            source: "images/utilityButtonPressed.svg"
-                        }
-                    }
-            }
+//            Image {
+//                id: utilityButton
+//                anchors.right: parent.right
+//                anchors.rightMargin: 10 + 16 // 16 is for the scroll bar
+//                anchors.verticalCenter: parent.verticalCenter
+//                source: "images/utilityButton.svg"
+//                MouseArea {
+//                    id: utilityButtonArea
+//                    anchors.fill: parent
+//                    onClicked: {
+//                        savesAccess.writeToMatlab();
+//                    }
+//                }
+//                states:
+//                    State { // Pressed
+//                        when: utilityButtonArea.pressed
+//                        PropertyChanges {
+//                            target: utilityButton
+//                            source: "images/utilityButtonPressed.svg"
+//                        }
+//                    }
+//            }
         }
 
         // Container for things you can add to the list.
