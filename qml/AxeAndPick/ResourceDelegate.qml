@@ -28,7 +28,9 @@ Component {
             // Resource Icon
             Image {
                 id: resourceIcon
-                source: "images/" + icon
+                // TODO: When proper icons are made, this can be changed to:
+                // "images/resources/" + name + ".svg"
+                source: "images/resources/defaultResourceIcon.svg"
                 anchors.verticalCenter: parent.verticalCenter
             }
 

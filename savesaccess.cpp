@@ -260,7 +260,6 @@ void SavesAccess::loadResourceFile()
 
                 resourceModel->appendRow(new Resource(assetData[0],
                                           assetData[1],
-                                          assetData[2],
                                           toInt(byteArray))); // resource quantity
             }
 

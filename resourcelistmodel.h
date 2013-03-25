@@ -22,14 +22,12 @@ public:
         FilterStringRole,
         NameRole,
         TypeRole,
-        IconRole,
         QuantityRole
     };
 
     Resource(QObject * parent = 0): ListItem(parent){id_counter++;}
     explicit Resource(const QString &name,
                       const QString &type,
-                      const QString &icon,
                       const long &quantity,
                       QObject * parent = 0);
 
@@ -40,7 +38,6 @@ public:
     void setQuantity(long quantity);
     inline QString name() const { return m_name; }
     inline QString type() const { return m_type; }
-    inline QString icon() const { return m_icon; }
     inline long quantity() const { return m_quantity; }
     QString filterString() const;
 
@@ -48,7 +45,6 @@ private:
     long m_id;
     QString m_name;
     QString m_type;
-    QString m_icon;
     long m_quantity;
 
 };
@@ -65,7 +61,7 @@ public:
     Q_INVOKABLE void setData(const long identification, const QVariant &value, int role = Resource::QuantityRole);
 
     // Utilities
-    Q_INVOKABLE void setUnknownQuantities();
+    Q_INVOKABLE void setQuantitiesInOrder();
 
 };
 

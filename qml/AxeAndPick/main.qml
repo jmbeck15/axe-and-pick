@@ -142,7 +142,7 @@ Item {
                     id: resourceDiscoverButtonArea
                     anchors.fill: parent
                     onClicked: {
-                        resourceModel.setUnknownQuantities();
+                        resourceModel.setQuantitiesInOrder();
                     }
                 }
                 states:
