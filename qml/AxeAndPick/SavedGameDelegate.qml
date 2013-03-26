@@ -28,7 +28,7 @@ Component {
                 // Set the game data
                 saveGameName.text = model.name;
                 saveGameDate.text = model.date;
-                dayInputButton.value = model.day;
+                //dayInputButton.value = model.day;
 
                 // Close the dialog
                 openFileDialog.enabled = false;

@@ -47,13 +47,13 @@ Item {
                 width: 30
                 height: 1
             }
-            ToolbarTextInput {
-                id: dayInputButton
-                textLabel: "Day"
-                value: 0
-                width: 45
-                disabled: true
-            }
+//            ToolbarTextInput {
+//                id: dayInputButton
+//                textLabel: "Day"
+//                value: 0
+//                width: 45
+//                disabled: true
+//            }
 //            ToolbarTextInput {
 //                id: hourInputButton
 //                textLabel: "Hour"

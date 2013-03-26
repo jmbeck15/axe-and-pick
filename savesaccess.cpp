@@ -437,10 +437,14 @@ void SavesAccess::loadUnitFile()
             byteNumber = 0;
 
             // Load in all the options at once.
-            QBitArray loadedOptions(52);
+            QBitArray loadedOptions(52+11);
             for(unsigned int i=0; i<52; i++)
             {
                 loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
+            }
+            for(unsigned int i=52; i<52+11; i++)
+            {
+                loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
             }
 
             humanModel->appendRow(new Human(
@@ -490,8 +494,7 @@ void SavesAccess::loadUnitFile()
                                       unitData[72].toFloat(), // unknown options
                                       unitData[73].toFloat(),
                                       unitData[74].toFloat(),
-                                      unitData[75].toFloat(),
-                                      unitData[76].compare("True") ? false : true
+                                      unitData[75].toFloat()
                                     ));
 
             //((Human *)humanModel->find(i))->print();
@@ -621,15 +624,19 @@ void SavesAccess::saveUnitFile()
             unitFile.write(toBinary(human->health()).constData());
             unitStream << "/"; unitStream.flush();
 
-            // Dump all the options in the file.
+            // Dump some of the options in the file.
             for (unsigned int i = 0; i<52; i++) {
                 unitStream << QString(human->option(i)?"True":"False") << "/";
             }
             unitStream << human->unknownFloat1() << "/"
                        << human->unknownFloat2() << "/"
                        << human->unknownFloat3() << "/"
-                       << human->unknownFloat4() << "/"
-                       << QString(human->unknownBool1()?"True":"False") << "/";
+                       << human->unknownFloat4() << "/";
+
+            // Dump more options in the file.
+            for (unsigned int i = 52; i<52+11; i++) {
+                unitStream << QString(human->option(i)?"True":"False") << "/";
+            }
 
             unitStream << endl;
             unitStream.flush();

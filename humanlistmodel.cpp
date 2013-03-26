@@ -55,7 +55,6 @@ Human::Human(const QString &profession,
              const float &unknownFloat2,
              const float &unknownFloat3,
              const float &unknownFloat4,
-             const bool &unknownBool1,
              QObject * parent)
     : ListItem(parent),
     m_id(id_counter),
@@ -106,8 +105,7 @@ Human::Human(const QString &profession,
     m_unknownFloat1(unknownFloat1),
     m_unknownFloat2(unknownFloat2),
     m_unknownFloat3(unknownFloat3),
-    m_unknownFloat4(unknownFloat4),
-    m_unknownBool1(unknownBool1)
+    m_unknownFloat4(unknownFloat4)
 {
     id_counter++;
 }
@@ -326,12 +324,11 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     int low = 1;
 
     // Set the options
-    QBitArray options(52, false);
+    QBitArray options(52+11, false);
     for (int i=2; i<13; i++) {
         options[i] = true;  // These settings seem to be on by default.
     }
-    options[14] = true; // Set default sleep settings.
-    options[16] = true;
+    options[15] = true; // Set default sleep settings.
     options[18] = true;
 
     // Build the Human and add it to the list.
@@ -373,8 +370,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   options,
 
-                  14.0, 0.9, 0.8, 0.0,   // unknown floats
-                  false                 // unknown bool
+                  14.0, 0.9, 0.8, 0.0   // unknown floats
                   )
               );
 

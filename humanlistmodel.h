@@ -115,7 +115,6 @@ public:
                    const float &unknownFloat2,
                    const float &unknownFloat3,
                    const float &unknownFloat4,
-                   const bool &unknownBool1,
                    QObject * parent = 0);
 
     QVariant data(int role) const;
@@ -176,8 +175,6 @@ public:
     inline float unknownFloat3() const { return m_unknownFloat3; }
     inline float unknownFloat4() const { return m_unknownFloat4; }
 
-    inline float unknownBool1() const { return m_unknownBool1; }
-
     // Utilities and Helpers
     void print();
 
@@ -231,8 +228,6 @@ private:
     float m_unknownFloat2;
     float m_unknownFloat3;
     float m_unknownFloat4;
-
-    bool m_unknownBool1;
 };
 
 // HumanListModel store Humans
