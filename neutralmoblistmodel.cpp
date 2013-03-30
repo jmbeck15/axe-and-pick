@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <sstream>
+#include <QStringList>
 
 // Initialize the counter
 long NeutralMob::id_counter = 0;
@@ -21,6 +22,21 @@ NeutralMob::NeutralMob(const QString &type,
       m_rotation(rotation)
 {
     id_counter++;
+}
+
+NeutralMob * NeutralMob::build(QStringList & unitData)
+{
+    if (unitData.size() == 6)
+    {
+        return (new NeutralMob( unitData[0],
+                                unitData[1].toFloat(),
+                                unitData[2].toFloat(),
+                                unitData[3].toFloat(),
+                                unitData[4].toFloat()) );
+    }
+
+    qDebug() << "Error! This Neutral Mob version is not supported!";
+    return Q_NULLPTR;
 }
 
 void NeutralMob::setType(QString type)

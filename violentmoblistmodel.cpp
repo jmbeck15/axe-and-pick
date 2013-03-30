@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <sstream>
+#include <QStringList>
 
 // Initialize the counter
 long ViolentMob::id_counter = 0;
@@ -23,6 +24,31 @@ ViolentMob::ViolentMob(const QString &type,
       m_health(health)
 {
     id_counter++;
+}
+
+ViolentMob * ViolentMob::build(QStringList & unitData)
+{
+    if (unitData.size() == 6)
+    {
+        return (new ViolentMob( unitData[0],
+                                unitData[1].toFloat(),
+                                unitData[2].toFloat(),
+                                unitData[3].toFloat(),
+                                unitData[4].toFloat(),
+                                0) );
+    } else
+    if (unitData.size() == 7)
+    {
+        return (new ViolentMob( unitData[0],
+                                unitData[1].toFloat(),
+                                unitData[2].toFloat(),
+                                unitData[3].toFloat(),
+                                unitData[4].toFloat(),
+                                unitData[5].toFloat()) );
+    }
+
+    qDebug() << "Error! This Violent Mob version is not supported!";
+    return Q_NULLPTR;
 }
 
 void ViolentMob::setType(QString type)

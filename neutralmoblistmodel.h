@@ -36,6 +36,7 @@ public:
                         const float &rotation,
                         QObject * parent = 0);
 
+    static NeutralMob * build(QStringList & unitData);
 
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;

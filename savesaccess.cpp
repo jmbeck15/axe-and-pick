@@ -352,7 +352,11 @@ void SavesAccess::loadUnitFile()
             // Create a new Human based on the string data,
             // and add it to the model. This automatically takes
             // into consideration the version.
-            humanModel->appendRow(Human::build(unitData));
+            Human * newHuman = Human::build(unitData);
+            if (newHuman != Q_NULLPTR)
+            {
+                humanModel->appendRow(newHuman);
+            }
         }
 
         // Load in all the Neutral Mobs
@@ -363,12 +367,11 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            neutralMobModel->appendRow(new NeutralMob(
-                                       unitData[0],
-                                       unitData[1].toFloat(),
-                                       unitData[2].toFloat(),
-                                       unitData[3].toFloat(),
-                                       unitData[4].toFloat()) );
+            NeutralMob * newMob = NeutralMob::build(unitData);
+            if (newMob != Q_NULLPTR)
+            {
+                neutralMobModel->appendRow(newMob);
+            }
         }
 
         // Load in all the Violent Mobs
@@ -379,13 +382,11 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            violentMobModel->appendRow(new ViolentMob(
-                                       unitData[0],
-                                       unitData[1].toFloat(),
-                                       unitData[2].toFloat(),
-                                       unitData[3].toFloat(),
-                                       unitData[4].toFloat(),
-                                       unitData[5].toFloat()) );
+            ViolentMob * newMob = ViolentMob::build(unitData);
+            if (newMob != Q_NULLPTR)
+            {
+                violentMobModel->appendRow(newMob);
+            }
         }
 
         unitFile.close();

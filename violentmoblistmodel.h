@@ -38,6 +38,7 @@ public:
                         const float &health,
                         QObject * parent = 0);
 
+    static ViolentMob * build(QStringList & unitData);
 
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;
