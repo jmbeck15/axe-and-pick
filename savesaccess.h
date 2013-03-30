@@ -10,6 +10,7 @@
 #include "humanlistmodel.h"
 #include "neutralmoblistmodel.h"
 #include "violentmoblistmodel.h"
+#include "utils.h"
 
 class SavesAccess : public QObject
 {
@@ -20,14 +21,9 @@ public:
 
     Q_INVOKABLE void loadSavedGame(QString gameName);
     Q_INVOKABLE void saveSavedGame();
-
-    // Functions to convert to/from binary format
-    static unsigned int toInt(QByteArray bytes);
-    static QByteArray toBinary(unsigned int value);
 private:
     QDir rootSavesDirectory;
     QString selectedSaveName;
-
 
     //
     // Saved Game List

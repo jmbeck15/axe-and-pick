@@ -464,11 +464,7 @@ Item {
             // Animate height transitions
             Behavior on height {
                 PropertyAnimation { easing.type: Easing.InOutQuad;
-                                    duration: 300 }
-            }
-            Behavior on opacity {
-                PropertyAnimation { easing.type: Easing.InOutQuad;
-                                    duration: 100 }
+                                    duration: 150 }
             }
         }
 

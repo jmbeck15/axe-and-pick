@@ -16,6 +16,7 @@ private:
     Q_ENUMS(Roles)
 
     static long id_counter;
+    static QString m_unitVersion;
 
 public:
     enum Roles {
@@ -116,6 +117,9 @@ public:
                    const float &unknownFloat3,
                    const float &unknownFloat4,
                    QObject * parent = 0);
+
+    // Builder. This returns a Human which is all set up.
+    static Human * build(QStringList & unitData);
 
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;

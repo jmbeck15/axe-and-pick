@@ -18,6 +18,15 @@ void SavesAccess::loadSavedGame(QString gameName)
     // Set the game name.
     selectedSaveName = gameName;
 
+    // Determine what version to load. Between T&S v0.5 and v07,
+    // the best way to figure out the version is to load the
+    // unit file, and see how many options there are for the
+    // humans. In fact, the Humans and Violent Mobs are the only
+    // things that changed. Resource positions just need to be
+    // named appropriately.
+
+
+
     // Pull the resources into the list.
     loadResourceFile();
     loadUnitFile();
@@ -133,56 +142,6 @@ void SavesAccess::setSavedGameListModel(SavedGameListModel * model)
     savedGameModel = model;
 }
 
-QByteArray SavesAccess::toBinary(unsigned int value)
-{
-    QByteArray bytes;
-    bytes.clear();
-
-    // NOTE: I do not understand this. I understand what it's doing, but
-    // I have no idea why. I suspect it's much more simple, and I've
-    // missed something.
-    if (value>1919) // this is the largest two-byte number
-    {
-        bytes.append( (((value>>6) + 2)>>6) | 0xe0 );
-        bytes.append( (((value>>6) + 2) &0x3f) | 0x80 );
-    }
-    else
-    {
-        bytes.append( (((value>>6) &0x1f) + 2) | 0xc0 );
-    }
-    bytes.append((value&0x3f) | 0x80);
-
-    return bytes;
-}
-
-// This format handling can certainly be simplified. There's little
-// chance that the game designer made it complicated on purpose.
-//
-unsigned int SavesAccess::toInt(QByteArray bytes)
-{
-    // Ensure the bytes have only their relevant bits visible.
-    unsigned int value;
-    if( bytes.size() > 2 )
-    {
-        bytes[0] = bytes[0] & 0x1f; // Two or more bytes exist, so this one has an extra id bit.
-        bytes[1] = bytes[1] & 0x3f;
-        bytes[2] = bytes[2] & 0x3f;
-
-        // Compile the bytes into a long.
-        //
-        // Note: The -2 in the equation is strange. I have no answer as to why
-        // this format requires that.
-        value = bytes[2] | (((bytes[1] | (bytes[0]<<6)) -2) << 6);
-    }
-    else
-    {
-        bytes[0] = bytes[0] & 0x3f;
-        bytes[1] = bytes[1] & 0x3f;
-        value = bytes[1] | (bytes[0] -2) << 6;
-    }
-
-    return value;
-}
 
 // =====================
 // RESOURCES
@@ -260,7 +219,7 @@ void SavesAccess::loadResourceFile()
 
                 resourceModel->appendRow(new Resource(assetData[0],
                                           assetData[1],
-                                          toInt(byteArray))); // resource quantity
+                                          Utils::toInt(byteArray))); // resource quantity
             }
 
             if (!resourceFile.atEnd())
@@ -322,7 +281,7 @@ void SavesAccess::saveResourceFile()
                 // Update the resource.
                 resourceModel->setData(ndx,30000);
             }
-            binaryData = toBinary(quantity);
+            binaryData = Utils::toBinary(quantity);
             resourceFile.write(binaryData);
         }
 
@@ -390,114 +349,10 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            // Break out the [5] element (experience levels) into numbers
-
-            // Store the bytes in an array instead of a normal string.
-            QByteArray rawLevelString( unitData[5].toLocal8Bit() );
-            QByteArray numberInBytes;
-            numberInBytes.clear();
-
-            unsigned char byte(0);
-            unsigned int byteNumber(0);
-            QList<unsigned int> levels;
-            levels.clear();
-
-
-            // For each job, compute the experience level.
-            // NOTE: There are 15 professions and associated levels.
-            for (int job=0; job<15; job++)
-            {
-                // Most significant byte
-                byte = rawLevelString[byteNumber];
-                byteNumber++;
-
-                if( byte >= 0xe0)
-                {
-                    numberInBytes.append(byte);
-
-                    // Another byte exists!
-                    byte = rawLevelString[byteNumber];
-                    byteNumber++;
-                    numberInBytes.append(byte);
-                }
-                else
-                {
-                    numberInBytes.append(byte);
-                }
-
-                byte = rawLevelString[byteNumber];
-                byteNumber++;
-                numberInBytes.append(byte);
-
-                // Convert the bytes to a long, and add to the list.
-                levels.append(toInt(numberInBytes));
-
-                numberInBytes.clear();
-            }
-            byteNumber = 0;
-
-            // Load in all the options at once.
-            QBitArray loadedOptions(52+11);
-            for(unsigned int i=0; i<52; i++)
-            {
-                loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
-            }
-            for(unsigned int i=52; i<52+11; i++)
-            {
-                loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
-            }
-
-            humanModel->appendRow(new Human(
-                                      unitData[0],
-                                      unitData[1].toFloat(),
-                                      unitData[2].toFloat(),
-                                      unitData[3].toFloat(),
-                                      unitData[4],
-
-                                      levels[0],
-                                      levels[1],
-                                      levels[2],
-                                      levels[3],
-                                      levels[4],
-                                      levels[5],
-                                      levels[6],
-                                      levels[7],
-                                      levels[8],
-                                      levels[9],
-                                      levels[10],
-                                      levels[11],
-                                      levels[12],
-                                      levels[13],
-                                      levels[14],
-
-                                      toInt(unitData[6].toLocal8Bit()), // experience
-
-                                      unitData[7].compare("True") ? false : true,
-                                      unitData[8].compare("True") ? false : true,
-                                      unitData[9].compare("True") ? false : true,
-                                      unitData[10].compare("True") ? false : true,
-                                      unitData[11].compare("True") ? false : true,
-                                      unitData[12].compare("True") ? false : true,
-
-                                      unitData[13].toFloat(), // rotation
-
-                                      toInt(unitData[14].toLocal8Bit()),
-                                      toInt(unitData[15].toLocal8Bit()),
-                                      toInt(unitData[16].toLocal8Bit()),
-                                      toInt(unitData[17].toLocal8Bit()),
-                                      toInt(unitData[18].toLocal8Bit()),
-
-                                      toInt(unitData[19].toLocal8Bit()),
-
-                                      loadedOptions,
-
-                                      unitData[72].toFloat(), // unknown options
-                                      unitData[73].toFloat(),
-                                      unitData[74].toFloat(),
-                                      unitData[75].toFloat()
-                                    ));
-
-            //((Human *)humanModel->find(i))->print();
+            // Create a new Human based on the string data,
+            // and add it to the model. This automatically takes
+            // into consideration the version.
+            humanModel->appendRow(Human::build(unitData));
         }
 
         // Load in all the Neutral Mobs
@@ -582,24 +437,24 @@ void SavesAccess::saveUnitFile()
                        << human->name() << "/";
             unitStream.flush();
 
-            unitFile.write(toBinary(human->archerLevel()));
-            unitFile.write(toBinary(human->blacksmithLevel()));
-            unitFile.write(toBinary(human->builderLevel()));
-            unitFile.write(toBinary(human->carpenterLevel()).constData());
-            unitFile.write(toBinary(human->engineerLevel()).constData());
-            unitFile.write(toBinary(human->farmerLevel()).constData());
-            unitFile.write(toBinary(human->fishermanLevel()).constData());
-            unitFile.write(toBinary(human->foragerLevel()).constData());
-            unitFile.write(toBinary(human->infantryLevel()).constData());
-            unitFile.write(toBinary(human->minerLevel()).constData());
-            unitFile.write(toBinary(human->stoneMasonLevel()).constData());
-            unitFile.write(toBinary(human->woodChopperLevel()).constData());
-            unitFile.write(toBinary(human->tailorLevel()).constData());
-            unitFile.write(toBinary(human->unknownUnit1Level()).constData());
-            unitFile.write(toBinary(human->unknownUnit2Level()).constData());
+            unitFile.write(Utils::toBinary(human->archerLevel()));
+            unitFile.write(Utils::toBinary(human->blacksmithLevel()));
+            unitFile.write(Utils::toBinary(human->builderLevel()));
+            unitFile.write(Utils::toBinary(human->carpenterLevel()).constData());
+            unitFile.write(Utils::toBinary(human->engineerLevel()).constData());
+            unitFile.write(Utils::toBinary(human->farmerLevel()).constData());
+            unitFile.write(Utils::toBinary(human->fishermanLevel()).constData());
+            unitFile.write(Utils::toBinary(human->foragerLevel()).constData());
+            unitFile.write(Utils::toBinary(human->infantryLevel()).constData());
+            unitFile.write(Utils::toBinary(human->minerLevel()).constData());
+            unitFile.write(Utils::toBinary(human->stoneMasonLevel()).constData());
+            unitFile.write(Utils::toBinary(human->woodChopperLevel()).constData());
+            unitFile.write(Utils::toBinary(human->tailorLevel()).constData());
+            unitFile.write(Utils::toBinary(human->unknownUnit1Level()).constData());
+            unitFile.write(Utils::toBinary(human->unknownUnit2Level()).constData());
             unitStream << "/"; unitStream.flush();
 
-            unitFile.write(toBinary(human->experience()).constData());
+            unitFile.write(Utils::toBinary(human->experience()).constData());
             unitStream << "/"; unitStream.flush();
 
             unitStream << QString(human->autoChop()?"True":"False") << "/"
@@ -611,17 +466,17 @@ void SavesAccess::saveUnitFile()
                        << QString("%1").arg(human->rotation(),0,'g',8) << "/";
             unitStream.flush();
 
-            unitFile.write(toBinary(human->equipHand()).constData());
+            unitFile.write(Utils::toBinary(human->equipHand()).constData());
             unitStream << "/"; unitStream.flush();
-            unitFile.write(toBinary(human->equipOffhand()).constData());
+            unitFile.write(Utils::toBinary(human->equipOffhand()).constData());
             unitStream << "/"; unitStream.flush();
-            unitFile.write(toBinary(human->equipHead()).constData());
+            unitFile.write(Utils::toBinary(human->equipHead()).constData());
             unitStream << "/"; unitStream.flush();
-            unitFile.write(toBinary(human->equipBody()).constData());
+            unitFile.write(Utils::toBinary(human->equipBody()).constData());
             unitStream << "/"; unitStream.flush();
-            unitFile.write(toBinary(human->equipFeet()).constData());
+            unitFile.write(Utils::toBinary(human->equipFeet()).constData());
             unitStream << "/"; unitStream.flush();
-            unitFile.write(toBinary(human->health()).constData());
+            unitFile.write(Utils::toBinary(human->health()).constData());
             unitStream << "/"; unitStream.flush();
 
             // Dump some of the options in the file.
@@ -721,7 +576,7 @@ void SavesAccess::writeToMatlab()
         matlabStream << xMax << ","
                        << yMax << ","
                        << zMax << ","
-                       << toInt(byteArray)
+                       << Utils::toInt(byteArray)
                        << endl;
 
         // Roll the position
