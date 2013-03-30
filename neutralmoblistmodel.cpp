@@ -28,6 +28,7 @@ NeutralMob * NeutralMob::build(QStringList & unitData)
 {
     if (unitData.size() == 6)
     {
+        qDebug() << "Version 0.5";
         return (new NeutralMob( unitData[0],
                                 unitData[1].toFloat(),
                                 unitData[2].toFloat(),

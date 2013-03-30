@@ -114,8 +114,6 @@ Human::Human(const QString &profession,
 
 Human * Human::build(QStringList & unitData)
 {
-    qDebug() << "size: " << unitData.size();
-
     // Holds all the options
     QBitArray loadedOptions(63, false);
 
