@@ -564,6 +564,9 @@ Item {
         ListElement {
             name: "Chicken"
         }
+        ListElement {
+            name: "Sheep"
+        }
     }
     ListModel {
         id: violentMobTypeModel
