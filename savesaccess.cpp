@@ -332,16 +332,15 @@ void SavesAccess::loadUnitFile()
     }
     else
     {
-        qDebug() << "Opened unitFile." << unitFile.fileName();
-
-        // Remove all the humans.
-        humanModel->clear();
 
         QTextStream unitStream(&unitFile);
         QString unitString;
         QStringList unitData;
 
+        //
         // Load in all the Humans
+        //
+        humanModel->clear();
         int numberOfHumans = unitStream.readLine().toInt();
         qDebug() << "Loaded" << numberOfHumans << "humans";
         for (int i=0; i<numberOfHumans; i++)
@@ -349,9 +348,6 @@ void SavesAccess::loadUnitFile()
             unitString = unitStream.readLine();
             unitData = unitString.split('/');
 
-            // Create a new Human based on the string data,
-            // and add it to the model. This automatically takes
-            // into consideration the version.
             Human * newHuman = Human::build(unitData);
             if (newHuman != Q_NULLPTR)
             {
@@ -359,7 +355,10 @@ void SavesAccess::loadUnitFile()
             }
         }
 
+        //
         // Load in all the Neutral Mobs
+        //
+        neutralMobModel->clear();
         int numberOfNeutralMobs = unitStream.readLine().toInt();
         qDebug() << "Loaded" << numberOfNeutralMobs << "neutral mobs";
         for (int i=0; i<numberOfNeutralMobs; i++)
@@ -374,7 +373,10 @@ void SavesAccess::loadUnitFile()
             }
         }
 
+        //
         // Load in all the Violent Mobs
+        //
+        violentMobModel->clear();
         int numberOfViolentMobs = unitStream.readLine().toInt();
         qDebug() << "Loaded" << numberOfViolentMobs << "violent mobs";
         for (int i=0; i<numberOfViolentMobs; i++)
@@ -391,7 +393,6 @@ void SavesAccess::loadUnitFile()
 
         unitFile.close();
     }
-
 }
 
 void SavesAccess::saveUnitFile()

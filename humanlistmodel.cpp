@@ -114,225 +114,12 @@ Human::Human(const QString &profession,
 
 Human * Human::build(QStringList & unitData)
 {
-    // Holds all the options
-    QBitArray loadedOptions(63, false);
-
-    // Determine the version of Human
-    if (unitData.size() == 47)
-    {
-        // Version 0.5
-        qDebug() << "Version 0.5";
-
-        // Break out the Experience Levels
-        QByteArray rawLevelString( unitData[5].toLocal8Bit() );
-        QByteArray numberInBytes;
-        numberInBytes.clear();
-
-        unsigned char byte(0);
-        unsigned int byteNumber(0);
-        QList<unsigned int> levels;
-        levels.clear();
-
-        // For each job, compute the experience level.
-        for (int job=0; job<12; job++)
-        {
-            // Most significant byte
-            byte = rawLevelString[byteNumber];
-            byteNumber++;
-
-            if( byte >= 0xe0)
-            {
-                numberInBytes.append(byte);
-
-                // Another byte exists!
-                byte = rawLevelString[byteNumber];
-                byteNumber++;
-                numberInBytes.append(byte);
-            }
-            else
-            {
-                numberInBytes.append(byte);
-            }
-
-            byte = rawLevelString[byteNumber];
-            byteNumber++;
-            numberInBytes.append(byte);
-
-            // Convert the bytes to a long, and add to the list.
-            levels.append(Utils::toInt(numberInBytes));
-
-            numberInBytes.clear();
-        }
-        byteNumber = 0;
-
-        // Load in all the options at once.
-        for(unsigned int i=0; i<22; i++)
-        {
-            // Options start at unitData[20]
-            loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
-        }
-
-        return (new Human(
-                    unitData[0],
-                    unitData[1].toFloat(),
-                    unitData[2].toFloat(),
-                    unitData[3].toFloat(),
-                    unitData[4],
-
-                    levels[0],
-                    levels[1],
-                    levels[2],
-                    levels[3],
-                    levels[4],
-                    levels[5],
-                    levels[6],
-                    levels[7],
-                    levels[8],
-                    levels[9],
-                    levels[10],
-                    levels[11],
-                    1, 1, 1, // Not for this version
-
-                    Utils::toInt(unitData[6].toLocal8Bit()), // experience
-
-                    unitData[7].compare("True") ? false : true,
-                    unitData[8].compare("True") ? false : true,
-                    unitData[9].compare("True") ? false : true,
-                    unitData[10].compare("True") ? false : true,
-                    unitData[11].compare("True") ? false : true,
-                    unitData[12].compare("True") ? false : true,
-
-                    unitData[13].toFloat(), // rotation
-
-                    Utils::toInt(unitData[14].toLocal8Bit()),
-                    Utils::toInt(unitData[15].toLocal8Bit()),
-                    Utils::toInt(unitData[16].toLocal8Bit()),
-                    Utils::toInt(unitData[17].toLocal8Bit()),
-                    Utils::toInt(unitData[18].toLocal8Bit()),
-
-                    Utils::toInt(unitData[19].toLocal8Bit()),
-
-                    loadedOptions,
-
-                    unitData[43].toFloat(), // unknown options
-                    unitData[44].toFloat(),
-                    unitData[45].toFloat(),
-                    unitData[46].toFloat()
-                   ));
-    } else
-    if (unitData.size() == 78)
-    {
-        qDebug() << "Version 0.6";
-
-        // Break out the Experience Levels
-        QByteArray rawLevelString( unitData[5].toLocal8Bit() );
-        QByteArray numberInBytes;
-        numberInBytes.clear();
-
-        unsigned char byte(0);
-        unsigned int byteNumber(0);
-        QList<unsigned int> levels;
-        levels.clear();
-
-
-        // For each job, compute the experience level.
-        // NOTE: There are 15 professions and associated levels.
-        for (int job=0; job<15; job++)
-        {
-            // Most significant byte
-            byte = rawLevelString[byteNumber];
-            byteNumber++;
-
-            if( byte >= 0xe0)
-            {
-                numberInBytes.append(byte);
-
-                // Another byte exists!
-                byte = rawLevelString[byteNumber];
-                byteNumber++;
-                numberInBytes.append(byte);
-            }
-            else
-            {
-                numberInBytes.append(byte);
-            }
-
-            byte = rawLevelString[byteNumber];
-            byteNumber++;
-            numberInBytes.append(byte);
-
-            // Convert the bytes to a long, and add to the list.
-            levels.append(Utils::toInt(numberInBytes));
-
-            numberInBytes.clear();
-        }
-        byteNumber = 0;
-
-        // Load in all the options at once.
-        for(unsigned int i=0; i<52; i++)
-        {
-            loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
-        }
-        for(unsigned int i=52; i<52+1; i++)
-        {
-            loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
-        }
-
-        return (new Human(
-                    unitData[0],
-                    unitData[1].toFloat(),
-                    unitData[2].toFloat(),
-                    unitData[3].toFloat(),
-                    unitData[4],
-
-                    levels[0],
-                    levels[1],
-                    levels[2],
-                    levels[3],
-                    levels[4],
-                    levels[5],
-                    levels[6],
-                    levels[7],
-                    levels[8],
-                    levels[9],
-                    levels[10],
-                    levels[11],
-                    levels[12],
-                    levels[13],
-                    levels[14],
-
-                    Utils::toInt(unitData[6].toLocal8Bit()), // experience
-
-                    unitData[7].compare("True") ? false : true,
-                    unitData[8].compare("True") ? false : true,
-                    unitData[9].compare("True") ? false : true,
-                    unitData[10].compare("True") ? false : true,
-                    unitData[11].compare("True") ? false : true,
-                    unitData[12].compare("True") ? false : true,
-
-                    unitData[13].toFloat(), // rotation
-
-                    Utils::toInt(unitData[14].toLocal8Bit()),
-                    Utils::toInt(unitData[15].toLocal8Bit()),
-                    Utils::toInt(unitData[16].toLocal8Bit()),
-                    Utils::toInt(unitData[17].toLocal8Bit()),
-                    Utils::toInt(unitData[18].toLocal8Bit()),
-
-                    Utils::toInt(unitData[19].toLocal8Bit()),
-
-                    loadedOptions,
-
-                    unitData[62].toFloat(), // unknown options
-                    unitData[63].toFloat(),
-                    unitData[64].toFloat(),
-                    unitData[65].toFloat()
-                   ));
-    } else
+    // Check to make sure there are the proper number of options.
     if (unitData.size() == 88) {
-        // Version 0.7
-        qDebug() << "Version 0.7";
 
-        // Break out the Experience Levels
+        //
+        // Experience Levels
+        //
         QByteArray rawLevelString( unitData[5].toLocal8Bit() );
         QByteArray numberInBytes;
         numberInBytes.clear();
@@ -341,7 +128,6 @@ Human * Human::build(QStringList & unitData)
         unsigned int byteNumber(0);
         QList<unsigned int> levels;
         levels.clear();
-
 
         // For each job, compute the experience level.
         // NOTE: There are 15 professions and associated levels.
@@ -376,7 +162,11 @@ Human * Human::build(QStringList & unitData)
         }
         byteNumber = 0;
 
-        // Load in all the options at once.
+
+        //
+        // Load the Options
+        //
+        QBitArray loadedOptions(63, false);
         for(unsigned int i=0; i<52; i++)
         {
             loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
@@ -438,8 +228,6 @@ Human * Human::build(QStringList & unitData)
     }
 
     qDebug() << "Error! This Human version is not supported!";
-
-    // ERROR! No Human version matched!
     return Q_NULLPTR;
 }
 
