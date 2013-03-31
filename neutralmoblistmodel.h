@@ -4,6 +4,7 @@
 #include <QAbstractListModel>
 #include <QList>
 #include <QVariant>
+#include <QBitArray>
 
 #include "listmodel.h"
 
@@ -34,6 +35,8 @@ public:
                         const float &posY,
                         const float &posZ,
                         const float &rotation,
+                        const QList<float> &unknown_floats,
+                        const QBitArray &options,
                         QObject * parent = 0);
 
     static NeutralMob * build(QStringList & unitData);
@@ -53,6 +56,8 @@ public:
     inline float posY() const { return m_posY; }
     inline float posZ() const { return m_posZ; }
     inline float rotation() const { return m_rotation; }
+    inline bool unknown_float(unsigned int index) const { return m_unknown.at(index); }
+    inline bool option(unsigned int optionNumber) const { return m_options[optionNumber]; }
 
     // Utilities
     void print();
@@ -65,6 +70,8 @@ private:
     float m_posY;
     float m_posZ;
     float m_rotation;
+    QList<float> m_unknown;
+    QBitArray m_options;
 };
 
 // NeutralMobListModel store NeutralMobs

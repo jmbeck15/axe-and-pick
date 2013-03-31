@@ -12,6 +12,8 @@ NeutralMob::NeutralMob(const QString &type,
                        const float &posY,
                        const float &posZ,
                        const float &rotation,
+                       const QList<float> &unknown_floats,
+                       const QBitArray &options,
                        QObject * parent)
     : ListItem(parent),
       m_id(id_counter),
@@ -19,21 +21,38 @@ NeutralMob::NeutralMob(const QString &type,
       m_posX(posX),
       m_posY(posY),
       m_posZ(posZ),
-      m_rotation(rotation)
+      m_rotation(rotation),
+      m_unknown(unknown_floats),
+      m_options(options)
 {
     id_counter++;
 }
 
 NeutralMob * NeutralMob::build(QStringList & unitData)
 {
-    if (unitData.size() == 6)
+    if (unitData.size() == 11)
     {
-        qDebug() << "Version 0.5";
+        // Load in the unknown floats
+        QList<float> unknown_floats;
+        for (int i=0; i<4; i++)
+        {
+            unknown_floats.append(unitData[i+5].toFloat());
+        }
+
+        // Load in the options
+        QBitArray options(2, false);
+        for (int i=0; i<2; i++)
+        {
+            options.setBit(i, (unitData[i+9].compare("True"))?true:false);
+        }
+
         return (new NeutralMob( unitData[0],
                                 unitData[1].toFloat(),
                                 unitData[2].toFloat(),
                                 unitData[3].toFloat(),
-                                unitData[4].toFloat()) );
+                                unitData[4].toFloat(),
+                                unknown_floats,
+                                options ));
     }
 
     qDebug() << "Error! This Neutral Mob version is not supported!";
@@ -149,10 +168,20 @@ float NeutralMobListModel::getFirstPosition(const char label)
 
 void NeutralMobListModel::add(const QString type, float x, float y, float z)
 {
+    QList<float> unknown_floats;
+    unknown_floats.append(0.4);
+    unknown_floats.append(0.0);
+    unknown_floats.append(0.0);
+    unknown_floats.append(0.0);
+
+    QBitArray options(2, false);
+
     appendRow(new NeutralMob(
                   type,
                   x, y, z,  // position
-                  0.0 ));    // rotation
+                  0.0,      // rotation
+                  unknown_floats,
+                  options) );
 
     qDebug() << "Added a mob of type" << type;
 }
