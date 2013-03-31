@@ -328,7 +328,7 @@ Human * Human::build(QStringList & unitData)
                     unitData[65].toFloat()
                    ));
     } else
-    if (unitData.size() == 76+11) {
+    if (unitData.size() == 88) {
         // Version 0.7
         qDebug() << "Version 0.7";
 

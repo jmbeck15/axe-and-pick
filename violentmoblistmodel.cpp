@@ -28,7 +28,7 @@ ViolentMob::ViolentMob(const QString &type,
 
 ViolentMob * ViolentMob::build(QStringList & unitData)
 {
-    if (unitData.size() == 5)
+    if (unitData.size() == 6)
     {
         qDebug() << "Version 0.5";
         return (new ViolentMob( unitData[0],
@@ -38,7 +38,7 @@ ViolentMob * ViolentMob::build(QStringList & unitData)
                                 unitData[4].toFloat(),
                                 0) );
     } else
-    if (unitData.size() == 6)
+    if (unitData.size() == 7)
     {
         qDebug() << "Version 0.7";
         return (new ViolentMob( unitData[0],
