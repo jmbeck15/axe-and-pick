@@ -127,7 +127,7 @@ Item {
         anchors.top: mainToolbar.bottom
         anchors.left: parent.left
         anchors.right: containerSeperator.left
-        anchors.bottom: parent.bottom
+        anchors.bottom: errorBar.top
 
         // Background for the resource container
         Rectangle {
@@ -210,7 +210,7 @@ Item {
     Item {
         id: containerSeperator
         anchors.top: mainToolbar.bottom
-        anchors.bottom: parent.bottom
+        anchors.bottom: errorBar.top
         x: 320
         width: 5
 
@@ -235,7 +235,7 @@ Item {
         anchors.top: mainToolbar.bottom
         anchors.left: containerSeperator.right
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: errorBar.top
 
         // Background for the unit container
         Rectangle {
@@ -383,13 +383,9 @@ Item {
                     onClicked: {
                         if (parent.selected) {
                             parent.selected = 0;
-                            //addUnitContainer.open(addButton.selected);
-                            //addUnitContainer.height = 0;
                         }
                         else {
                             parent.selected = 1;
-                            //addUnitContainer.open(addButton.selected);
-                            //addUnitContainer.height = 40; //addUnitGrid.count;
                         }
                     }
                 }
@@ -512,6 +508,72 @@ Item {
         ScrollBar {
             target: unitList
             width: 16
+        }
+    }
+
+    Rectangle {
+        id: errorBar
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+
+        height: 29
+        color: "gray"
+        clip: true
+
+        Rectangle {
+            id: topBar
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            height: 3
+            color: "red"
+        }
+
+        Rectangle {
+            anchors.top: topBar.bottom;
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+
+            Image {
+                id: warningIcon
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+
+                source: "images/warningIcon.svg"
+                fillMode: Image.PreserveAspectFit
+            }
+            Text {
+                id: errorMessage
+                anchors.left: warningIcon.right
+                anchors.leftMargin: 5
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+
+                text: "No error has occured."
+                font.pointSize: 10
+
+                color: "red"
+            }
+        }
+        Connections {
+            target: savesAccess
+            onFileLoadStatusChanged: {
+                if (errorOccured) {
+                    errorMessage.text = message;
+                    errorBar.height = 29;
+                } else {
+                    errorMessage.text = message;
+                    errorBar.height = 0;
+                }
+            }
+        }
+        // Animate height transitions
+        Behavior on height {
+            PropertyAnimation { easing.type: Easing.InOutQuad;
+                                duration: 150 }
         }
     }
 

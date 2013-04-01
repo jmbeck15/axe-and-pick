@@ -401,9 +401,9 @@ void SavesAccess::loadUnitFile()
 
 
         if (errorOccured) {
-            message = "Can't load this saved game!";
+            message = "This saved-game version is not supported! Saving is disabled and data may be innacurate.";
         } else {
-            message = "Game" + selectedSaveName + "loaded properly.";
+            message = "Game \"" + selectedSaveName + "\" loaded properly.";
         }
         qDebug() << errorOccured << "and" << message;
         emit fileLoadStatusChanged(errorOccured, message);
