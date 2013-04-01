@@ -102,6 +102,21 @@ Item {
                         saveSavedGamesButton.showClickAnimation();
                     }
                 }
+
+                Connections {
+                    target: savesAccess
+                    onFileLoadStatusChanged: {
+                        if (errorOccured) {
+                            saveSavedGamesButton.icon = "images/saveIcon_disabled.svg";
+                            saveSavedGamesButton.enabled = false;
+                            console.debug("Error: " + message);
+                        } else {
+                            saveSavedGamesButton.icon = "images/saveIcon.svg"
+                            saveSavedGamesButton.enabled = true;
+                            console.debug("Message: " + message);
+                        }
+                    }
+                }
             }
         }
 
@@ -499,6 +514,7 @@ Item {
             width: 16
         }
     }
+
 
     OpenFileDisplay {
         id: openFileDialog

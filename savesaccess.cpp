@@ -303,6 +303,9 @@ void SavesAccess::setViolentMobModel(ViolentMobListModel * model)
 
 void SavesAccess::loadUnitFile()
 {
+    bool errorOccured(false);
+    QString message;
+
     // Compose the file name.
     QFile unitFile(rootSavesDirectory.absolutePath()
                    + "/" + selectedSaveName
@@ -346,6 +349,10 @@ void SavesAccess::loadUnitFile()
             {
                 humanModel->appendRow(newHuman);
             }
+            else
+            {
+                errorOccured = true;
+            }
         }
 
         //
@@ -363,6 +370,10 @@ void SavesAccess::loadUnitFile()
             if (newMob != Q_NULLPTR)
             {
                 neutralMobModel->appendRow(newMob);
+            }
+            else
+            {
+                errorOccured = true;
             }
         }
 
@@ -382,7 +393,20 @@ void SavesAccess::loadUnitFile()
             {
                 violentMobModel->appendRow(newMob);
             }
+            else
+            {
+                errorOccured = true;
+            }
         }
+
+
+        if (errorOccured) {
+            message = "Can't load this saved game!";
+        } else {
+            message = "Game" + selectedSaveName + "loaded properly.";
+        }
+        qDebug() << errorOccured << "and" << message;
+        emit fileLoadStatusChanged(errorOccured, message);
 
         unitFile.close();
     }

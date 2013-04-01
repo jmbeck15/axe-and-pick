@@ -25,6 +25,9 @@ private:
     QDir rootSavesDirectory;
     QString selectedSaveName;
 
+signals:
+    void fileLoadStatusChanged(bool errorOccured, QString message);
+
     //
     // Saved Game List
     //

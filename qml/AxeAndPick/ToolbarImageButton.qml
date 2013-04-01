@@ -5,8 +5,7 @@ Rectangle {
     property string iconComplete
     property variant target
 
-    function showClickAnimation()
-    {
+    function showClickAnimation() {
         clickAnimationOpacity.enabled = false;
         imageIconOperationComplete.opacity = 0.5;
         clickAnimationOpacity.enabled = true;
