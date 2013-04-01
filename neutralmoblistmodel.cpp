@@ -55,7 +55,6 @@ NeutralMob * NeutralMob::build(QStringList & unitData)
                                 options ));
     }
 
-    qDebug() << "Error! This Neutral Mob version is not supported!";
     return Q_NULLPTR;
 }
 

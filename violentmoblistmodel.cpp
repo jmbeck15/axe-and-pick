@@ -38,7 +38,6 @@ ViolentMob * ViolentMob::build(QStringList & unitData)
                                 unitData[5].toFloat()) );
     }
 
-    qDebug() << "Error! This Violent Mob version is not supported!";
     return Q_NULLPTR;
 }
 

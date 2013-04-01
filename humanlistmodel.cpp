@@ -230,7 +230,6 @@ Human * Human::build(QStringList & unitData)
                    ));
     }
 
-    qDebug() << "Error! This Human version is not supported!";
     return Q_NULLPTR;
 }
 

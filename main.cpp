@@ -160,5 +160,14 @@ int main(int argc, char *argv[])
     // Show the GUI
     viewer.showExpanded();
 
-    return app.exec();
+    // Start the main event loop.
+    int appExecReturn = app.exec();
+
+    // Clean up
+    delete proxyResourceModel;
+    delete proxyHumanModel;
+    delete proxyNeutralMobModel;
+    delete proxyViolentMobModel;
+
+    return appExecReturn;
 }

@@ -104,8 +104,9 @@ void SavesAccess::loadGamesList()
         in.setCodec("UTF-8");
         QStringList strings;
 
-        long numberOfGames = in.readLine().toLongLong();
-        qDebug() << "Loaded" << numberOfGames << "games.";
+        // Read the number of games in the file, but
+        // don't do anything with it.
+        in.readLine().toLongLong();
 
         // Remove all the games.
         savedGameModel->clear();
@@ -149,7 +150,6 @@ void SavesAccess::loadResourceFile()
     QFile resourceFile(rootSavesDirectory.absolutePath()
                        + "/" + selectedSaveName
                        + "/" + "re.sav");
-    qDebug() << selectedSaveName;
 
     if (resourceModel == Q_NULLPTR)
     {
@@ -173,8 +173,6 @@ void SavesAccess::loadResourceFile()
 
         if (assetFile.open(QIODevice::ReadOnly | QIODevice::Text))
         {
-            qDebug() << "Opened Asset File: " << assetFile.fileName();
-
             // Clear the resource model
             resourceModel->clear();
 
@@ -353,7 +351,6 @@ void SavesAccess::loadUnitFile()
         //
         humanModel->clear();
         int numberOfHumans = unitStream.readLine().toInt();
-        qDebug() << "Loaded" << numberOfHumans << "humans";
         for (int i=0; i<numberOfHumans; i++)
         {
             unitString = unitStream.readLine();
@@ -375,7 +372,6 @@ void SavesAccess::loadUnitFile()
         //
         neutralMobModel->clear();
         int numberOfNeutralMobs = unitStream.readLine().toInt();
-        qDebug() << "Loaded" << numberOfNeutralMobs << "neutral mobs";
         for (int i=0; i<numberOfNeutralMobs; i++)
         {
             unitString = unitStream.readLine();
@@ -397,7 +393,6 @@ void SavesAccess::loadUnitFile()
         //
         violentMobModel->clear();
         int numberOfViolentMobs = unitStream.readLine().toInt();
-        qDebug() << "Loaded" << numberOfViolentMobs << "violent mobs";
         for (int i=0; i<numberOfViolentMobs; i++)
         {
             unitString = unitStream.readLine();
@@ -414,6 +409,10 @@ void SavesAccess::loadUnitFile()
             }
         }
 
+        qDebug() << "From" << selectedSaveName
+                << ": Loaded" << violentMobModel->rowCount() << "of" << numberOfHumans << "humans,"
+                 << neutralMobModel->rowCount() << "of" << numberOfNeutralMobs << "animals, and"
+                 << violentMobModel->rowCount() << "of" << numberOfViolentMobs << "bad guys.";
 
         if (errorOccured) {
             message = "This saved-game version is not supported! Saving is disabled and data may be innacurate.";
