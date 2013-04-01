@@ -2,7 +2,10 @@
 
 #include <QDebug>
 #include <QStringList>
+#include <QFile>
+#include <QCoreApplication>
 #include <sstream>
+
 
 #include "utils.h"
 
@@ -452,11 +455,25 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     options[15] = true; // Set default sleep settings.
     options[18] = true;
 
+    // Pick a name from the list of names.
+    QString randomlyChosenName = "Frank";
+    QFile namesFile(QCoreApplication::applicationDirPath() + "/names.csv");
+    qDebug() << "File name is" << namesFile.fileName();
+    if (namesFile.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream namesStream(&namesFile);
+        QString namesString = namesStream.readAll();
+        QStringList names = namesString.split(QRegExp("(\\r\\n)|(\\n\\r)|\\r|\\n"), QString::SkipEmptyParts);
+
+        // Pick a random name
+        randomlyChosenName = names[qrand() % (names.size() + 1)];
+    }
+
     // Build the Human and add it to the list.
     appendRow(new Human(
                   type,
                   x, y, z,
-                  "Drone",
+                  randomlyChosenName + " Drone",
 
                   qrand() % ((high + 1) - low) + low,
                   qrand() % ((high + 1) - low) + low,

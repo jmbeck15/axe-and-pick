@@ -19,8 +19,7 @@ Component {
             anchors.left: parent.left
             anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
-            height: 22
-            width: 35
+
             source: "images/units/" + profession + ".svg"
             fillMode: Image.PreserveAspectFit
         }
@@ -30,10 +29,11 @@ Component {
             id: humanID
 
             anchors.left: typeIcon.right
+            anchors.leftMargin: 5
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.leftMargin: 5
+
 
             // Name and Profession
             Item

@@ -12,14 +12,24 @@ Component {
         border.width: 1
         border.color: "#FFE3E3E3"
 
+        Image {
+            id: typeIcon
+            anchors.left: parent.left
+            anchors.leftMargin: 10
+            anchors.verticalCenter: parent.verticalCenter
+
+            source: "images/units/" + type + ".svg"
+            fillMode: Image.PreserveAspectFit
+        }
+
         Item {
             id: mobDetails
 
-            anchors.left: parent.left
+            anchors.left: typeIcon.right
+            anchors.leftMargin: 5
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            anchors.leftMargin: 10
 
             // Name of the mob
             Text {
