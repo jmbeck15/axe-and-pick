@@ -27,6 +27,7 @@ private:
 
 signals:
     void fileLoadStatusChanged(bool errorOccured, QString message);
+    void fileSaveStatusChanged(bool errorOccured, QString message);
 
     //
     // Saved Game List

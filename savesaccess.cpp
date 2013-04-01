@@ -405,7 +405,6 @@ void SavesAccess::loadUnitFile()
         } else {
             message = "Game \"" + selectedSaveName + "\" loaded properly.";
         }
-        qDebug() << errorOccured << "and" << message;
         emit fileLoadStatusChanged(errorOccured, message);
 
         unitFile.close();
@@ -420,7 +419,9 @@ void SavesAccess::saveUnitFile()
         || neutralMobModel == Q_NULLPTR
         || violentMobModel == Q_NULLPTR )
     {
-        qDebug() << "One of the unit models hasn't been set up yet.";
+        QString message = "Unexpected Error! The models weren't properly loaded before saving was attempted.";
+        emit fileSaveStatusChanged(true, message);
+
         return;
     }
 
@@ -434,7 +435,10 @@ void SavesAccess::saveUnitFile()
     {
         // TODO: Make this error apparent on the interface somehow.
         // Perhaps by making the save icon be red instead of green.
-        qDebug() << "Can't open unitFile for writing.";
+
+        QString message = "Saving failed! Check to make sure the file isn't already open.";
+        emit fileSaveStatusChanged(true, message);
+
         return;
     }
     else
@@ -556,6 +560,9 @@ void SavesAccess::saveUnitFile()
             unitStream << endl;
         }
     }
+
+    QString message = "Saved.";
+    emit fileSaveStatusChanged(false, message);
 
     unitFile.close();
 }

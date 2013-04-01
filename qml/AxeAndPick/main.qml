@@ -116,6 +116,13 @@ Item {
                             console.debug("Message: " + message);
                         }
                     }
+                    onFileSaveStatusChanged: {
+                        if (errorOccured) {
+                            saveSavedGamesButton.iconComplete = "images/saveIcon_red.svg";
+                        } else {
+                            saveSavedGamesButton.iconComplete = "images/saveIcon_green.svg";
+                        }
+                    }
                 }
             }
         }
@@ -517,7 +524,7 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
-        height: 29
+        height: 0
         color: "gray"
         clip: true
 
@@ -561,6 +568,15 @@ Item {
         Connections {
             target: savesAccess
             onFileLoadStatusChanged: {
+                if (errorOccured) {
+                    errorMessage.text = message;
+                    errorBar.height = 29;
+                } else {
+                    errorMessage.text = message;
+                    errorBar.height = 0;
+                }
+            }
+            onFileSaveStatusChanged: {
                 if (errorOccured) {
                     errorMessage.text = message;
                     errorBar.height = 29;
