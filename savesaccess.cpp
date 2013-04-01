@@ -410,7 +410,7 @@ void SavesAccess::loadUnitFile()
         }
 
         qDebug() << "From" << selectedSaveName
-                << ": Loaded" << violentMobModel->rowCount() << "of" << numberOfHumans << "humans,"
+                << ": Loaded" << humanModel->rowCount() << "of" << numberOfHumans << "humans,"
                  << neutralMobModel->rowCount() << "of" << numberOfNeutralMobs << "animals, and"
                  << violentMobModel->rowCount() << "of" << numberOfViolentMobs << "bad guys.";
 
