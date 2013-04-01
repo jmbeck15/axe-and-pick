@@ -169,10 +169,10 @@ float NeutralMobListModel::getFirstPosition(const char label)
 void NeutralMobListModel::add(const QString type, float x, float y, float z)
 {
     QList<float> unknown_floats;
-    unknown_floats.append(0.4);
-    unknown_floats.append(0.0);
-    unknown_floats.append(0.0);
-    unknown_floats.append(0.0);
+    unknown_floats.append(0.4f);
+    unknown_floats.append(0.0f);
+    unknown_floats.append(0.0f);
+    unknown_floats.append(0.0f);
 
     QBitArray options(2, false);
 

@@ -458,7 +458,6 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     // Pick a name from the list of names.
     QString randomlyChosenName = "Frank";
     QFile namesFile(QCoreApplication::applicationDirPath() + "/names.csv");
-    qDebug() << "File name is" << namesFile.fileName();
     if (namesFile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream namesStream(&namesFile);
@@ -508,11 +507,11 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   options,
 
-                  14.0, 0.9, 0.8, 0.0   // unknown floats
+                  14.0f, 0.9f, 0.8f, 0.0f   // unknown floats
                   )
               );
 
-    qDebug() << "Added a human of type" << type;
+    qDebug() << "Added" << randomlyChosenName << "the" << type;
 }
 
 

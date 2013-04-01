@@ -555,6 +555,12 @@ Item {
         ListElement {
             name: "Tailor"
         }
+        ListElement {
+            name: "Trader"
+        }
+        ListElement {
+            name: "Herder"
+        }
     }
     ListModel {
         id: neutralMobTypeModel

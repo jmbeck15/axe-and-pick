@@ -325,8 +325,8 @@ void SavesAccess::loadUnitFile()
     }
     else
     {
-
         QTextStream unitStream(&unitFile);
+
         QString unitString;
         QStringList unitData;
 
