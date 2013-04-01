@@ -18,15 +18,6 @@ void SavesAccess::loadSavedGame(QString gameName)
     // Set the game name.
     selectedSaveName = gameName;
 
-    // Determine what version to load. Between T&S v0.5 and v07,
-    // the best way to figure out the version is to load the
-    // unit file, and see how many options there are for the
-    // humans. In fact, the Humans and Violent Mobs are the only
-    // things that changed. Resource positions just need to be
-    // named appropriately.
-
-
-
     // Pull the resources into the list.
     loadResourceFile();
     loadUnitFile();
@@ -110,6 +101,7 @@ void SavesAccess::loadGamesList()
     else
     {
         QTextStream in(&savedGameFile);
+        in.setCodec("UTF-8");
         QStringList strings;
 
         long numberOfGames = in.readLine().toLongLong();
@@ -157,6 +149,7 @@ void SavesAccess::loadResourceFile()
     QFile resourceFile(rootSavesDirectory.absolutePath()
                        + "/" + selectedSaveName
                        + "/" + "re.sav");
+    qDebug() << selectedSaveName;
 
     if (resourceModel == Q_NULLPTR)
     {
