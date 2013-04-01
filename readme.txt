@@ -17,11 +17,20 @@ How to Use
 ===========================
 1. When the program first runs, it'll as you for the location of the saves.sav file.
 2. Everything else should make sense. Click the save icon to save.
-3. Load the saved game in Timber and Stone. Exit and reload the game if you want to modify it.
+3. When you save, you have to reload the game in Timber and Stone.
 
 
 Change Log
 ===========================
+
+Version 1.0 beta 3 | April 1, 2013
+-----------------
+Updated for Timber and Stone v0.9
+Added support for adding and removing all unit types.
+Errors added:  old saved games won't allow saving
+               if a file can't be written (saved)
+               if the resources list is missing
+-----------------
 
 Version 0.5 | March 8, 2013
 -----------------

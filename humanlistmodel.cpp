@@ -455,7 +455,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     options[15] = true; // Set default sleep settings.
     options[18] = true;
 
-    // Pick a name from the list of names.
+    // Pick a name from the list of names. If you can't find the file, use "Frank".
     QString randomlyChosenName = "Frank";
     QFile namesFile(QCoreApplication::applicationDirPath() + "/names.csv");
     if (namesFile.open(QIODevice::ReadOnly | QIODevice::Text))
