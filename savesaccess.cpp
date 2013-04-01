@@ -158,10 +158,11 @@ void SavesAccess::loadResourceFile()
     }
 
     // Open file and make sure it went okay.
-    if (!resourceFile.exists() || !resourceFile.open(QFile::ReadWrite))
+    if (!resourceFile.exists() || !resourceFile.open(QFile::ReadOnly))
     {
-        // TODO: Make this error apparent on the interface somehow.
-        qDebug() << "Can't open resourceFile.";
+        QString message = "I can't load the re.sav file! Is it missing? Saving is disabled.";
+        emit fileLoadStatusChanged(true, message);
+
         return;
     }
     else
@@ -224,8 +225,8 @@ void SavesAccess::loadResourceFile()
         }
         else
         {
-            // TODO: Make this error apparent on the interface somehow.
-            qDebug() << "Could not open " << assetFile.fileName();
+            QString message = "I can't load the resource_list.csv file! Is it missing? Saving is disabled.";
+            emit fileLoadStatusChanged(true, message);
         }
 
         assetFile.close();
@@ -249,11 +250,11 @@ void SavesAccess::saveResourceFile()
                        + "/" + "re.sav");
 
     // Open file for write, and make sure it went okay.
-    if (!resourceFile.open(QFile::ReadWrite))
+    if (!resourceFile.open(QIODevice::WriteOnly))
     {
-        // TODO: Make this error apparent on the interface somehow.
-        // Perhaps by making the save icon be red instead of green.
-        qDebug() << "Can't open resourceFile for writing.";
+        QString message = "Saving failed! Check to make sure the re.sav file isn't open in another program.";
+        emit fileSaveStatusChanged(true, message);
+
         return;
     }
     else
@@ -320,10 +321,12 @@ void SavesAccess::loadUnitFile()
     }
 
     // Open file and make sure it went okay.
-    if (!unitFile.exists() || !unitFile.open(QFile::ReadWrite))
+    if (!unitFile.exists() || !unitFile.open(QFile::ReadOnly))
     {
         // TODO: Make this error apparent on the interface somehow.
-        qDebug() << "Can't open unitFile.";
+        QString message = "The unit file (un.sav) seems to be missing! Saving disabled.";
+        emit fileLoadStatusChanged(true, message);
+
         return;
     }
     else
@@ -419,8 +422,7 @@ void SavesAccess::saveUnitFile()
         || neutralMobModel == Q_NULLPTR
         || violentMobModel == Q_NULLPTR )
     {
-        QString message = "Unexpected Error! The models weren't properly loaded before saving was attempted.";
-        emit fileSaveStatusChanged(true, message);
+        qDebug() << "The unit models haven't been set up.";
 
         return;
     }
@@ -433,10 +435,7 @@ void SavesAccess::saveUnitFile()
     // Open file for write, and make sure it went okay.
     if (!unitFile.open(QIODevice::WriteOnly))
     {
-        // TODO: Make this error apparent on the interface somehow.
-        // Perhaps by making the save icon be red instead of green.
-
-        QString message = "Saving failed! Check to make sure the file isn't already open.";
+        QString message = "Saving failed! Check to make sure the un.sav file isn't open in another program.";
         emit fileSaveStatusChanged(true, message);
 
         return;

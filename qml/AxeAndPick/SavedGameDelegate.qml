@@ -22,6 +22,9 @@ Component {
             onExited: { parent.color = "#FFeeeeee" }
             onPressed: { parent.color = "#FFe0e0e0" }
             onClicked: {
+                // Clear errors
+                errorBar.errorsHaveOccured = false;
+
                 // Load and display the game.
                 savesAccess.loadSavedGame( name );
 

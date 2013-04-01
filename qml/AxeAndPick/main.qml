@@ -98,6 +98,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        errorBar.errorsHaveOccured = false;
                         savesAccess.saveSavedGame();
                         saveSavedGamesButton.showClickAnimation();
                     }
@@ -106,20 +107,22 @@ Item {
                 Connections {
                     target: savesAccess
                     onFileLoadStatusChanged: {
-                        if (errorOccured) {
+                        if (errorOccured || errorBar.errorsHaveOccured) {
                             saveSavedGamesButton.icon = "images/saveIcon_disabled.svg";
                             saveSavedGamesButton.enabled = false;
                             console.debug("Error: " + message);
-                        } else {
+                        }
+                        else {
                             saveSavedGamesButton.icon = "images/saveIcon.svg"
                             saveSavedGamesButton.enabled = true;
                             console.debug("Message: " + message);
                         }
                     }
                     onFileSaveStatusChanged: {
-                        if (errorOccured) {
+                        if (errorOccured || errorBar.errorsHaveOccured) {
                             saveSavedGamesButton.iconComplete = "images/saveIcon_red.svg";
-                        } else {
+                        }
+                        else {
                             saveSavedGamesButton.iconComplete = "images/saveIcon_green.svg";
                         }
                     }
@@ -524,6 +527,9 @@ Item {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
+        // This needs to be cleared, or the last error won't go away.
+        property bool errorsHaveOccured: false
+
         height: 0
         color: "gray"
         clip: true
@@ -568,19 +574,29 @@ Item {
         Connections {
             target: savesAccess
             onFileLoadStatusChanged: {
-                if (errorOccured) {
+                if (errorOccured && !errorBar.errorsHaveOccured) {
                     errorMessage.text = message;
+                    errorBar.errorsHaveOccured = true;
                     errorBar.height = 29;
-                } else {
+                } else
+                if (errorBar.errorsHaveOccured) {
+                    // Do nothing, because an error already occured.
+                }
+                else {
                     errorMessage.text = message;
                     errorBar.height = 0;
                 }
             }
             onFileSaveStatusChanged: {
-                if (errorOccured) {
+                if (errorOccured && !errorBar.errorsHaveOccured) {
                     errorMessage.text = message;
+                    errorBar.errorsHaveOccured = true;
                     errorBar.height = 29;
-                } else {
+                }
+                if (errorBar.errorsHaveOccured) {
+                    // Do nothing, because an error already occured.
+                }
+                else {
                     errorMessage.text = message;
                     errorBar.height = 0;
                 }
