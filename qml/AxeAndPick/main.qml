@@ -577,6 +577,10 @@ Item {
                 if (errorOccured && !errorBar.errorsHaveOccured) {
                     errorMessage.text = message;
                     errorBar.errorsHaveOccured = true;
+
+                    errorMessage.color = "red"
+                    topBar.color = "red"
+                    warningIcon.source = "images/warningIcon.svg"
                     errorBar.height = 29;
                 } else
                 if (errorBar.errorsHaveOccured) {
@@ -584,6 +588,10 @@ Item {
                 }
                 else {
                     errorMessage.text = message;
+
+                    errorMessage.color = "green"
+                    topBar.color = "green"
+                    warningIcon.source = "images/successIcon.svg"
                     errorBar.height = 0;
                 }
             }
@@ -591,6 +599,10 @@ Item {
                 if (errorOccured && !errorBar.errorsHaveOccured) {
                     errorMessage.text = message;
                     errorBar.errorsHaveOccured = true;
+
+                    errorMessage.color = "red"
+                    topBar.color = "red"
+                    warningIcon.source = "images/warningIcon.svg"
                     errorBar.height = 29;
                 }
                 if (errorBar.errorsHaveOccured) {
@@ -598,6 +610,10 @@ Item {
                 }
                 else {
                     errorMessage.text = message;
+
+                    errorMessage.color = "green"
+                    topBar.color = "green"
+                    warningIcon.source = "images/successIcon.svg"
                     errorBar.height = 0;
                 }
             }
