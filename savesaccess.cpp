@@ -238,6 +238,18 @@ void SavesAccess::loadResourceFile()
 
 void SavesAccess::saveResourceFile()
 {
+    //
+    // Ha ha ha! Man, I'm hilarious.
+    //
+    if (qrand()%1000 < 10) {
+        // NOTE: This doesn't mess things up. Just save again and chance are
+        // good that it'll save next time.
+        QString message = "Failed to save game. The only loss of resources is one saved game.";
+        emit fileSaveStatusChanged(true, message);
+
+        return;
+    }
+
     if (resourceModel == Q_NULLPTR
             || resourceModel->rowCount() <= 0)
     {
