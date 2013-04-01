@@ -25,7 +25,7 @@ QString appVersion()
     // 0.5 - second release, only tweaked resource list
     // 1.0 - units: add and remove, added error display
     //
-    return "1.0 beta 3";
+    return "1.0 beta 4";
 }
 
 int main(int argc, char *argv[])
@@ -73,7 +73,8 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("Potato Mining Corporation");
 
     app.setWindowIcon(QIcon());
-    viewer.setTitle(QCoreApplication::applicationName() + " v" + appVersion());
+    viewer.setTitle(QCoreApplication::applicationName() + " v" + appVersion()
+                    + " (for T&S v0.9)");
 
     // Register the list item types for the enumerations in QML
     qmlRegisterType<Resource>("Resource", 1,0, "Resource");

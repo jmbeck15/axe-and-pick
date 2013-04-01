@@ -8,18 +8,22 @@
 	 x="0px" y="0px" width="32px" height="22px" viewBox="0 0 32 22" enable-background="new 0 0 32 22" xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#F1F2F2" width="32" height="22"/>
+<rect fill="#C2B59B" width="32" height="22"/>
 <polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	12.882,5.972 4.774,1.875 2.132,20.375 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="12.882,4.5 
+	12.882,9.972 4.774,1.875 2.132,20.375 "/>
+<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="12.882,8.5 
 	10.382,0.943 7.306,11.125 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="14.569,8.5 
-	6.462,6.875 7.507,18.75 "/>
 <polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	19.118,5.972 27.226,1.875 29.868,20.375 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="19.118,4.5 
+	14.569,12.5 6.462,6.875 7.507,18.75 "/>
+<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	19.118,9.972 27.226,1.875 29.868,20.375 "/>
+<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="19.118,8.5 
 	21.618,0.943 24.694,11.125 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="17.431,8.5 
-	25.538,6.875 24.493,18.75 "/>
-<circle fill="#3C2415" cx="16" cy="5.972" r="5.028"/>
+<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	17.431,12.5 25.538,6.875 24.493,18.75 "/>
+<circle fill="#3C2415" cx="16" cy="9.972" r="5.028"/>
+<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	12.634,12.166 5.493,9.972 10.516,19.5 "/>
+<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	19.745,12.416 27.023,9.972 18.452,20.375 "/>
 </svg>
