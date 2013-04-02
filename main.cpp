@@ -25,7 +25,7 @@ QString appVersion()
     // 0.5 - second release, only tweaked resource list
     // 1.0 - units: add and remove, added error display
     //
-    return "1.0 beta 4";
+    return "1.0";
 }
 
 int main(int argc, char *argv[])
