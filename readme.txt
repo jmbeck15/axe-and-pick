@@ -6,6 +6,8 @@ A delightful saved-game hacker for Timber and Stone.
 Author: PMC
 ======================================================
 
+Builds on Windows 7 and Kubuntu 12.10
+
 
 How To Run
 ===========================
@@ -23,13 +25,12 @@ How to Use
 Change Log
 ===========================
 
-Version 1.0 beta 3 | April 1, 2013
+Version 1.0 | April 2, 2013
 -----------------
 Updated for Timber and Stone v0.9
 Added support for adding and removing all unit types.
-Errors added:  old saved games won't allow saving
-               if a file can't be written (saved)
-               if the resources list is missing
+Added error handling to prevent accidental save corruption for older versions.
+New icon, tweaked visuals
 -----------------
 
 Version 0.5 | March 8, 2013
