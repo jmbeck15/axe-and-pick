@@ -539,18 +539,18 @@ void SavesAccess::saveUnitFile()
                        << mob->posX() << "/"
                        << mob->posY() << "/"
                        << mob->posZ() << "/"
-                       << mob->rotation();
+                       << mob->rotation() << "/";
 
             // Write all the unknown floats
             for (int i=0; i<4; i++)
             {
-                unitStream << "/" << mob->unknown_float(i);
+                unitStream << mob->unknown_float(i) << "/";
             }
 
             // Write all the options
-            for (int i=0; i<2; i++)
+            for (int i=0; i<3; i++)
             {
-                unitStream << "/" << QString(mob->option(i)?"True":"False");
+                unitStream << QString(mob->option(i)?"True":"False") << "/";
             }
 
             unitStream << endl;

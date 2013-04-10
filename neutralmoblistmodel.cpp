@@ -30,7 +30,7 @@ NeutralMob::NeutralMob(const QString &type,
 
 NeutralMob * NeutralMob::build(QStringList & unitData)
 {
-    if (unitData.size() == 11)
+    if (unitData.size() == 13)
     {
         // Load in the unknown floats
         QList<float> unknown_floats;
@@ -40,8 +40,8 @@ NeutralMob * NeutralMob::build(QStringList & unitData)
         }
 
         // Load in the options
-        QBitArray options(2, false);
-        for (int i=0; i<2; i++)
+        QBitArray options(3, false);
+        for (int i=0; i<3; i++)
         {
             options.setBit(i, (unitData[i+9].compare("True"))?true:false);
         }
