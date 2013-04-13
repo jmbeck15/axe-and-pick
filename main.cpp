@@ -25,8 +25,9 @@ QString appVersion()
     // 0.5 - second release, only tweaked resource list
     // 1.0 - units: add and remove, added error display
     // 1.1 - updated for T&S 1.0.
+    // 1.2 - fixed the animal life toggling on load
     //
-    return "1.1 (for T&S v1.0)";
+    return "1.2 (for T&S v1.0)";
 }
 
 int main(int argc, char *argv[])
