@@ -43,7 +43,7 @@ NeutralMob * NeutralMob::build(QStringList & unitData)
         QBitArray options(3, false);
         for (int i=0; i<3; i++)
         {
-            options.setBit(i, (unitData[i+9].compare("True"))?true:false);
+            options.setBit(i, unitData[i+9].compare("True") ? false : true);
         }
 
         return (new NeutralMob( unitData[0],
@@ -173,7 +173,7 @@ void NeutralMobListModel::add(const QString type, float x, float y, float z)
     unknown_floats.append(0.0f);
     unknown_floats.append(0.0f);
 
-    QBitArray options(2, false);
+    QBitArray options(3, false);
 
     appendRow(new NeutralMob(
                   type,
