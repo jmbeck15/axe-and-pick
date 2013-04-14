@@ -506,7 +506,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   options,
 
-                  14.0f, 0.9f, 0.8f, 0.0f   // unknown floats
+                  10.0f, 1.0f, 1.52f, 0.0f   // unknown floats
                   )
               );
 
