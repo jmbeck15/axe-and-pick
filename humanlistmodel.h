@@ -62,7 +62,11 @@ public:
         EquipBodyRole,
         EquipFeetRole,
 
-        HealthRole
+        HealthRole,
+
+        MoraleRole,
+        FatigueRole,
+        HungerRole
 
         // NOTE: Options and unknown quantities are yet to be added.
     };
@@ -113,9 +117,9 @@ public:
                    const QBitArray &options,
 
                    const float &unknownFloat1,
-                   const float &unknownFloat2,
-                   const float &unknownFloat3,
-                   const float &unknownFloat4,
+                   const float &morale,
+                   const float &fatigue,
+                   const float &hunger,
                    QObject * parent = 0);
 
     // Builder. This returns a Human which is all set up.
@@ -127,6 +131,9 @@ public:
 
     // Setters for properties
     void setProfession(QString profession);
+    void setMorale(float morale);
+    void setFatigue(float fatigue);
+    void setHunger(float hunger);
 
     // Getters for properties
     inline long    id() const { return m_id; }
@@ -175,9 +182,9 @@ public:
     inline bool option(unsigned int optionNumber) const { return m_options[optionNumber]; }
 
     inline float unknownFloat1() const { return m_unknownFloat1; }
-    inline float unknownFloat2() const { return m_unknownFloat2; }
-    inline float unknownFloat3() const { return m_unknownFloat3; }
-    inline float unknownFloat4() const { return m_unknownFloat4; }
+    inline float morale() const { return m_morale; }
+    inline float fatigue() const { return m_fatigue; }
+    inline float hunger() const { return m_hunger; }
 
     // Utilities and Helpers
     void print();
@@ -229,9 +236,9 @@ private:
     QBitArray m_options; // These contain the options for this unit.
 
     float m_unknownFloat1;
-    float m_unknownFloat2;
-    float m_unknownFloat3;
-    float m_unknownFloat4;
+    float m_morale;
+    float m_fatigue;
+    float m_hunger;
 };
 
 // HumanListModel store Humans
@@ -247,6 +254,7 @@ public:
     Q_INVOKABLE void remove(const long id);
     Q_INVOKABLE float getFirstPosition(const char label);
     Q_INVOKABLE void add(const QString type, float x, float y, float z);
+    Q_INVOKABLE void serveCoffee();
 };
 
 #endif // HUMANLISTMODEL_H

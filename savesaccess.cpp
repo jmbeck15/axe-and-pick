@@ -517,9 +517,9 @@ void SavesAccess::saveUnitFile()
                 unitStream << QString(human->option(i)?"True":"False") << "/";
             }
             unitStream << human->unknownFloat1() << "/"
-                       << human->unknownFloat2() << "/"
-                       << human->unknownFloat3() << "/"
-                       << human->unknownFloat4() << "/";
+                       << human->morale() << "/"
+                       << human->fatigue() << "/"
+                       << human->hunger() << "/";
 
             // Dump more options in the file.
             for (unsigned int i = 52; i<52+11; i++) {
@@ -577,7 +577,7 @@ void SavesAccess::saveUnitFile()
     unitFile.close();
 }
 
-void SavesAccess::writeToMatlab()
+void SavesAccess::writeToMatlab(int squareSize)
 {
     qDebug() << "Opening file...";
 
@@ -586,66 +586,74 @@ void SavesAccess::writeToMatlab()
                     + "/" + selectedSaveName
                     + "/" + "cd.dat");
     matlabFile.open(QFile::WriteOnly);
-    QTextStream matlabStream(&matlabFile);
 
     QFile worldFile(rootSavesDirectory.absolutePath()
                     + "/" + selectedSaveName
                     + "/" + "cd.sav");
     worldFile.open(QFile::ReadOnly);
 
-    int xMax(0);
-    int yMax(0);
-    int zMax(0);
-
-    while( !worldFile.atEnd() )
+    // Go until you get all the blocks
+    for( int blockNumber = 0; blockNumber < (squareSize * squareSize * 48); blockNumber++ )
     {
-        // Temporary array to hold the bytes we read from the file.
-        QByteArray byteArray;
-        byteArray.clear();
+        // Grab a line in the file
+        QByteArray lineOfBytes = worldFile.readLine();
 
-        unsigned char byte; // Most Significant Byte
-        worldFile.read((char *)&byte, 1);
-
-//        if( byte >= 0xe0)
-//        {
-//            byteArray.append(byte);
-//
-//            // Another byte exists!
-//            worldFile.read((char *)&byte, 1);
-//            byteArray.append(byte);
-//        }
-//        else
-//        {
-            byteArray.append(byte);
-//        }
-        worldFile.read((char *)&byte, 1);
-        byteArray.append(byte);
-
-        // Add the byte to the array.
-        matlabStream << xMax << ","
-                       << yMax << ","
-                       << zMax << ","
-                       << Utils::toInt(byteArray)
-                       << endl;
-
-        // Roll the position
-        int square = 128;
-        xMax++;
-        if (xMax>=square)
+        int i;
+        i=0;
+        while( i < lineOfBytes.length())
         {
-            xMax = 0;
-            yMax++;
-            if (yMax>=square)
+            // Get the most significant byte
+            unsigned char byte = lineOfBytes.at(i);
+            i++;
+
+            // Temporary array to hold the bytes we read from the file.
+            QByteArray byteArray;
+            byteArray.clear();
+            if( byte >= 0xe0)
             {
-                yMax = 0;
-                zMax++;
-                if (zMax >=32)
-                {
-                    qDebug() << "Nope. Not the right dimensions.";
-                }
+                byteArray.append(byte);
+
+                // Another byte exists!
+                byte = lineOfBytes.at(i);
+                i++;
+                byteArray.append(byte);
+            }
+            else
+            {
+                byteArray.append(byte);
+            }
+            byte = lineOfBytes.at(i);
+            i++;
+            byteArray.append(byte);
+
+            // Add the byte to the array.
+            if( Utils::toInt(byteArray) != 125
+             && Utils::toInt(byteArray) != 126
+             && Utils::toInt(byteArray) != 714
+             && Utils::toInt(byteArray) != 0 )
+            {
+                matlabFile.write(Utils::toBinary(1));
+            }
+            else
+            {
+                matlabFile.write(byteArray);
             }
         }
+        // First Block done!
+        //QByteArray newline("\n");
+        //matlabFile.write(newline);
     }
+
+    // The remaining lines are numbers.
+    QByteArray tempBytes;
+    tempBytes = worldFile.readLine(); matlabFile.write(tempBytes);
+    tempBytes = worldFile.readLine(); matlabFile.write(tempBytes);
+    tempBytes = worldFile.readLine(); matlabFile.write(tempBytes);
+    tempBytes = worldFile.readLine(); matlabFile.write(tempBytes);
+    tempBytes = worldFile.readLine(); matlabFile.write(tempBytes);
+    tempBytes = worldFile.readLine(); matlabFile.write(tempBytes);
+    tempBytes = worldFile.readLine(); matlabFile.write(tempBytes);
+
     matlabFile.close();
     worldFile.close();
 

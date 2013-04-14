@@ -57,9 +57,9 @@ Human::Human(const QString &profession,
              const QBitArray &options,
 
              const float &unknownFloat1,
-             const float &unknownFloat2,
-             const float &unknownFloat3,
-             const float &unknownFloat4,
+             const float &moral,
+             const float &fatigue,
+             const float &hunger,
              QObject * parent)
     : ListItem(parent),
     m_id(id_counter),
@@ -108,9 +108,9 @@ Human::Human(const QString &profession,
     m_options(options),
 
     m_unknownFloat1(unknownFloat1),
-    m_unknownFloat2(unknownFloat2),
-    m_unknownFloat3(unknownFloat3),
-    m_unknownFloat4(unknownFloat4)
+    m_morale(moral),
+    m_fatigue(fatigue),
+    m_hunger(hunger)
 {
     id_counter++;
 }
@@ -224,9 +224,9 @@ Human * Human::build(QStringList & unitData)
                     loadedOptions,
 
                     unitData[72].toFloat(), // unknown options
-                    unitData[73].toFloat(),
-                    unitData[74].toFloat(),
-                    unitData[75].toFloat()
+                    unitData[73].toFloat(), // morale
+                    unitData[74].toFloat(), // fatigue
+                    unitData[75].toFloat()  // hunger
                    ));
     }
 
@@ -238,6 +238,23 @@ void Human::setProfession(QString profession)
     // Placeholder for when things are changed.
     m_profession = profession;
 }
+
+void Human::setMorale(float morale)
+{
+    // Placeholder for when things are changed.
+    m_morale = morale;
+}
+void Human::setFatigue(float fatigue)
+{
+    // Placeholder for when things are changed.
+    m_fatigue = fatigue;
+}
+void Human::setHunger(float hunger)
+{
+    // Placeholder for when things are changed.
+    m_hunger = hunger;
+}
+
 
 QHash<int, QByteArray> Human::roleNames() const
 {
@@ -287,6 +304,10 @@ QHash<int, QByteArray> Human::roleNames() const
     names[EquipFeetRole] = "equipFeet";
 
     names[HealthRole] = "health";
+
+    names[MoraleRole] = "marole";
+    names[FatigueRole] = "fatigue";
+    names[HungerRole] = "hunger";
 
     return names;
 }
@@ -374,6 +395,13 @@ QVariant Human::data(int role) const
     case HealthRole:
         return health();
 
+    case MoraleRole:
+        return morale();
+    case FatigueRole:
+        return fatigue();
+    case HungerRole:
+        return hunger();
+
     default:
         return QVariant();
     }
@@ -408,6 +436,24 @@ void HumanListModel::setData(const long id, const QVariant &value, int role)
     {
         Human * item = (Human *)find( id );
         item->setProfession(value.toString());
+        break;
+    }
+    case Human::MoraleRole:
+    {
+        Human * item = (Human *)find( id );
+        item->setMorale(value.toFloat());
+        break;
+    }
+    case Human::FatigueRole:
+    {
+        Human * item = (Human *)find( id );
+        item->setFatigue(value.toFloat());
+        break;
+    }
+    case Human::HungerRole:
+    {
+        Human * item = (Human *)find( id );
+        item->setHunger(value.toFloat());
         break;
     }
     default:
@@ -506,11 +552,21 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   options,
 
-                  10.0f, 1.0f, 1.52f, 0.0f   // unknown floats
+                  10.0f, 1.0f, 1.52f, 0.0f   // unknown, marole, fatigue, hunger
                   )
               );
 
     qDebug() << "Added" << randomlyChosenName << "the" << type;
 }
 
-
+void HumanListModel::serveCoffee()
+{
+    QList<ListItem*> list;
+    list = getList();
+    foreach(ListItem * human, list)
+    {
+        ((Human*)human)->setMorale(1.0f);
+        ((Human*)human)->setFatigue(1.52f);  // 1.5 is the limit, so this is an extra boost!
+        ((Human*)human)->setHunger(0.0f);
+    }
+}

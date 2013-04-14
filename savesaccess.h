@@ -76,7 +76,7 @@ private:
 
     // World/Ground File
 public:
-    Q_INVOKABLE void writeToMatlab();
+    Q_INVOKABLE void writeToMatlab(int squareSize);
 };
 
 #endif // SAVESACCESS_H

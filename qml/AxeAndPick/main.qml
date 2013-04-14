@@ -70,6 +70,28 @@ Item {
             anchors.rightMargin: 10
             anchors.bottom: parent.bottom
 
+            // Utility for doing things.
+            Image {
+                id: utilityButton
+                visible: false
+                source: "images/utilityButton.svg"
+                MouseArea {
+                    id: utilityButtonArea
+                    anchors.fill: parent
+                    onClicked: {
+                        savesAccess.writeToMatlab(8);
+                    }
+                }
+                states:
+                    State { // Pressed
+                        when: utilityButtonArea.pressed
+                        PropertyChanges {
+                            target: utilityButton
+                            source: "images/utilityButtonPressed.svg"
+                        }
+                    }
+            }
+
             ToolbarImageButton {
                 id: openFileButton
                 target: parent
@@ -191,9 +213,6 @@ Item {
 
         ResourceDelegate {
             id: resourceDelegate
-        }
-        ResourceDelegateThick {
-            id: resourceDelegateThick
         }
 
         ListView {
@@ -417,29 +436,30 @@ Item {
                 ]
             }
 
-            // Utility for doing things.
-//            Image {
-//                id: utilityButton
-//                anchors.right: parent.right
-//                anchors.rightMargin: 10 + 16 // 16 is for the scroll bar
-//                anchors.verticalCenter: parent.verticalCenter
-//                source: "images/utilityButton.svg"
-//                MouseArea {
-//                    id: utilityButtonArea
-//                    anchors.fill: parent
-//                    onClicked: {
-//                        savesAccess.writeToMatlab();
-//                    }
-//                }
-//                states:
-//                    State { // Pressed
-//                        when: utilityButtonArea.pressed
-//                        PropertyChanges {
-//                            target: utilityButton
-//                            source: "images/utilityButtonPressed.svg"
-//                        }
-//                    }
-//            }
+            // Give all the units coffee.
+            Image {
+                id: serveCoffeeButton
+                anchors.right: parent.right
+                anchors.rightMargin: 10 + 16 // the 16 is for the scroll bar.
+                anchors.verticalCenter: parent.verticalCenter
+                source: "images/coffee.svg"
+                MouseArea {
+                    id: coffeeButtonArea
+                    anchors.fill: parent
+                    onClicked: {
+                        humanModel.serveCoffee();
+                    }
+                }
+                states:
+                    State { // Pressed
+                        when: coffeeButtonArea.pressed
+                        PropertyChanges {
+                            target: serveCoffeeButton
+                            source: "images/coffeePressed.svg"
+                        }
+                    }
+            }
+
         }
 
         // Container for things you can add to the list.
