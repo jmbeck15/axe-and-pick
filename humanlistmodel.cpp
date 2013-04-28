@@ -502,7 +502,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
     // Pick a name from the list of names. If you can't find the file, use "Frank".
     QString randomlyChosenName = "Frank";
-    QFile namesFile(QCoreApplication::applicationDirPath() + "/names.csv");
+    QFile namesFile(QCoreApplication::applicationDirPath() + "/names.txt");
     if (namesFile.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream namesStream(&namesFile);
