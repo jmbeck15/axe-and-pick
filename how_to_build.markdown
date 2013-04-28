@@ -1,6 +1,6 @@
 How To Build
 =================
-Axe and Pick is built in C++ using the Qt libraries. The interface is entirely written in QML (Java-script).
+Axe and Pick is built in C++ using the Qt libraries. The interface is entirely written in QML (Javascript).
 
 #### Overview
 
