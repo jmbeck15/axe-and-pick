@@ -120,6 +120,11 @@ public:
                    const float &morale,
                    const float &fatigue,
                    const float &hunger,
+
+                   const float &unknownFloat2,
+                   const float &unknownFloat3,
+
+                   const QString &guarding,
                    QObject * parent = 0);
 
     // Builder. This returns a Human which is all set up.
@@ -186,6 +191,11 @@ public:
     inline float fatigue() const { return m_fatigue; }
     inline float hunger() const { return m_hunger; }
 
+    inline float unknownFloat2() const { return m_unknownFloat2; }
+    inline float unknownFloat3() const { return m_unknownFloat3; }
+
+    inline QString guarding() const { return m_guarding; }
+
     // Utilities and Helpers
     void print();
 
@@ -239,6 +249,11 @@ private:
     float m_morale;
     float m_fatigue;
     float m_hunger;
+
+    float m_unknownFloat2;
+    float m_unknownFloat3;
+
+    QString m_guarding;
 };
 
 // HumanListModel store Humans

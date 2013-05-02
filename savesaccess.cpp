@@ -522,9 +522,13 @@ void SavesAccess::saveUnitFile()
                        << human->hunger() << "/";
 
             // Dump more options in the file.
-            for (unsigned int i = 52; i<52+11; i++) {
+            for (unsigned int i = 52; i<52+12; i++) {
                 unitStream << QString(human->option(i)?"True":"False") << "/";
             }
+
+            unitStream << human->unknownFloat2() << "/"
+                       << human->unknownFloat3() << "/"
+                       << human->guarding() << "/";
 
             unitStream << endl;
             unitStream.flush();
@@ -566,7 +570,8 @@ void SavesAccess::saveUnitFile()
                        << mob->posY() << "/"
                        << mob->posZ() << "/"
                        << mob->rotation() << "/"
-                       << mob->health() << "/";
+                       << mob->health() << "/"
+                       << mob->unknownFloat() << "/";
             unitStream << endl;
         }
     }

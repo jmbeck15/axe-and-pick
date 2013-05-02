@@ -27,8 +27,9 @@ QString appVersion()
     // 1.1 - updated for T&S 1.0.
     // 1.2 - fixed the animal life toggling on load
     // 1.3 - added coffee, gave new units coffee
+    // 1.4 - updated for T&S 1.1.
     //
-    return "1.3 (for T&S v1.0)";
+    return "1.4 (for T&S v1.1)";
 }
 
 int main(int argc, char *argv[])

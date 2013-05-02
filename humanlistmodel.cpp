@@ -60,6 +60,11 @@ Human::Human(const QString &profession,
              const float &moral,
              const float &fatigue,
              const float &hunger,
+
+             const float &unknownFloat2,
+             const float &unknownFloat3,
+
+             const QString &guarding,
              QObject * parent)
     : ListItem(parent),
     m_id(id_counter),
@@ -110,15 +115,21 @@ Human::Human(const QString &profession,
     m_unknownFloat1(unknownFloat1),
     m_morale(moral),
     m_fatigue(fatigue),
-    m_hunger(hunger)
+    m_hunger(hunger),
+
+    m_unknownFloat2(unknownFloat2),
+    m_unknownFloat3(unknownFloat3),
+
+    m_guarding(guarding)
 {
     id_counter++;
 }
 
 Human * Human::build(QStringList & unitData)
 {
+
     // Check to make sure there are the proper number of options.
-    if (unitData.size() == 88) {
+    if (unitData.size() == 92) {
 
         //
         // Experience Levels
@@ -174,7 +185,7 @@ Human * Human::build(QStringList & unitData)
         {
             loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
         }
-        for(unsigned int i=52; i<52+11; i++)
+        for(unsigned int i=52; i<52+12; i++)
         {
             loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
         }
@@ -226,7 +237,12 @@ Human * Human::build(QStringList & unitData)
                     unitData[72].toFloat(), // unknown options
                     unitData[73].toFloat(), // morale
                     unitData[74].toFloat(), // fatigue
-                    unitData[75].toFloat()  // hunger
+                    unitData[75].toFloat(), // hunger
+
+                    unitData[88].toFloat(), // unknownFloat2
+                    unitData[89].toFloat(), // unknownFloat3
+
+                    unitData[90]
                    ));
     }
 
@@ -493,7 +509,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     int low = 1;
 
     // Set the options
-    QBitArray options(52+11, false);
+    QBitArray options(52+12, false);
     for (int i=2; i<13; i++) {
         options[i] = true;  // These settings seem to be on by default.
     }
@@ -552,7 +568,11 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   options,
 
-                  10.0f, 1.0f, 1.52f, 0.0f   // unknown, marole, fatigue, hunger
+                  10.0f, 1.0f, 1.52f, 0.0f,   // unknown, marole, fatigue, hunger
+
+                  0.0, 0.0,  // unknown floats
+
+                  "NoUnit"  // person they're guarding.
                   )
               );
 

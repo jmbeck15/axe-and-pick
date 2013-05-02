@@ -36,6 +36,7 @@ public:
                         const float &posZ,
                         const float &rotation,
                         const float &health,
+                        const float &unknownFloat,
                         QObject * parent = 0);
 
     static ViolentMob * build(QStringList & unitData);
@@ -56,6 +57,7 @@ public:
     inline float posZ() const { return m_posZ; }
     inline float rotation() const { return m_rotation; }
     inline float health() const { return m_health; }
+    inline float unknownFloat() const { return m_unknownFloat; }
 
     // Utilities
     void print();
@@ -69,6 +71,7 @@ private:
     float m_posZ;
     float m_rotation;
     float m_health; // I'm not sure if this is actual health or not.
+    float m_unknownFloat;
 };
 
 // ViolentMobListModel store ViolentMobs
