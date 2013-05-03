@@ -83,7 +83,7 @@ Download and install [Qt 5.0 from qt-project.org][1].
 The code is stored on GitHub, so you can choose to clone the code to your computer as you wish. However, the easiest way is to download GitHub for Mac. Once it's downloaded:
 
 1. Run GitHub. Click through the Wizard without entering anything.
-2. File -> Create New Repository. Use whatever Name, Description, and Local Path you'd like. It doesn't matter.
+2. File -> Create New Repository. The Name should be "AxeAndPick", Description can be anything, and Local Path should not contain spaces.
 3. Select View -> Repositories, to see your new repository. Double-click on it to open the repository properties, and select the Settings option on the left.
 4. Under Primary remote repository, enter the path of the official axe-and-pick repository: https://github.com/jmbeck15/axe-and-pick.git
 5. Pull the code to your computer by running Repository -> Pull. After this completes (it could take a minute or so), you should see a bunch of entries in your History.
