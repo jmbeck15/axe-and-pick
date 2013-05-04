@@ -3,6 +3,12 @@ folder_01.source = qml/AxeAndPick
 folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
+# OSX Options
+Resource.files = resource_list.csv names.txt
+Resource.path = Contents/MacOS
+QMAKE_BUNDLE_DATA += Resource
+ICON = application_icon.icns
+
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
@@ -55,4 +61,5 @@ OTHER_FILES += \
     qml/AxeAndPick/SavedGameDelegate.qml \
     qml/AxeAndPick/NeutralMobDelegate.qml \
     qml/AxeAndPick/ViolentMobDelegate.qml \
-    names.csv
+    names.csv \
+    application_icon.icns
