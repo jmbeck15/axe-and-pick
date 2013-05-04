@@ -180,7 +180,7 @@ Human * Human::build(QStringList & unitData)
         //
         // Load the Options
         //
-        QBitArray loadedOptions(63, false);
+        QBitArray loadedOptions(64, false);
         for(unsigned int i=0; i<52; i++)
         {
             loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
