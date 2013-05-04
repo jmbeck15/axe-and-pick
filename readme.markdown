@@ -21,6 +21,10 @@ See the `how_to_build.markdown` document for details.
 
 Change Log
 ---------------------------
+#### Version 1.5 (for T&S v1.1)
+    Fixed obscure crash.
+    Updated icon for OSX and file details for Windows
+	
 #### Version 1.4 (for T&S v1.1)
     Updated for Timber and Stone v1.1
 	Changed names.csv to names.txt for clarity
