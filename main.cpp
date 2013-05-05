@@ -29,8 +29,9 @@ QString appVersion()
     // 1.3 - added coffee, gave new units coffee
     // 1.4 - updated for T&S 1.1.
     // 1.5 - fixed oddly-infrequent crash
+    // 1.6 - added support for patrol points
     //
-    return "1.5 (for T&S v1.1)";
+    return "1.6 (for T&S v1.1)";
 }
 
 int main(int argc, char *argv[])
