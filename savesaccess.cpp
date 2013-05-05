@@ -364,6 +364,7 @@ void SavesAccess::loadUnitFile()
             else
             {
                 errorOccured = true;
+                qDebug() << "Note: There are" << unitData.size() << "fields in the Human string (not legal!).";
             }
         }
 
@@ -385,6 +386,7 @@ void SavesAccess::loadUnitFile()
             else
             {
                 errorOccured = true;
+                qDebug() << "Note: There are" << unitData.size() << "fields in the Neutral Mob string (not legal!).";
             }
         }
 
@@ -406,6 +408,7 @@ void SavesAccess::loadUnitFile()
             else
             {
                 errorOccured = true;
+                qDebug() << "Note: There are" << unitData.size() << "fields in the Violent Mob string (not legal!).";
             }
         }
 
@@ -526,9 +529,21 @@ void SavesAccess::saveUnitFile()
                 unitStream << QString(human->option(i)?"True":"False") << "/";
             }
 
-            unitStream << human->unknownFloat2() << "/"
-                       << human->unknownFloat3() << "/"
-                       << human->guarding() << "/";
+            unitStream << human->patrolCount() << "/";
+
+            // NOTE: Please be aware that this *3 stuff is only because
+            // I don't want to take the time to write the 3-vector class
+            // and handler. It's just not necessary, even though it'd probably
+            // make the code a bit easier to understand.
+            //
+            QList<float> patrolSetpoints = human->patrolSetpoints();
+            for (int i = 0; i<human->patrolCount()*3; i++) {
+                unitStream << patrolSetpoints.at(i) << "/";
+            }
+
+            unitStream << human->patrolIndex() << "/";
+
+            unitStream << human->guardedUnit() << "/";
 
             unitStream << endl;
             unitStream.flush();

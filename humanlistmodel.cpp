@@ -61,10 +61,11 @@ Human::Human(const QString &profession,
              const float &fatigue,
              const float &hunger,
 
-             const float &unknownFloat2,
-             const float &unknownFloat3,
+             const int &patrolCount,
+             const QList<float> &patrolSetpoints,
+             const int &patrolIndex,
 
-             const QString &guarding,
+             const QString &guardedUnit,
              QObject * parent)
     : ListItem(parent),
     m_id(id_counter),
@@ -117,10 +118,11 @@ Human::Human(const QString &profession,
     m_fatigue(fatigue),
     m_hunger(hunger),
 
-    m_unknownFloat2(unknownFloat2),
-    m_unknownFloat3(unknownFloat3),
+    m_patrolCount(patrolCount),
+    m_patrolSetpoints(patrolSetpoints),
+    m_patrolIndex(patrolIndex),
 
-    m_guarding(guarding)
+    m_guardedUnit(guardedUnit)
 {
     id_counter++;
 }
@@ -129,7 +131,15 @@ Human * Human::build(QStringList & unitData)
 {
 
     // Check to make sure there are the proper number of options.
-    if (unitData.size() == 92) {
+    //
+    // NOTE: This is only a sanity check. This can fail.
+    // The algo says "it has to be at least 92 long, and anything
+    // above 92 has to be divisible by three, to account for the
+    // patrol points".
+    //
+    if (    (unitData.size() >= 92)
+         && ((unitData.size() - 92) % 3 == 0)
+       ) {
 
         //
         // Experience Levels
@@ -190,6 +200,22 @@ Human * Human::build(QStringList & unitData)
             loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
         }
 
+        //
+        // Patrol Values
+        // Starts at 88
+        int patrolCount = unitData[88].toInt();
+
+        // Add all the patrol waypoints to the list
+        // NOTE: I realize this is xyz. Better to have a class
+        // that wraps each point. But I'm not even using these right
+        // now, so I'll decide that when/if I ever need it.
+        QList<float> patrolSetpoints;
+        for(int patrolCountNdx=0; patrolCountNdx<patrolCount*3; patrolCountNdx++ )
+        {
+            patrolSetpoints.push_back(unitData[89+patrolCountNdx].toFloat());
+        }
+        int patrolIndex = unitData[89+patrolCount*3].toInt();
+
         return (new Human(
                     unitData[0],
                     unitData[1].toFloat(),
@@ -239,10 +265,11 @@ Human * Human::build(QStringList & unitData)
                     unitData[74].toFloat(), // fatigue
                     unitData[75].toFloat(), // hunger
 
-                    unitData[88].toFloat(), // unknownFloat2
-                    unitData[89].toFloat(), // unknownFloat3
+                    patrolCount,            // Patrol data
+                    patrolSetpoints,
+                    patrolIndex,
 
-                    unitData[90]
+                    unitData[89+patrolCount*3+1]            // guarded unit
                    ));
     }
 
@@ -529,6 +556,9 @@ void HumanListModel::add(const QString type, float x, float y, float z)
         randomlyChosenName = names[qrand() % (names.size() + 1)];
     }
 
+    QList<float> patrolSetpoints;
+    patrolSetpoints.clear();
+
     // Build the Human and add it to the list.
     appendRow(new Human(
                   type,
@@ -570,7 +600,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
 
                   10.0f, 1.0f, 1.52f, 0.0f,   // unknown, marole, fatigue, hunger
 
-                  0.0, 0.0,  // unknown floats
+                  0, patrolSetpoints, 0,  // patrol count, patrol setpoints, patrol index
 
                   "NoUnit"  // person they're guarding.
                   )
@@ -590,3 +620,4 @@ void HumanListModel::serveCoffee()
         ((Human*)human)->setHunger(0.0f);
     }
 }
+

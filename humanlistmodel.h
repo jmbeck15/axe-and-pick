@@ -121,10 +121,11 @@ public:
                    const float &fatigue,
                    const float &hunger,
 
-                   const float &unknownFloat2,
-                   const float &unknownFloat3,
+                   const int &patrolCount,
+                   const QList<float> &patrolSetpoints,
+                   const int &patrolIndex,
 
-                   const QString &guarding,
+                   const QString &guardedUnit,
                    QObject * parent = 0);
 
     // Builder. This returns a Human which is all set up.
@@ -191,10 +192,11 @@ public:
     inline float fatigue() const { return m_fatigue; }
     inline float hunger() const { return m_hunger; }
 
-    inline float unknownFloat2() const { return m_unknownFloat2; }
-    inline float unknownFloat3() const { return m_unknownFloat3; }
+    inline int patrolCount() const { return m_patrolCount; }
+    inline QList<float> patrolSetpoints() const { return m_patrolSetpoints; }
+    inline int patrolIndex() const { return m_patrolIndex; }
 
-    inline QString guarding() const { return m_guarding; }
+    inline QString guardedUnit() const { return m_guardedUnit; }
 
     // Utilities and Helpers
     void print();
@@ -250,10 +252,11 @@ private:
     float m_fatigue;
     float m_hunger;
 
-    float m_unknownFloat2;
-    float m_unknownFloat3;
+    int m_patrolCount;
+    QList<float> m_patrolSetpoints;
+    int m_patrolIndex;
 
-    QString m_guarding;
+    QString m_guardedUnit;
 };
 
 // HumanListModel store Humans
