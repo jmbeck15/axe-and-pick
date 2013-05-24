@@ -32,8 +32,9 @@ Human::Human(const QString &profession,
              const unsigned int &stoneMasonLevel,
              const unsigned int &woodChopperLevel,
              const unsigned int &tailorLevel,
-             const unsigned int &unknownUnit1Level,
-             const unsigned int &unknownUnit2Level,
+             const unsigned int &traderLevel,
+             const unsigned int &herderLevel,
+             const unsigned int &adventurerLevel,
 
              const unsigned int &experience,
 
@@ -56,7 +57,7 @@ Human::Human(const QString &profession,
 
              const QBitArray &options,
 
-             const float &unknownFloat1,
+             const float &timeToEat,
              const float &moral,
              const float &fatigue,
              const float &hunger,
@@ -89,8 +90,9 @@ Human::Human(const QString &profession,
     m_stoneMasonLevel(stoneMasonLevel),
     m_woodChopperLevel(woodChopperLevel),
     m_tailorLevel(tailorLevel),
-    m_unknownUnit1Level(unknownUnit1Level),
-    m_unknownUnit2Level(unknownUnit2Level),
+    m_traderLevel(traderLevel),
+    m_herderLevel(herderLevel),
+    m_adventurerLevel(adventurerLevel),
 
     m_experience(experience),
 
@@ -113,7 +115,7 @@ Human::Human(const QString &profession,
 
     m_options(options),
 
-    m_unknownFloat1(unknownFloat1),
+    m_timeToEat(timeToEat),
     m_morale(moral),
     m_fatigue(fatigue),
     m_hunger(hunger),
@@ -155,7 +157,7 @@ Human * Human::build(QStringList & unitData)
 
         // For each job, compute the experience level.
         // NOTE: There are 15 professions and associated levels.
-        for (int job=0; job<15; job++)
+        for (int job=0; job<16; job++)
         {
             // Most significant byte
             byte = rawLevelString[byteNumber];
@@ -238,6 +240,7 @@ Human * Human::build(QStringList & unitData)
                     levels[12],
                     levels[13],
                     levels[14],
+                    levels[15],
 
                     Utils::toInt(unitData[6].toLocal8Bit()), // experience
 
@@ -326,8 +329,9 @@ QHash<int, QByteArray> Human::roleNames() const
     names[StoneMasonLevelRole] = "stoneMasonLevel";
     names[WoodChopperLevelRole] = "woodChopperLevel";
     names[TailorLevelRole] = "tailorLevel";
-    names[UnknownUnit1LevelRole] = "unknownUnit1Level";
-    names[UnknownUnit2LevelRole] = "unknownUnit2Level";
+    names[TraderLevelRole] = "traderLevel";
+    names[HerderLevelRole] = "herderLevel";
+    names[AdventurerLevelRole] = "adventurerLevel";
 
     names[ExperienceRole] = "experience";
 
@@ -400,10 +404,12 @@ QVariant Human::data(int role) const
         return woodChopperLevel();
     case TailorLevelRole:
         return tailorLevel();
-    case UnknownUnit1LevelRole:
-        return unknownUnit1Level();
-    case UnknownUnit2LevelRole:
-        return unknownUnit2Level();
+    case TraderLevelRole:
+        return traderLevel();
+    case HerderLevelRole:
+        return herderLevel();
+    case AdventurerLevelRole:
+        return adventurerLevel();
 
     case ExperienceRole:
         return experience();
@@ -578,8 +584,9 @@ void HumanListModel::add(const QString type, float x, float y, float z)
                   qrand() % ((high + 1) - low) + low,
                   qrand() % ((high + 1) - low) + low,
                   qrand() % ((high + 1) - low) + low,  // tailor
-                  qrand() % ((high + 1) - low) + low,  // unknown
-                  qrand() % ((high + 1) - low) + low,  // unknown
+                  qrand() % ((high + 1) - low) + low,  // trader
+                  qrand() % ((high + 1) - low) + low,  // herder
+                  qrand() % ((high + 1) - low) + low,  // adventurer
 
                   1, // experience
 

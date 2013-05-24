@@ -707,6 +707,9 @@ Item {
         ListElement {
             name: "Herder"
         }
+        ListElement {
+            name: "Adventurer"
+        }
     }
     ListModel {
         id: neutralMobTypeModel

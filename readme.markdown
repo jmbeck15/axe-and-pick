@@ -21,17 +21,20 @@ See the `how_to_build.markdown` document for details.
 
 Change Log
 ---------------------------
+#### Version 1.7 (for T&S v1.2)
+    Fixed Adventurer and updated some fields.
+
 #### Version 1.6 (for T&S v1.1)
     Fixed patrol settings for new unit save format.
-	
+
 #### Version 1.5 (for T&S v1.1)
     Fixed obscure crash.
     Updated icon for OSX and file details for Windows
-	
+
 #### Version 1.4 (for T&S v1.1)
     Updated for Timber and Stone v1.1
-	Changed names.csv to names.txt for clarity
-	
+    Changed names.csv to names.txt for clarity
+
 #### Version 1.3 (for T&S v1.0)
     Added coffee. Also, new units are automatically fed coffee to improve performance.
 

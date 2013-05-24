@@ -42,8 +42,9 @@ public:
         StoneMasonLevelRole,
         WoodChopperLevelRole,
         TailorLevelRole,
-        UnknownUnit1LevelRole,
-        UnknownUnit2LevelRole,
+        TraderLevelRole,
+        HerderLevelRole,
+        AdventurerLevelRole,
 
         ExperienceRole,
 
@@ -92,8 +93,9 @@ public:
                    const unsigned int &stoneMasonLevel,
                    const unsigned int &woodChopperLevel,
                    const unsigned int &tailorLevel,
-                   const unsigned int &unknownUnit1Level,
-                   const unsigned int &unknownUnit2Level,
+                   const unsigned int &traderLevel,
+                   const unsigned int &herderLevel,
+                   const unsigned int &adventurerLevel,
 
                    const unsigned int &experience,
 
@@ -163,8 +165,9 @@ public:
     inline unsigned int stoneMasonLevel() const { return m_stoneMasonLevel; }
     inline unsigned int woodChopperLevel() const { return m_woodChopperLevel; }
     inline unsigned int tailorLevel() const { return m_tailorLevel; }
-    inline unsigned int unknownUnit1Level() const { return m_unknownUnit1Level; }
-    inline unsigned int unknownUnit2Level() const { return m_unknownUnit2Level; }
+    inline unsigned int traderLevel() const { return m_traderLevel; }
+    inline unsigned int herderLevel() const { return m_herderLevel; }
+    inline unsigned int adventurerLevel() const { return m_adventurerLevel; }
 
     inline unsigned int experience() const { return m_experience; }
 
@@ -187,7 +190,7 @@ public:
 
     inline bool option(unsigned int optionNumber) const { return m_options[optionNumber]; }
 
-    inline float unknownFloat1() const { return m_unknownFloat1; }
+    inline float timeToEat() const { return m_timeToEat; }
     inline float morale() const { return m_morale; }
     inline float fatigue() const { return m_fatigue; }
     inline float hunger() const { return m_hunger; }
@@ -223,8 +226,9 @@ private:
     unsigned int m_stoneMasonLevel;
     unsigned int m_woodChopperLevel;
     unsigned int m_tailorLevel;
-    unsigned int m_unknownUnit1Level;
-    unsigned int m_unknownUnit2Level;
+    unsigned int m_traderLevel;
+    unsigned int m_herderLevel;
+    unsigned int m_adventurerLevel;
 
     unsigned int m_experience;
 
@@ -247,7 +251,7 @@ private:
 
     QBitArray m_options; // These contain the options for this unit.
 
-    float m_unknownFloat1;
+    float m_timeToEat;
     float m_morale;
     float m_fatigue;
     float m_hunger;

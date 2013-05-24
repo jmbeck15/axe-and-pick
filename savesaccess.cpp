@@ -486,8 +486,9 @@ void SavesAccess::saveUnitFile()
             unitFile.write(Utils::toBinary(human->stoneMasonLevel()).constData());
             unitFile.write(Utils::toBinary(human->woodChopperLevel()).constData());
             unitFile.write(Utils::toBinary(human->tailorLevel()).constData());
-            unitFile.write(Utils::toBinary(human->unknownUnit1Level()).constData());
-            unitFile.write(Utils::toBinary(human->unknownUnit2Level()).constData());
+            unitFile.write(Utils::toBinary(human->traderLevel()).constData());
+            unitFile.write(Utils::toBinary(human->herderLevel()).constData());
+            unitFile.write(Utils::toBinary(human->adventurerLevel()).constData());
             unitStream << "/"; unitStream.flush();
 
             unitFile.write(Utils::toBinary(human->experience()).constData());
@@ -519,7 +520,7 @@ void SavesAccess::saveUnitFile()
             for (unsigned int i = 0; i<52; i++) {
                 unitStream << QString(human->option(i)?"True":"False") << "/";
             }
-            unitStream << human->unknownFloat1() << "/"
+            unitStream << human->timeToEat() << "/"
                        << human->morale() << "/"
                        << human->fatigue() << "/"
                        << human->hunger() << "/";

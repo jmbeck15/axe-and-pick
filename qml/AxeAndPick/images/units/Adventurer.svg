@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="32px" height="22px" viewBox="0 0 32 22" enable-background="new 0 0 32 22" xml:space="preserve">
+<defs>
+</defs>
+<rect fill="#C2B59B" width="32" height="22"/>
+<circle fill="#231F20" cx="16" cy="11" r="9.795"/>
+<text transform="matrix(0.7071 0.7071 -0.7071 0.7071 19.8203 16.812)" fill="#D1D3D4" font-family="'MyriadPro-BoldCond'" font-size="4">E</text>
+<text transform="matrix(0.7071 0.7071 -0.7071 0.7071 9.2559 16.4258)" fill="#D1D3D4" font-family="'MyriadPro-BoldCond'" font-size="4">S</text>
+<text transform="matrix(0.7071 0.7071 -0.7071 0.7071 19.5684 6.1138)" fill="#FFFFFF" font-family="'MyriadPro-BoldCond'" font-size="4">N</text>
+<text transform="matrix(0.7071 0.7071 -0.7071 0.7071 8.9282 5.9199)" fill="#D1D3D4" font-family="'MyriadPro-BoldCond'" font-size="4">W</text>
+<path fill="#F1F2F2" d="M16.5,8.763V5.049l1.402,0.507C17.14,4.683,16.421,3.273,16,2.137c-0.421,1.136-1.14,2.545-1.902,3.419
+	L15.5,5.049v3.714C14.473,8.992,13.705,9.905,13.705,11c0,1.268,1.027,2.295,2.295,2.295s2.295-1.027,2.295-2.295
+	C18.294,9.905,17.526,8.992,16.5,8.763z"/>
+</svg>
