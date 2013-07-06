@@ -13,7 +13,8 @@ ViolentMob::ViolentMob(const QString &type,
                        const float &posZ,
                        const float &rotation,
                        const float &health,
-                       const float &unknownFloat,
+                       const float &index,
+                       const bool  &leader,
                        QObject * parent)
     : ListItem(parent),
       m_id(id_counter),
@@ -23,14 +24,15 @@ ViolentMob::ViolentMob(const QString &type,
       m_posZ(posZ),
       m_rotation(rotation),
       m_health(health),
-      m_unknownFloat(unknownFloat)
+      m_index(index),
+      m_leader(leader)
 {
     id_counter++;
 }
 
 ViolentMob * ViolentMob::build(QStringList & unitData)
 {
-    if (unitData.size() == 8)
+    if (unitData.size() == 9)
     {
         return (new ViolentMob( unitData[0],
                                 unitData[1].toFloat(),
@@ -38,7 +40,8 @@ ViolentMob * ViolentMob::build(QStringList & unitData)
                                 unitData[3].toFloat(),
                                 unitData[4].toFloat(),
                                 unitData[5].toFloat(),
-                                unitData[6].toFloat()));
+                                unitData[6].toFloat(),
+                                unitData[7].compare("True") ? true : false));
     }
 
     return Q_NULLPTR;
@@ -157,12 +160,24 @@ float ViolentMobListModel::getFirstPosition(const char label)
 
 void ViolentMobListModel::add(const QString type, float x, float y, float z)
 {
+    // Randomly choose leader or not (about 5 percent
+    // of the bad guys are leaders)
+    bool isALeader = (qrand() > 0.95) ? true : false;
+
+    // Randomly choose a rotation, so they aren't all
+    // facing the same way. (hopefully better move dynamics?)
+    int high = 180;
+    int low = 0;
+    float rotation = qrand() % ((high + 1) - low) + low;
+
     appendRow(new ViolentMob(
                   type,
-                  x, y, z,  // position
-                  0.0,      // rotation
-                  35,       // health
-                  0.0));    // unknown
+                  x, y, z,     // position
+                  rotation,    // rotation
+                  100,         // health
+                  0.0,         // index
+                  isALeader)); // leader
+
 
     qDebug() << "Added a mob of type" << type;
 }
