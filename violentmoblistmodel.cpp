@@ -41,7 +41,7 @@ ViolentMob * ViolentMob::build(QStringList & unitData)
                                 unitData[4].toFloat(),
                                 unitData[5].toFloat(),
                                 unitData[6].toFloat(),
-                                unitData[7].compare("True") ? true : false));
+                                unitData[7].compare("True") ? false : true));
     }
 
     return Q_NULLPTR;
@@ -162,12 +162,14 @@ void ViolentMobListModel::add(const QString type, float x, float y, float z)
 {
     // Randomly choose leader or not (about 5 percent
     // of the bad guys are leaders)
-    bool isALeader = (qrand() > 0.95) ? true : false;
+    int high = 100;
+    int low = 0;
+    bool isALeader = ((qrand() % ((high + 1) - low) + low) > 95) ? true : false;
 
     // Randomly choose a rotation, so they aren't all
     // facing the same way. (hopefully better move dynamics?)
-    int high = 180;
-    int low = 0;
+    high = 180;
+    low = 0;
     float rotation = qrand() % ((high + 1) - low) + low;
 
     appendRow(new ViolentMob(
