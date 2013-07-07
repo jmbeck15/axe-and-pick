@@ -536,7 +536,7 @@ float HumanListModel::getFirstPosition(const char label)
     return 0.0;
 }
 
-void HumanListModel::add(const QString type, float x, float y, float z)
+void HumanListModel::add(const QString profession, float x, float y, float z)
 {
     int high = 5;
     int low = 1;
@@ -549,10 +549,11 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     options[15] = true; // Set default sleep settings.
     options[18] = true;
 
-    // Randomly choose male or female (50 percent chance of either)
-    bool isFemale = (qrand() % 2) == 1 ? true : false;
-
-
+    // Randomly choose male or female (40 percent chance of female: the in-game
+    // chance is about 33 percent, but that seems a little low somehow.)
+    high = 100;
+    low = 0;
+    bool isFemale = ((qrand() % ((high + 1) - low) + low) > 60) ? true : false;
 
     // Choose the proper names file for male/female units, and set the default
     // name in case we can't get a random name from the names file.
@@ -584,27 +585,33 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     patrolSetpoints.clear();
 
     // Build the Human and add it to the list.
+
+    // Randomly choose the expert level, used for the chosen profession.
+    int expertLevel = qrand() % ((8 + 1) - 6) + 6;
+    high = 5;
+    low = 1;
     appendRow(new Human(
-                  type,
+                  profession,
                   x, y, z,
                   randomlyChosenName + " Drone",
 
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,
-                  qrand() % ((high + 1) - low) + low,  // tailor
-                  qrand() % ((high + 1) - low) + low,  // trader
-                  qrand() % ((high + 1) - low) + low,  // herder
-                  qrand() % ((high + 1) - low) + low,  // adventurer
+                  // The level is raised to expert level if that's this units profession.
+                  (profession.compare("Archer"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Blacksmith"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Builder"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Carpenter"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Engineer"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Farmer"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Fisherman"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Forager"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Infantry"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Miner"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Stone Mason"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Wood Chopper"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Tailor"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Trader"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Herder"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Adventurer"))?qrand() % ((high + 1) - low) + low : expertLevel,
 
                   1, // experience
 
@@ -631,7 +638,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
                   )
               );
 
-    qDebug() << "Added" << randomlyChosenName << "the" << qPrintable((isFemale)?"male":"female") << qPrintable(type);
+    qDebug() << "Added" << randomlyChosenName << "the" << qPrintable((isFemale)?"male":"female") << qPrintable(profession);
 }
 
 void HumanListModel::serveCoffee()
