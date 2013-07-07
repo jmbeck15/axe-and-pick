@@ -638,7 +638,7 @@ void HumanListModel::add(const QString profession, float x, float y, float z)
                   )
               );
 
-    qDebug() << "Added" << randomlyChosenName << "the" << qPrintable((isFemale)?"male":"female") << qPrintable(profession);
+    qDebug() << "Added" << randomlyChosenName << "the" << qPrintable((isFemale)?"female":"male") << qPrintable(profession);
 }
 
 void HumanListModel::serveCoffee()
