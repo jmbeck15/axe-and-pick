@@ -10,10 +10,8 @@ Component {
                 switch (subtype) {
                 case 0:
                     return "Skeleton"
-                case 1:
-                    return "Bloodthirsty Skeleton"
                 case 2:
-                    return "Corpse Skeleton"
+                    return "Bloodthirsty Skeleton"
                 case 3:
                     return "Mace Skeleton"
                 default:

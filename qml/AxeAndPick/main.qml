@@ -691,7 +691,7 @@ Item {
             subtype: ""
         }
         ListElement {
-            name: "Forager"
+            type: "Forager"
             subtype: ""
         }
         ListElement {
@@ -768,10 +768,8 @@ Item {
             type: "Skeleton"
             subtype: 0
         }
-        ListElement {
-            type: "Skeleton"
-            subtype: 1
-        }
+        // Skeleton subtype 1 seems to be replaced by
+        // subtype 0 when loaded in-game.
         ListElement {
             type: "Skeleton"
             subtype: 2
