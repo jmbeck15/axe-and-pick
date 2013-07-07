@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="32px" height="22px" viewBox="0 0 32 22" enable-background="new 0 0 32 22" xml:space="preserve">
+<defs>
+</defs>
+<rect fill="#C2B59B" width="32" height="22"/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	13.403,10.086 6.652,3.344 4.451,18.75 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	13.403,8.861 11.321,2.568 8.76,11.046 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	14.809,12.192 8.058,7.507 8.928,17.396 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	18.597,10.086 25.348,3.344 27.549,18.75 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	18.597,8.861 20.679,2.568 23.24,11.046 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	17.191,12.192 23.942,7.507 23.072,17.396 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	13.196,11.914 7.251,10.086 11.433,18.021 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.8327" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	19.119,12.122 25.18,10.086 18.042,18.75 "/>
+<circle fill="#3C2415" cx="16" cy="10.086" r="4.188"/>
+</svg>

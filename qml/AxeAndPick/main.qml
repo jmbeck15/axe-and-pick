@@ -663,122 +663,142 @@ Item {
     ListModel {
         id: humanTypeModel
         ListElement {
-            name: "Archer"
-            typeIndex: ""
+            type: "Archer"
+            subtype: ""
         }
         ListElement {
-            name: "Blacksmith"
-            typeIndex: ""
+            type: "Blacksmith"
+            subtype: ""
         }
         ListElement {
-            name: "Builder"
-            typeIndex: ""
+            type: "Builder"
+            subtype: ""
         }
         ListElement {
-            name: "Carpenter"
-            typeIndex: ""
+            type: "Carpenter"
+            subtype: ""
         }
         ListElement {
-            name: "Engineer"
-            typeIndex: ""
+            type: "Engineer"
+            subtype: ""
         }
         ListElement {
-            name: "Farmer"
-            typeIndex: ""
+            type: "Farmer"
+            subtype: ""
         }
         ListElement {
-            name: "Fisherman"
-            typeIndex: ""
+            type: "Fisherman"
+            subtype: ""
         }
         ListElement {
             name: "Forager"
-            typeIndex: ""
+            subtype: ""
         }
         ListElement {
-            name: "Infantry"
-            typeIndex: ""
+            type: "Infantry"
+            subtype: ""
         }
         ListElement {
-            name: "Miner"
-            typeIndex: ""
+            type: "Miner"
+            subtype: ""
         }
         ListElement {
-            name: "Stone Mason"
-            typeIndex: ""
+            type: "Stone Mason"
+            subtype: ""
         }
         ListElement {
-            name: "Wood Chopper"
-            typeIndex: ""
+            type: "Wood Chopper"
+            subtype: ""
         }
         ListElement {
-            name: "Tailor"
-            typeIndex: ""
+            type: "Tailor"
+            subtype: ""
         }
         ListElement {
-            name: "Trader"
-            typeIndex: ""
+            type: "Trader"
+            subtype: ""
         }
         ListElement {
-            name: "Herder"
-            typeIndex: ""
+            type: "Herder"
+            subtype: ""
         }
         ListElement {
-            name: "Adventurer"
-            typeIndex: ""
+            type: "Adventurer"
+            subtype: ""
         }
     }
     ListModel {
         id: neutralMobTypeModel
         ListElement {
-            name: "Boar"
-            typeIndex: ""
+            type: "Boar"
+            subtype: ""
         }
         ListElement {
-            name: "Chicken"
-            typeIndex: ""
+            type: "Chicken"
+            subtype: ""
         }
         ListElement {
-            name: "Sheep"
-            typeIndex: ""
+            type: "Sheep"
+            subtype: ""
         }
     }
     ListModel {
         id: violentMobTypeModel
         ListElement {
-            name: "Goblin"
-            typeIndex: 0
+            type: "Goblin"
+            subtype: 0
         }
         ListElement {
-            name: "Goblin"
-            typeIndex: 1
+            type: "Goblin"
+            subtype: 1
         }
         ListElement {
-            name: "Goblin"
-            typeIndex: 2
+            type: "Goblin"
+            subtype: 2
         }
         ListElement {
-            name: "Goblin"
-            typeIndex: 3
+            type: "Necromancer"
+            subtype: 0
         }
         ListElement {
-            name: "Goblin"
-            typeIndex: 5
+            type: "Skeleton"
+            subtype: 0
         }
         ListElement {
-            name: "Necromancer"
-            typeIndex: 0
+            type: "Skeleton"
+            subtype: 1
         }
         ListElement {
-            name: "Skeleton"
-            typeIndex: 0
+            type: "Skeleton"
+            subtype: 2
         }
         ListElement {
-            name: "Spider"
-            typeIndex: 0
+            type: "Skeleton"
+            subtype: 3
         }
         ListElement {
-            name: "Wolf"
-            typeIndex: 0
+            type: "Spider"
+            subtype: 0
+        }
+        ListElement {
+            type: "Spider"
+            subtype: 1
+        }
+        ListElement {
+            type: "Spider"
+            subtype: 2
+        }
+        ListElement {
+            type: "Wolf"
+            subtype: 0
+        }
+        ListElement {
+            type: "Wolf"
+            subtype: 1
+        }
+        ListElement {
+            type: "Wolf"
+            subtype: 2
         }
     }
     Component {
@@ -806,29 +826,29 @@ Item {
 
                 if (humanButton.selected) {
                     if (humanModel.rowCount()) {
-                        humanModel.add(name,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
+                        humanModel.add(type,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
                     } else if (neutralMobModel.rowCount()) {
-                        humanModel.add(name,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
+                        humanModel.add(type,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
                     } else if (violentMobModel.rowCount()) {
-                        humanModel.add(name,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
+                        humanModel.add(type,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
                     }
                 }
                 else if (neutralMobButton.selected) {
                     if (neutralMobModel.rowCount()) {
-                        neutralMobModel.add(name,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
+                        neutralMobModel.add(type,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
                     } else if (humanModel.rowCount()) {
-                        neutralMobModel.add(name,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
+                        neutralMobModel.add(type,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
                     } else if (violentMobModel.rowCount()) {
-                        neutralMobModel.add(name,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
+                        neutralMobModel.add(type,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
                     }
                 }
                 else if (violentMobButton.selected) {
                     if (violentMobModel.rowCount()) {
-                        violentMobModel.add(name,typeIndex,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
+                        violentMobModel.add(type,subtype,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
                     } else if (neutralMobModel.rowCount()) {
-                        violentMobModel.add(name,typeIndex,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
+                        violentMobModel.add(type,subtype,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
                     } else if (humanModel.rowCount()) {
-                        violentMobModel.add(name,typeIndex,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
+                        violentMobModel.add(type,subtype,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
                     }
                 }
                 else { console.log("No unit type buttons are enabled. Where do I add this unit?") }
@@ -836,7 +856,7 @@ Item {
 
             Image {
                 id: unitTypeIcon
-                source:  "images/units/" + name + typeIndex + ".svg"
+                source:  "images/units/" + type + subtype + ".svg"
 
                 MouseArea {
                     id: unitTypeIconArea

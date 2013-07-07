@@ -8,22 +8,22 @@
 	 x="0px" y="0px" width="32px" height="22px" viewBox="0 0 32 22" enable-background="new 0 0 32 22" xml:space="preserve">
 <defs>
 </defs>
-<rect fill="#C2B59B" width="32" height="22"/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	12.882,9.972 4.774,1.875 2.132,20.375 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="12.882,8.5 
-	10.382,0.943 7.306,11.125 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	14.569,12.5 6.462,6.875 7.507,18.75 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	19.118,9.972 27.226,1.875 29.868,20.375 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="19.118,8.5 
-	21.618,0.943 24.694,11.125 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	17.431,12.5 25.538,6.875 24.493,18.75 "/>
-<circle fill="#3C2415" cx="16" cy="9.972" r="5.028"/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	12.634,12.166 5.493,9.972 10.516,19.5 "/>
-<polyline fill="none" stroke="#3C2415" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
-	19.745,12.416 27.023,9.972 18.452,20.375 "/>
+<rect fill="#DAD3C3" width="32" height="22"/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	13.805,10.175 8.097,4.474 6.235,17.5 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	13.805,9.139 12.044,3.818 9.878,10.987 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	14.993,11.955 9.284,7.995 10.021,16.355 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	18.195,10.175 23.903,4.474 25.765,17.5 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	18.195,9.139 19.956,3.818 22.121,10.987 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	17.007,11.955 22.716,7.995 21.979,16.355 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	13.63,11.72 8.603,10.175 12.139,16.883 "/>
+<polyline fill="none" stroke="#3C2415" stroke-width="0.7041" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	18.637,11.896 23.762,10.175 17.727,17.5 "/>
+<circle fill="#3C2415" cx="16" cy="10.175" r="3.54"/>
 </svg>

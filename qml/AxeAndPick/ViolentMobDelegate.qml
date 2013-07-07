@@ -4,6 +4,66 @@ Component {
 
     Rectangle {
 
+        function getTypeDescription(type, subtype) {
+            switch (type) {
+            case "Skeleton":
+                switch (subtype) {
+                case 0:
+                    return "Skeleton"
+                case 1:
+                    return "Bloodthirsty Skeleton"
+                case 2:
+                    return "Corpse Skeleton"
+                case 3:
+                    return "Mace Skeleton"
+                default:
+                    return "Unknown Skeleton"
+                }
+            case "Goblin":
+                switch (subtype) {
+                case 0:
+                    return "Goblin Ravager"
+                case 1:
+                    return "Goblin Marauder"
+                case 2:
+                    return "Goblin Archer"
+                default:
+                    return "Unknown Goblin"
+                }
+            case "Wolf":
+                switch (subtype) {
+                case 0:
+                    return "Wolf (Type 0)"
+                case 1:
+                    return "Wolf (Type 1)"
+                case 2:
+                    return "Wolf (Type 2)"
+                default:
+                    return "Unknown Wolf"
+                }
+            case "Spider":
+                switch (subtype) {
+                case 0:
+                    return "Spider"
+                case 1:
+                    return "Larger Spider"
+                case 2:
+                    return "Spider Matriach"
+                default:
+                    return "Unknown Spider"
+                }
+            case "Necromancer":
+                switch (subtype) {
+                case 0:
+                    return "Necromancer"
+                default:
+                    return "Unknown Necromancer"
+                }
+            default:
+                return "Unknown Unit"
+            }
+        }
+
         color: "#FFeeeeee"
         height: 26
         anchors.left: parent.left
@@ -34,7 +94,7 @@ Component {
             // Name of the mob
             Text {
                 id: typeText
-                text: type + "(" + subtype + ")"
+                text: getTypeDescription(type,subtype)
 
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: 10
