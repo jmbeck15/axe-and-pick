@@ -13,7 +13,7 @@ ViolentMob::ViolentMob(const QString &type,
                        const float &posZ,
                        const float &rotation,
                        const float &health,
-                       const float &index,
+                       const float &subtype,
                        const bool  &leader,
                        QObject * parent)
     : ListItem(parent),
@@ -24,7 +24,7 @@ ViolentMob::ViolentMob(const QString &type,
       m_posZ(posZ),
       m_rotation(rotation),
       m_health(health),
-      m_index(index),
+      m_subtype(subtype),
       m_leader(leader)
 {
     id_counter++;
@@ -65,6 +65,7 @@ QHash<int, QByteArray> ViolentMob::roleNames() const
     names[PosZRole] = "posZ";
     names[RotationRole] = "rotation";
     names[HealthRole] = "health";
+    names[SubtypeRole] = "subtype";
 
     return names;
 }
@@ -89,6 +90,8 @@ QVariant ViolentMob::data(int role) const
         return rotation();
     case HealthRole:
         return health();
+    case SubtypeRole:
+        return subtype();
     default:
         return QVariant();
     }
@@ -158,7 +161,7 @@ float ViolentMobListModel::getFirstPosition(const char label)
     return 0.0;
 }
 
-void ViolentMobListModel::add(const QString type, float x, float y, float z)
+void ViolentMobListModel::add(const QString type, int subtype, float x, float y, float z)
 {
     // Randomly choose leader or not (about 5 percent
     // of the bad guys are leaders)
@@ -177,11 +180,11 @@ void ViolentMobListModel::add(const QString type, float x, float y, float z)
                   x, y, z,     // position
                   rotation,    // rotation
                   100,         // health
-                  0.0,         // index
+                  subtype,        // type of the type of mob
                   isALeader)); // leader
 
 
-    qDebug() << "Added a mob of type" << type;
+    qDebug() << "Added a" << type << "mob of type" << subtype;
 }
 
 

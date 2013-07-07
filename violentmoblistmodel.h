@@ -26,17 +26,18 @@ public:
         PosYRole,
         PosZRole,
         RotationRole,
+        SubtypeRole,
         HealthRole
     };
 
     ViolentMob(QObject * parent = 0): ListItem(parent){id_counter++;}
-    explicit ViolentMob(const QString &type,
+    explicit ViolentMob(const QString &name,
                         const float &posX,
                         const float &posY,
                         const float &posZ,
                         const float &rotation,
                         const float &health,
-                        const float &index,
+                        const float &subtype,
                         const bool  &leader,
                         QObject * parent = 0);
 
@@ -58,7 +59,7 @@ public:
     inline float posZ() const { return m_posZ; }
     inline float rotation() const { return m_rotation; }
     inline float health() const { return m_health; }
-    inline float index() const { return m_index; }
+    inline float subtype() const { return m_subtype; }
     inline float leader() const { return m_leader; }
 
     // Utilities
@@ -73,7 +74,7 @@ private:
     float m_posZ;
     float m_rotation;
     float m_health;
-    float m_index;
+    float m_subtype;
     bool  m_leader;
 };
 
@@ -89,7 +90,7 @@ public:
     Q_INVOKABLE void setData(const long id, const QVariant &value, int role = ViolentMob::TypeRole);
     Q_INVOKABLE void remove(const long id);
     Q_INVOKABLE float getFirstPosition(const char label);
-    Q_INVOKABLE void add(const QString type, float x, float y, float z);
+    Q_INVOKABLE void add(const QString name, int type, float x, float y, float z);
 };
 
 #endif // VIOLENTMOBLISTMODEL_H

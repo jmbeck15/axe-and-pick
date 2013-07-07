@@ -587,7 +587,7 @@ void SavesAccess::saveUnitFile()
                        << mob->posZ() << "/"
                        << mob->rotation() << "/"
                        << mob->health() << "/"
-                       << mob->index() << "/"
+                       << mob->subtype() << "/"
                        << QString(mob->leader() ? "True" : "False") << "/";
             unitStream << endl;
         }

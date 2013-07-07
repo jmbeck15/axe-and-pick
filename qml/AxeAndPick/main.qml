@@ -664,81 +664,121 @@ Item {
         id: humanTypeModel
         ListElement {
             name: "Archer"
+            typeIndex: ""
         }
         ListElement {
             name: "Blacksmith"
+            typeIndex: ""
         }
         ListElement {
             name: "Builder"
+            typeIndex: ""
         }
         ListElement {
             name: "Carpenter"
+            typeIndex: ""
         }
         ListElement {
             name: "Engineer"
+            typeIndex: ""
         }
         ListElement {
             name: "Farmer"
+            typeIndex: ""
         }
         ListElement {
             name: "Fisherman"
+            typeIndex: ""
         }
         ListElement {
             name: "Forager"
+            typeIndex: ""
         }
         ListElement {
             name: "Infantry"
+            typeIndex: ""
         }
         ListElement {
             name: "Miner"
+            typeIndex: ""
         }
         ListElement {
             name: "Stone Mason"
+            typeIndex: ""
         }
         ListElement {
             name: "Wood Chopper"
+            typeIndex: ""
         }
         ListElement {
             name: "Tailor"
+            typeIndex: ""
         }
         ListElement {
             name: "Trader"
+            typeIndex: ""
         }
         ListElement {
             name: "Herder"
+            typeIndex: ""
         }
         ListElement {
             name: "Adventurer"
+            typeIndex: ""
         }
     }
     ListModel {
         id: neutralMobTypeModel
         ListElement {
             name: "Boar"
+            typeIndex: ""
         }
         ListElement {
             name: "Chicken"
+            typeIndex: ""
         }
         ListElement {
             name: "Sheep"
+            typeIndex: ""
         }
     }
     ListModel {
         id: violentMobTypeModel
         ListElement {
             name: "Goblin"
+            typeIndex: 0
+        }
+        ListElement {
+            name: "Goblin"
+            typeIndex: 1
+        }
+        ListElement {
+            name: "Goblin"
+            typeIndex: 2
+        }
+        ListElement {
+            name: "Goblin"
+            typeIndex: 3
+        }
+        ListElement {
+            name: "Goblin"
+            typeIndex: 5
         }
         ListElement {
             name: "Necromancer"
+            typeIndex: 0
         }
         ListElement {
             name: "Skeleton"
+            typeIndex: 0
         }
         ListElement {
             name: "Spider"
+            typeIndex: 0
         }
         ListElement {
             name: "Wolf"
+            typeIndex: 0
         }
     }
     Component {
@@ -750,7 +790,7 @@ Item {
             //
             // Ideally, this position should be taken from the map data, so we
             // know the location is valid (not in a tree, not under sand, etc).
-            // But I can't figure out the file format. Instead, this will simply
+            // But I don't have time to do that. Instead, this will simply
             // copy the x/y/z location of the first human already on the map.
             // If there are no humans, it takes the first neutral mob. If there
             // are no neutral mobs, it takes the first violent mob. I can't think
@@ -784,11 +824,11 @@ Item {
                 }
                 else if (violentMobButton.selected) {
                     if (violentMobModel.rowCount()) {
-                        violentMobModel.add(name,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
+                        violentMobModel.add(name,typeIndex,violentMobModel.getFirstPosition(0),violentMobModel.getFirstPosition(1),violentMobModel.getFirstPosition(2));
                     } else if (neutralMobModel.rowCount()) {
-                        violentMobModel.add(name,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
+                        violentMobModel.add(name,typeIndex,neutralMobModel.getFirstPosition(0),neutralMobModel.getFirstPosition(1),neutralMobModel.getFirstPosition(2));
                     } else if (humanModel.rowCount()) {
-                        violentMobModel.add(name,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
+                        violentMobModel.add(name,typeIndex,humanModel.getFirstPosition(0),humanModel.getFirstPosition(1),humanModel.getFirstPosition(2));
                     }
                 }
                 else { console.log("No unit type buttons are enabled. Where do I add this unit?") }
@@ -796,7 +836,8 @@ Item {
 
             Image {
                 id: unitTypeIcon
-                source: "images/units/" + name + ".svg"
+                source:  "images/units/" + name + typeIndex + ".svg"
+
                 MouseArea {
                     id: unitTypeIconArea
                     anchors.fill: parent

@@ -18,7 +18,7 @@ Component {
             anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
 
-            source: "images/units/" + type + ".svg"
+            source: "images/units/" + type + subtype + ".svg"
             fillMode: Image.PreserveAspectFit
         }
 
@@ -34,7 +34,7 @@ Component {
             // Name of the mob
             Text {
                 id: typeText
-                text: type
+                text: type + "(" + subtype + ")"
 
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: 10
