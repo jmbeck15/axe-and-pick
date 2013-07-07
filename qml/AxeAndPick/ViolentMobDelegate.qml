@@ -27,6 +27,8 @@ Component {
                     return "Goblin Marauder"
                 case 2:
                     return "Goblin Archer"
+                case 6:
+                    return "Mounted Goblin"
                 default:
                     return "Unknown Goblin"
                 }

@@ -757,6 +757,10 @@ Item {
             subtype: 2
         }
         ListElement {
+            type: "Goblin"
+            subtype: 6
+        }
+        ListElement {
             type: "Necromancer"
             subtype: 0
         }
