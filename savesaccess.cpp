@@ -277,13 +277,13 @@ void SavesAccess::saveResourceFile()
              ndx++)
         {
             long quantity = resourceModel->index(ndx).data(Resource::QuantityRole).toLongLong();
-            if (quantity > 30000)
+            if (quantity > 60000)
             {
-                qDebug() << "Resource quantities above 32,639 will fail to load in the game. Reduced to 30,000.";
-                quantity = 30000;
+                qDebug() << "Resource quantities above 65,278 will fail to load in the game. Reduced to 60,000.";
+                quantity = 60000;
 
-                // Update the resource.
-                resourceModel->setData(ndx,30000);
+                // Update the resource. setData() requires an "id", not an index.
+                resourceModel->setData(ndx+1,60000);
             }
             binaryData = Utils::toBinary(quantity);
             resourceFile.write(binaryData);

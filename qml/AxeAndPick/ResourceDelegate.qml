@@ -159,9 +159,12 @@ Component {
                         selectByMouse: true
                         font.pointSize: 10
                         onTextChanged: {
-                            if (text > 30000)
+                            // The maximum number of resources is 64k (or near that). This
+                            // limits the size so in-game resource collection won't exceed
+                            // the save-game limit.
+                            if (text > 60000)
                             {
-                                text = 30000;
+                                text = 60000;
                             }
 
                             resourceModel.setData(id, parseInt(text,10), Resource.QuantityRole)
