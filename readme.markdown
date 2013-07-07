@@ -21,6 +21,20 @@ See the `how_to_build.markdown` document for details.
 
 Change Log
 ---------------------------
+#### Version 1.8 (for T&S v1.3)
+    Added new Goblins (Marauder, Archer, Mounted)
+    Added new Spiders (the larger one and the Matriarch)
+    Added new Skeletons (Bloodthirsty and Mace-equipped)
+    Added new Wolves (type 1 and 2, yet unnamed)
+    Added Seedlings, Flaming arrows, Copper Spear, Iron Voulge, Bronze Glaive, Steel Halberd
+    Doubled resource cap at 60k
+    Added female units randomly (40% chance), and added female name file
+    When adding human units, experience level is set to an "expert level" based on profession (finally!)
+    New human experience levels were bumped up slightly
+    Bad guys spawn as a leader 5% of the time
+    Added random rotation for new bad guys (aids initial behavior when playing)
+    Bad guys spawn with 100% health (instead of being wounded, earlier)
+
 #### Version 1.7 (for T&S v1.2)
     Fixed Adventurer and updated some fields.
 
