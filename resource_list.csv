@@ -40,7 +40,7 @@ Corn Seed,Raw Material
 Flax Seed,Raw Material
 Wheat,Raw Material
 Flax Fiber,Raw Material
-sand unknown,unknown
+unknown,unknown
 Spider Silk,Raw Material
 Fieldstone,Building Material
 Brick,Building Material
@@ -90,7 +90,7 @@ Copper Tipped Arrows,Weapon
 Iron Tipped Arrows,Weapon
 Bronze Tipped Arrows,Weapon
 Steel Tipped Arrows,Weapon
-unknown,unknown
+Flaming Arrow,Weapon
 Stone Hammer,Hand Tool
 Iron Hammer,Hand Tool
 Bronze Hammer,Hand Tool
@@ -124,12 +124,12 @@ unknown,unknown
 Torch,Hand Tool
 Wool,Raw Material
 Shepherd's Crook,Hand Tool
+Seedling,Raw Material
 unknown,unknown
-unknown,unknown
-unknown,unknown
-unknown,unknown
-unknown,unknown
-unknown,unknown
+Copper Spear,Weapon
+Iron Voulge,Weapon
+Bronze Glaive,Weapon
+Steel Halberd,Weapon
 unknown,unknown
 unknown,unknown
 unknown,unknown
