@@ -61,5 +61,5 @@ OTHER_FILES += \
     qml/AxeAndPick/SavedGameDelegate.qml \
     qml/AxeAndPick/NeutralMobDelegate.qml \
     qml/AxeAndPick/ViolentMobDelegate.qml \
-    names.txt \
-    application_icon.icns
+    application_icon.icns \
+    male_names.txt

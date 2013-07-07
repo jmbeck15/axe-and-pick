@@ -549,11 +549,28 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     options[15] = true; // Set default sleep settings.
     options[18] = true;
 
-    // Pick a name from the list of names. If you can't find the file, use "Frank".
-    QString randomlyChosenName = "Frank";
-    QFile namesFile(QCoreApplication::applicationDirPath() + "/names.txt");
-    if (namesFile.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
+    // Randomly choose male or female (50 percent chance of either)
+    bool isMale = (qrand() % 2) == 1 ? true : false;
+
+
+
+    // Choose the proper names file for male/female units, and set the default
+    // name in case we can't get a random name from the names file.
+    QString namesFilename;
+    QString randomlyChosenName;
+    if (isMale) {
+        namesFilename = "/male_names.txt";
+        randomlyChosenName = "James";
+
+    }
+    else {
+        namesFilename = "/female_names.txt";
+        randomlyChosenName = "Alissa";
+    }
+
+    // Pick a name from the list of names. If you can't find the file, the default is okay.
+    QFile namesFile(QCoreApplication::applicationDirPath() + namesFilename);
+    if (namesFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream namesStream(&namesFile);
         QString namesString = namesStream.readAll();
         QStringList names = namesString.split(QRegExp("(\\r\\n)|(\\n\\r)|\\r|\\n"), QString::SkipEmptyParts);
