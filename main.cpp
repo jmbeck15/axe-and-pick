@@ -31,8 +31,9 @@ QString appVersion()
     // 1.5 - fixed oddly-infrequent crash
     // 1.6 - added support for patrol points
     // 1.7 - fixed adventurer (T&S v1.2 didn't change anything)
+    // 1.8 - udpated for T&S 1.3 (and some other tweaks)
     //
-    return "1.7 (for T&S v1.2)";
+    return "1.8 (for T&S v1.3)";
 }
 
 int main(int argc, char *argv[])
