@@ -550,7 +550,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     options[18] = true;
 
     // Randomly choose male or female (50 percent chance of either)
-    bool isMale = (qrand() % 2) == 1 ? true : false;
+    bool isFemale = (qrand() % 2) == 1 ? true : false;
 
 
 
@@ -558,15 +558,16 @@ void HumanListModel::add(const QString type, float x, float y, float z)
     // name in case we can't get a random name from the names file.
     QString namesFilename;
     QString randomlyChosenName;
-    if (isMale) {
-        namesFilename = "/male_names.txt";
-        randomlyChosenName = "James";
-
-    }
-    else {
+    if (isFemale) {
         namesFilename = "/female_names.txt";
         randomlyChosenName = "Alissa";
     }
+    else {
+        namesFilename = "/male_names.txt";
+        randomlyChosenName = "James";
+    }
+    // Set Gender
+    options[37] = isFemale;
 
     // Pick a name from the list of names. If you can't find the file, the default is okay.
     QFile namesFile(QCoreApplication::applicationDirPath() + namesFilename);
@@ -576,7 +577,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
         QStringList names = namesString.split(QRegExp("(\\r\\n)|(\\n\\r)|\\r|\\n"), QString::SkipEmptyParts);
 
         // Pick a random name
-        randomlyChosenName = names[qrand() % (names.size() + 1)];
+        randomlyChosenName = names.at(qrand() % names.size());
     }
 
     QList<float> patrolSetpoints;
@@ -630,7 +631,7 @@ void HumanListModel::add(const QString type, float x, float y, float z)
                   )
               );
 
-    qDebug() << "Added" << randomlyChosenName << "the" << type;
+    qDebug() << "Added" << randomlyChosenName << "the" << qPrintable((isFemale)?"male":"female") << qPrintable(type);
 }
 
 void HumanListModel::serveCoffee()
