@@ -4,7 +4,7 @@ folder_01.target = qml
 DEPLOYMENTFOLDERS = folder_01
 
 # OSX Options
-Resource.files = resource_list.csv names.txt
+Resource.files = resource_list.csv male_names.txt female_names.txt
 Resource.path = Contents/MacOS
 QMAKE_BUNDLE_DATA += Resource
 ICON = application_icon.icns
