@@ -247,8 +247,8 @@ private:
     float m_posZ;
     QString m_name;
 
-    unsigned int m_archerLevel;
-    unsigned int m_blacksmithLevel;
+    unsigned int m_archerLevel;     // also Merchant: times traded
+    unsigned int m_blacksmithLevel; // also Merchant: total trades
     unsigned int m_builderLevel;
     unsigned int m_carpenterLevel;
     unsigned int m_engineerLevel;
@@ -275,6 +275,8 @@ private:
     bool m_huntChicken;
     bool m_huntBoar;
     bool m_showBowRange;
+
+    // This is also used for "already met", for the Merchant
     bool m_trainNearTarget;
 
     float m_rotation;

@@ -160,208 +160,202 @@ Human::Human(const QString &profession,
 Human * Human::build(QStringList & unitData)
 {
 
-    // Check to make sure there are the proper number of options.
+    // Run a sanity check to make sure the version of
+    // this save file is what we expect.
     //
-    // NOTE: This is only a sanity check. This can fail.
-    // The algo says "it has to be at least 92 long, and anything
-    // above 92 has to be divisible by three, to account for the
-    // patrol points".
+    if (false) {
+        return Q_NULLPTR;
+    }
+
+    QString unitProfession = unitData[0];
+
     //
-    if (    (unitData.size() >= 92)
-         && ((unitData.size() - 92) % 3 == 0)
-       ) {
+    // Experience Levels
+    //
+    QByteArray rawLevelString( unitData[5].toLocal8Bit() );
+    QByteArray numberInBytes;
+    numberInBytes.clear();
 
-        QString unitProfession = unitData[0];
+    unsigned char byte(0);
+    unsigned int byteNumber(0);
+    QList<unsigned int> levels;
+    levels.clear();
 
-        //
-        // Experience Levels
-        //
-        QByteArray rawLevelString( unitData[5].toLocal8Bit() );
-        QByteArray numberInBytes;
-        numberInBytes.clear();
+    // For each job, compute the experience level.
+    // NOTE: There are 20 professions and associated levels.
+    const int NumberOfProfessions = 20;
+    for (int job=0; job<NumberOfProfessions; job++)
+    {
+        // Most significant byte
+        byte = rawLevelString[byteNumber];
+        byteNumber++;
 
-        unsigned char byte(0);
-        unsigned int byteNumber(0);
-        QList<unsigned int> levels;
-        levels.clear();
-
-        // For each job, compute the experience level.
-        // NOTE: There are 20 professions and associated levels.
-        const int NumberOfProfessions = 20;
-        for (int job=0; job<NumberOfProfessions; job++)
+        if( byte >= 0xe0)
         {
-            // Most significant byte
-            byte = rawLevelString[byteNumber];
-            byteNumber++;
+            numberInBytes.append(byte);
 
-            if( byte >= 0xe0)
-            {
-                numberInBytes.append(byte);
-
-                // Another byte exists!
-                byte = rawLevelString[byteNumber];
-                byteNumber++;
-                numberInBytes.append(byte);
-            }
-            else
-            {
-                numberInBytes.append(byte);
-            }
-
+            // Another byte exists!
             byte = rawLevelString[byteNumber];
             byteNumber++;
             numberInBytes.append(byte);
-
-            // Convert the bytes to a long, and add to the list.
-            levels.append(Utils::toInt(numberInBytes));
-
-            numberInBytes.clear();
         }
-        byteNumber = 0;
-
-
-        //
-        // Load the Options
-        //
-        QBitArray loadedOptions(64, false);
-        for(unsigned int i=0; i<52; i++) // array[20] through array[71]
+        else
         {
-            loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
-        }
-        for(unsigned int i=52; i<52+12; i++) // array[76] through array[87]
-        {
-            loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
+            numberInBytes.append(byte);
         }
 
-        // These items are not used for the Merchant, which is for some stupid
-        // reason, saved with the other units.
-        QList<int> inventoryPreferences;
-        int numItemsInInventory;
-        QList<int> inventoryItems;
-        int numSpareInventory;
-        QList<int> spareInventory;
-        int numPatrolPoints;
-        QList<float> patrolSetpoints;
-        int patrolIndex;
-        QString gardedUnitName;
-        QList<int> professionEXP;
-        int maxWeight;
+        byte = rawLevelString[byteNumber];
+        byteNumber++;
+        numberInBytes.append(byte);
 
-        if( unitProfession != "Merchant" )
-        {
-            // Inventory Preferences
-            for(int i=0; i<NumberOfProfessions; i++)
-            {
-                inventoryPreferences.append(unitData[88 + i].toInt());
-            }
+        // Convert the bytes to a long, and add to the list.
+        levels.append(Utils::toInt(numberInBytes));
 
-            // Inventory Items
-            numItemsInInventory = unitData[108].toInt(); // num2
-            for(int i=0; i<numItemsInInventory; i++)
-            {
-                inventoryItems.append(unitData[109 + i].toInt());
-            }
+        numberInBytes.clear();
+    }
+    byteNumber = 0;
 
-            // Spare Inventory (slots?)
-            numSpareInventory = unitData[109 + numItemsInInventory].toInt(); // num3
-            for(int i=0; i<numSpareInventory; i++)
-            {
-                spareInventory.append(unitData[110 + numItemsInInventory + i].toInt());
-            }
 
-            // Patrol
-            numPatrolPoints = unitData[110 + numItemsInInventory + numSpareInventory].toInt(); // num5
-            for(int i=0; i<numPatrolPoints*3; i++ )
-            {
-                patrolSetpoints.push_back(unitData[111 + numItemsInInventory + numSpareInventory + i].toFloat());
-            }
-
-            patrolIndex = unitData[111 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
-
-            // Guarded Unit
-            gardedUnitName = unitData[112 + numItemsInInventory + numSpareInventory + numPatrolPoints*3];
-
-            // Profession Experience
-            for(unsigned int i=0; i<NumberOfProfessions; i++)
-            {
-                professionEXP.append(unitData[113 + numItemsInInventory + numSpareInventory + numPatrolPoints*3 + i].toInt());
-            }
-
-            maxWeight = unitData[133 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toFloat();
-        }
-
-        return (new Human(
-                    unitProfession,
-                    unitData[1].toFloat(),
-                    unitData[2].toFloat(),
-                    unitData[3].toFloat(),
-                    unitData[4],
-
-                    levels[0],
-                    levels[1],
-                    levels[2],
-                    levels[3],
-                    levels[4],
-                    levels[5],
-                    levels[6],
-                    levels[7],
-                    levels[8],
-                    levels[9],
-                    levels[10],
-                    levels[11],
-                    levels[12],
-                    levels[13],
-                    levels[14],
-                    levels[15],
-                    levels[16],
-                    levels[17],
-                    levels[18],
-                    levels[19],
-
-                    Utils::toInt(unitData[6].toLocal8Bit()), // experience
-
-                    unitData[7].compare("True") ? false : true,
-                    unitData[8].compare("True") ? false : true,
-                    unitData[9].compare("True") ? false : true,
-                    unitData[10].compare("True") ? false : true,
-                    unitData[11].compare("True") ? false : true,
-                    unitData[12].compare("True") ? false : true,
-
-                    unitData[13].toFloat(), // rotation
-
-                    Utils::toInt(unitData[14].toLocal8Bit()),   // weapon right
-                    Utils::toInt(unitData[15].toLocal8Bit()),   // weapon left
-                    Utils::toInt(unitData[16].toLocal8Bit()),   // helm
-                    Utils::toInt(unitData[17].toLocal8Bit()),   // chest
-                    Utils::toInt(unitData[18].toLocal8Bit()),   // boots
-
-                    Utils::toInt(unitData[19].toLocal8Bit()),   // health
-
-                    loadedOptions,
-
-                    unitData[72].toInt(), // time to eat
-                    unitData[73].toFloat(), // morale level
-                    unitData[74].toFloat(), // fatigue level
-                    unitData[75].toFloat(), // hunger level
-
-                    // Inventory data
-                    inventoryPreferences,
-                    inventoryItems,
-                    spareInventory,
-
-                    // Patrol data
-                    patrolSetpoints,
-                    patrolIndex,
-
-                    gardedUnitName,
-
-                    professionEXP,
-
-                    maxWeight
-                   ));
+    //
+    // Load the Options
+    //
+    QBitArray loadedOptions(64, false);
+    for(unsigned int i=0; i<52; i++) // array[20] through array[71]
+    {
+        loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
+    }
+    for(unsigned int i=52; i<52+12; i++) // array[76] through array[87]
+    {
+        loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
     }
 
-    return Q_NULLPTR;
+    // These items are not used for the Merchant, which is for some stupid
+    // reason, saved with the other units.
+    QList<int> inventoryPreferences;
+    int numItemsInInventory;
+    QList<int> inventoryItems;
+    int numSpareInventory;
+    QList<int> spareInventory;
+    int numPatrolPoints;
+    QList<float> patrolSetpoints;
+    int patrolIndex;
+    QString gardedUnitName;
+    QList<int> professionEXP;
+    int maxWeight;
+
+    if( unitProfession != "Merchant" )
+    {
+        // Inventory Preferences
+        for(int i=0; i<NumberOfProfessions; i++)
+        {
+            inventoryPreferences.append(unitData[88 + i].toInt());
+        }
+
+        // Inventory Items
+        numItemsInInventory = unitData[108].toInt(); // num2
+        for(int i=0; i<numItemsInInventory; i++)
+        {
+            inventoryItems.append(unitData[109 + i].toInt());
+        }
+
+        // Spare Inventory (slots?)
+        numSpareInventory = unitData[109 + numItemsInInventory].toInt(); // num3
+        for(int i=0; i<numSpareInventory; i++)
+        {
+            spareInventory.append(unitData[110 + numItemsInInventory + i].toInt());
+        }
+
+        // Patrol
+        numPatrolPoints = unitData[110 + numItemsInInventory + numSpareInventory].toInt(); // num5
+        for(int i=0; i<numPatrolPoints*3; i++ )
+        {
+            patrolSetpoints.push_back(unitData[111 + numItemsInInventory + numSpareInventory + i].toFloat());
+        }
+
+        patrolIndex = unitData[111 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
+
+        // Guarded Unit
+        gardedUnitName = unitData[112 + numItemsInInventory + numSpareInventory + numPatrolPoints*3];
+
+        // Profession Experience
+        for(unsigned int i=0; i<NumberOfProfessions; i++)
+        {
+            professionEXP.append(unitData[113 + numItemsInInventory + numSpareInventory + numPatrolPoints*3 + i].toInt());
+        }
+
+        maxWeight = unitData[133 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toFloat();
+    }
+
+    return (new Human(
+                unitProfession,
+                unitData[1].toFloat(),
+                unitData[2].toFloat(),
+                unitData[3].toFloat(),
+                unitData[4],
+
+                levels[0],
+                levels[1],
+                levels[2],
+                levels[3],
+                levels[4],
+                levels[5],
+                levels[6],
+                levels[7],
+                levels[8],
+                levels[9],
+                levels[10],
+                levels[11],
+                levels[12],
+                levels[13],
+                levels[14],
+                levels[15],
+                levels[16],
+                levels[17],
+                levels[18],
+                levels[19],
+
+                Utils::toInt(unitData[6].toLocal8Bit()), // experience
+
+                unitData[7].compare("True") ? false : true,
+                unitData[8].compare("True") ? false : true,
+                unitData[9].compare("True") ? false : true,
+                unitData[10].compare("True") ? false : true,
+                unitData[11].compare("True") ? false : true,
+                unitData[12].compare("True") ? false : true,
+
+                unitData[13].toFloat(), // rotation
+
+                Utils::toInt(unitData[14].toLocal8Bit()),   // weapon right
+                Utils::toInt(unitData[15].toLocal8Bit()),   // weapon left
+                Utils::toInt(unitData[16].toLocal8Bit()),   // helm
+                Utils::toInt(unitData[17].toLocal8Bit()),   // chest
+                Utils::toInt(unitData[18].toLocal8Bit()),   // boots
+
+                Utils::toInt(unitData[19].toLocal8Bit()),   // health
+
+                loadedOptions,
+
+                unitData[72].toInt(), // time to eat
+                unitData[73].toFloat(), // morale level
+                unitData[74].toFloat(), // fatigue level
+                unitData[75].toFloat(), // hunger level
+
+                // Inventory data
+                inventoryPreferences,
+                inventoryItems,
+                spareInventory,
+
+                // Patrol data
+                patrolSetpoints,
+                patrolIndex,
+
+                gardedUnitName,
+
+                professionEXP,
+
+                maxWeight
+               ));
+
 }
 
 /**
@@ -407,9 +401,11 @@ void Human::writeToFile( QFile &unitFile )
                << QString(gatherBerries()?"True":"False") << "/"
                << QString(huntChicken()?"True":"False") << "/"
                << QString(huntBoar()?"True":"False") << "/"
-               << QString(showBowRange()?"True":"False") << "/"
-               << QString(trainNearTarget()?"True":"False") << "/"
-               << QString("%1").arg(rotation(),0,'g',8) << "/";
+               << QString(showBowRange()?"True":"False") << "/";
+
+    unitStream << QString(trainNearTarget()?"True":"False") << "/";
+
+    unitStream << QString("%1").arg(rotation(),0,'g',8) << "/";
     unitStream.flush();
 
     unitFile.write(Utils::toBinary(equipHand()).constData());
@@ -446,19 +442,19 @@ void Human::writeToFile( QFile &unitFile )
 
     // Inventory Items
     unitStream << inventoryItems()->length() << "/";
-    for (int i = 0; i<inventoryItems()->length()*3; i++) {
+    for (int i = 0; i<inventoryItems()->length(); i++) {
         unitStream << inventoryItems()->at(i) << "/";
     }
 
     // Spare Inventory
     unitStream << spareInventory()->length() << "/";
-    for (int i = 0; i<spareInventory()->length()*3; i++) {
+    for (int i = 0; i<spareInventory()->length(); i++) {
         unitStream << spareInventory()->at(i) << "/";
     }
 
     // Patrol
     unitStream << patrolSetpoints()->length() << "/";
-    for (int i = 0; i<patrolSetpoints()->length()*3; i++) {
+    for (int i = 0; i<patrolSetpoints()->length(); i++) {
         unitStream << patrolSetpoints()->at(i) << "/";
     }
     unitStream << patrolIndex() << "/";
