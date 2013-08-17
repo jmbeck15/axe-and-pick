@@ -462,14 +462,16 @@ void SavesAccess::saveUnitFile()
 
         // Humans
         unitStream << humanModel->rowCount() << endl;
+        unitStream.flush();
         for (QList<ListItem*>::iterator itr = humanModel->getList().begin(); itr != humanModel->getList().end(); itr++)
         {
             Human* human = (Human*)*itr;
-            human->writeToFile(unitFile, unitStream);
+            human->writeToFile(unitFile);
         }
 
         // Neutral Mobs
         unitStream << neutralMobModel->rowCount() << endl;
+        unitStream.flush();
         for (QList<ListItem*>::iterator itr = neutralMobModel->getList().begin(); itr != neutralMobModel->getList().end(); itr++)
         {
             NeutralMob* mob = (NeutralMob*)*itr;
@@ -496,6 +498,7 @@ void SavesAccess::saveUnitFile()
 
         // Violent Mobs
         unitStream << violentMobModel->rowCount() << endl;
+        unitStream.flush();
         for (QList<ListItem*>::iterator itr = violentMobModel->getList().begin(); itr != violentMobModel->getList().end(); itr++)
         {
             ViolentMob* mob = (ViolentMob*)*itr;

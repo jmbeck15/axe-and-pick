@@ -367,93 +367,110 @@ Human * Human::build(QStringList & unitData)
 /**
  * @brief Write the Human data back to a file.
  */
-void Human::writeToStream( QFile &unitFile, QTextStream &unitStream )
+void Human::writeToFile( QFile &unitFile )
 {
+    QTextStream unitStream(&unitFile);
 
-    unitStream << human->profession() << "/"
-               << QString("%1").arg(human->posX(),0,'g',8) << "/"
-               << QString("%1").arg(human->posY(),0,'g',8) << "/"
-               << QString("%1").arg(human->posZ(),0,'g',8) << "/"
-               << human->name() << "/";
+    unitStream << profession() << "/"
+               << QString("%1").arg(posX(),0,'g',8) << "/"
+               << QString("%1").arg(posY(),0,'g',8) << "/"
+               << QString("%1").arg(posZ(),0,'g',8) << "/"
+               << name() << "/";
     unitStream.flush();
 
-    unitFile.write(Utils::toBinary(human->archerLevel()));
-    unitFile.write(Utils::toBinary(human->blacksmithLevel()));
-    unitFile.write(Utils::toBinary(human->builderLevel()));
-    unitFile.write(Utils::toBinary(human->carpenterLevel()).constData());
-    unitFile.write(Utils::toBinary(human->engineerLevel()).constData());
-    unitFile.write(Utils::toBinary(human->farmerLevel()).constData());
-    unitFile.write(Utils::toBinary(human->fishermanLevel()).constData());
-    unitFile.write(Utils::toBinary(human->foragerLevel()).constData());
-    unitFile.write(Utils::toBinary(human->infantryLevel()).constData());
-    unitFile.write(Utils::toBinary(human->minerLevel()).constData());
-    unitFile.write(Utils::toBinary(human->stoneMasonLevel()).constData());
-    unitFile.write(Utils::toBinary(human->woodChopperLevel()).constData());
-    unitFile.write(Utils::toBinary(human->tailorLevel()).constData());
-    unitFile.write(Utils::toBinary(human->traderLevel()).constData());
-    unitFile.write(Utils::toBinary(human->herderLevel()).constData());
-    unitFile.write(Utils::toBinary(human->adventurerLevel()).constData());
-    unitFile.write(Utils::toBinary(human->unknown1Level()).constData());
-    unitFile.write(Utils::toBinary(human->unknown2Level()).constData());
-    unitFile.write(Utils::toBinary(human->unknown3Level()).constData());
-    unitFile.write(Utils::toBinary(human->unknown4Level()).constData());
+    unitFile.write(Utils::toBinary(archerLevel()));
+    unitFile.write(Utils::toBinary(blacksmithLevel()));
+    unitFile.write(Utils::toBinary(builderLevel()));
+    unitFile.write(Utils::toBinary(carpenterLevel()).constData());
+    unitFile.write(Utils::toBinary(engineerLevel()).constData());
+    unitFile.write(Utils::toBinary(farmerLevel()).constData());
+    unitFile.write(Utils::toBinary(fishermanLevel()).constData());
+    unitFile.write(Utils::toBinary(foragerLevel()).constData());
+    unitFile.write(Utils::toBinary(infantryLevel()).constData());
+    unitFile.write(Utils::toBinary(minerLevel()).constData());
+    unitFile.write(Utils::toBinary(stoneMasonLevel()).constData());
+    unitFile.write(Utils::toBinary(woodChopperLevel()).constData());
+    unitFile.write(Utils::toBinary(tailorLevel()).constData());
+    unitFile.write(Utils::toBinary(traderLevel()).constData());
+    unitFile.write(Utils::toBinary(herderLevel()).constData());
+    unitFile.write(Utils::toBinary(adventurerLevel()).constData());
+    unitFile.write(Utils::toBinary(unknown1Level()).constData());
+    unitFile.write(Utils::toBinary(unknown2Level()).constData());
+    unitFile.write(Utils::toBinary(unknown3Level()).constData());
+    unitFile.write(Utils::toBinary(unknown4Level()).constData());
     unitStream << "/"; unitStream.flush();
 
-    unitFile.write(Utils::toBinary(human->experience()).constData());
+    unitFile.write(Utils::toBinary(experience()).constData());
     unitStream << "/"; unitStream.flush();
 
-    unitStream << QString(human->autoChop()?"True":"False") << "/"
-               << QString(human->gatherBerries()?"True":"False") << "/"
-               << QString(human->huntChicken()?"True":"False") << "/"
-               << QString(human->huntBoar()?"True":"False") << "/"
-               << QString(human->showBowRange()?"True":"False") << "/"
-               << QString(human->trainNearTarget()?"True":"False") << "/"
-               << QString("%1").arg(human->rotation(),0,'g',8) << "/";
+    unitStream << QString(autoChop()?"True":"False") << "/"
+               << QString(gatherBerries()?"True":"False") << "/"
+               << QString(huntChicken()?"True":"False") << "/"
+               << QString(huntBoar()?"True":"False") << "/"
+               << QString(showBowRange()?"True":"False") << "/"
+               << QString(trainNearTarget()?"True":"False") << "/"
+               << QString("%1").arg(rotation(),0,'g',8) << "/";
     unitStream.flush();
 
-    unitFile.write(Utils::toBinary(human->equipHand()).constData());
+    unitFile.write(Utils::toBinary(equipHand()).constData());
     unitStream << "/"; unitStream.flush();
-    unitFile.write(Utils::toBinary(human->equipOffhand()).constData());
+    unitFile.write(Utils::toBinary(equipOffhand()).constData());
     unitStream << "/"; unitStream.flush();
-    unitFile.write(Utils::toBinary(human->equipHead()).constData());
+    unitFile.write(Utils::toBinary(equipHead()).constData());
     unitStream << "/"; unitStream.flush();
-    unitFile.write(Utils::toBinary(human->equipBody()).constData());
+    unitFile.write(Utils::toBinary(equipBody()).constData());
     unitStream << "/"; unitStream.flush();
-    unitFile.write(Utils::toBinary(human->equipFeet()).constData());
+    unitFile.write(Utils::toBinary(equipFeet()).constData());
     unitStream << "/"; unitStream.flush();
-    unitFile.write(Utils::toBinary(human->health()).constData());
+    unitFile.write(Utils::toBinary(health()).constData());
     unitStream << "/"; unitStream.flush();
 
     // Dump some of the options in the file.
     for (unsigned int i = 0; i<52; i++) {
-        unitStream << QString(human->option(i)?"True":"False") << "/";
+        unitStream << QString(option(i)?"True":"False") << "/";
     }
-    unitStream << human->timeToEat() << "/"
-               << human->morale() << "/"
-               << human->fatigue() << "/"
-               << human->hunger() << "/";
+    unitStream << timeToEat() << "/"
+               << morale() << "/"
+               << fatigue() << "/"
+               << hunger() << "/";
 
     // Dump more options in the file.
     for (unsigned int i = 52; i<52+12; i++) {
-        unitStream << QString(human->option(i)?"True":"False") << "/";
+        unitStream << QString(option(i)?"True":"False") << "/";
     }
 
-
-
-    QList<float> const * patrolSetpoints = human->patrolSetpoints();
-    unitStream << patrolSetpoints->length() << "/";
-    // NOTE: Please be aware that this *3 stuff is only because
-    // I don't want to take the time to write the 3-vector class
-    // and handler. It's just not necessary, even though it'd probably
-    // make the code a bit easier to understand.
-    //
-    for (int i = 0; i<patrolSetpoints->length()*3; i++) {
-        unitStream << patrolSetpoints->at(i) << "/";
+    // Inventory Preferences
+    for (int i = 0; i<inventoryPreferences()->length(); i++) {
+        unitStream << inventoryPreferences()->at(i) << "/";
     }
 
-    unitStream << human->patrolIndex() << "/";
+    // Inventory Items
+    unitStream << inventoryItems()->length() << "/";
+    for (int i = 0; i<inventoryItems()->length()*3; i++) {
+        unitStream << inventoryItems()->at(i) << "/";
+    }
 
-    unitStream << human->guardedUnit() << "/";
+    // Spare Inventory
+    unitStream << spareInventory()->length() << "/";
+    for (int i = 0; i<spareInventory()->length()*3; i++) {
+        unitStream << spareInventory()->at(i) << "/";
+    }
+
+    // Patrol
+    unitStream << patrolSetpoints()->length() << "/";
+    for (int i = 0; i<patrolSetpoints()->length()*3; i++) {
+        unitStream << patrolSetpoints()->at(i) << "/";
+    }
+    unitStream << patrolIndex() << "/";
+
+    unitStream << guardedUnit() << "/";
+
+    // Profession Experience
+    for (int i = 0; i<professionEXP()->length(); i++) {
+        unitStream << professionEXP()->at(i) << "/";
+    }
+
+    unitStream << maxWeight() << "/";
 
     unitStream << endl;
     unitStream.flush();

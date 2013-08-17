@@ -5,6 +5,8 @@
 #include <QList>
 #include <QVariant>
 #include <QBitArray>
+#include <QFile>
+#include <QTextStream>
 
 #include "listmodel.h"
 
@@ -151,7 +153,7 @@ public:
     static Human * build(QStringList & unitData);
 
     // Writer. Writes the entire Human class to a file in the Timber and Stone format.
-    void Human::writeToStream( QFile &unitFile, QTextStream &unitStream );
+    void Human::writeToFile( QFile &unitFile );
 
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;
@@ -220,10 +222,18 @@ public:
     inline float fatigue() const { return m_fatigue; }
     inline float hunger() const { return m_hunger; }
 
+    inline QList<int> const * inventoryPreferences() const { return &m_inventoryPreferences; }
+    inline QList<int> const * inventoryItems() const { return &m_inventoryItems; }
+    inline QList<int> const * spareInventory() const { return &m_spareInventory; }
+
     inline QList<float> const * patrolSetpoints() const { return &m_patrolSetpoints; }
     inline int patrolIndex() const { return m_patrolIndex; }
 
     inline QString guardedUnit() const { return m_guardedUnit; }
+
+    inline QList<int> const * professionEXP() const { return &m_professionEXP; }
+
+    inline float maxWeight() { return m_maxWeight; }
 
     // Utilities and Helpers
     void print();
