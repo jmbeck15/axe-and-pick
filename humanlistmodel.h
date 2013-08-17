@@ -144,11 +144,14 @@ public:
 
                    const QList<int> &professionEXP,
 
-                   const int &maxWeight,
+                   const float &maxWeight,
                    QObject * parent = 0);
 
     // Builder. This returns a Human which is all set up.
     static Human * build(QStringList & unitData);
+
+    // Writer. Writes the entire Human class to a file in the Timber and Stone format.
+    void Human::writeToStream( QFile &unitFile, QTextStream &unitStream );
 
     QVariant data(int role) const;
     QHash<int, QByteArray> roleNames() const;
@@ -217,7 +220,7 @@ public:
     inline float fatigue() const { return m_fatigue; }
     inline float hunger() const { return m_hunger; }
 
-    inline QList<float> patrolSetpoints() const { return m_patrolSetpoints; }
+    inline QList<float> const * patrolSetpoints() const { return &m_patrolSetpoints; }
     inline int patrolIndex() const { return m_patrolIndex; }
 
     inline QString guardedUnit() const { return m_guardedUnit; }

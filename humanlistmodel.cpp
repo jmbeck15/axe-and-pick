@@ -187,7 +187,7 @@ Human * Human::build(QStringList & unitData)
 
         // For each job, compute the experience level.
         // NOTE: There are 20 professions and associated levels.
-        NumberOfProfessions = 20;
+        const int NumberOfProfessions = 20;
         for (int job=0; job<NumberOfProfessions; job++)
         {
             // Most significant byte
@@ -250,21 +250,21 @@ Human * Human::build(QStringList & unitData)
         if( unitProfession != "Merchant" )
         {
             // Inventory Preferences
-            for(unsigned int i=0; i<NumberOfProfessions; i++)
+            for(int i=0; i<NumberOfProfessions; i++)
             {
                 inventoryPreferences.append(unitData[88 + i].toInt());
             }
 
             // Inventory Items
             numItemsInInventory = unitData[108].toInt(); // num2
-            for(unsigned int i=0; i<numItemsInInventory; i++)
+            for(int i=0; i<numItemsInInventory; i++)
             {
                 inventoryItems.append(unitData[109 + i].toInt());
             }
 
             // Spare Inventory (slots?)
             numSpareInventory = unitData[109 + numItemsInInventory].toInt(); // num3
-            for(unsigned int i=0; i<numSpareInventory; i++)
+            for(int i=0; i<numSpareInventory; i++)
             {
                 spareInventory.append(unitData[110 + numItemsInInventory + i].toInt());
             }
@@ -279,7 +279,7 @@ Human * Human::build(QStringList & unitData)
             patrolIndex = unitData[111 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
 
             // Guarded Unit
-            gardedUnitName( unitData[112 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toStdString() );
+            gardedUnitName = unitData[112 + numItemsInInventory + numSpareInventory + numPatrolPoints*3];
 
             // Profession Experience
             for(unsigned int i=0; i<NumberOfProfessions; i++)
@@ -363,6 +363,103 @@ Human * Human::build(QStringList & unitData)
 
     return Q_NULLPTR;
 }
+
+/**
+ * @brief Write the Human data back to a file.
+ */
+void Human::writeToStream( QFile &unitFile, QTextStream &unitStream )
+{
+
+    unitStream << human->profession() << "/"
+               << QString("%1").arg(human->posX(),0,'g',8) << "/"
+               << QString("%1").arg(human->posY(),0,'g',8) << "/"
+               << QString("%1").arg(human->posZ(),0,'g',8) << "/"
+               << human->name() << "/";
+    unitStream.flush();
+
+    unitFile.write(Utils::toBinary(human->archerLevel()));
+    unitFile.write(Utils::toBinary(human->blacksmithLevel()));
+    unitFile.write(Utils::toBinary(human->builderLevel()));
+    unitFile.write(Utils::toBinary(human->carpenterLevel()).constData());
+    unitFile.write(Utils::toBinary(human->engineerLevel()).constData());
+    unitFile.write(Utils::toBinary(human->farmerLevel()).constData());
+    unitFile.write(Utils::toBinary(human->fishermanLevel()).constData());
+    unitFile.write(Utils::toBinary(human->foragerLevel()).constData());
+    unitFile.write(Utils::toBinary(human->infantryLevel()).constData());
+    unitFile.write(Utils::toBinary(human->minerLevel()).constData());
+    unitFile.write(Utils::toBinary(human->stoneMasonLevel()).constData());
+    unitFile.write(Utils::toBinary(human->woodChopperLevel()).constData());
+    unitFile.write(Utils::toBinary(human->tailorLevel()).constData());
+    unitFile.write(Utils::toBinary(human->traderLevel()).constData());
+    unitFile.write(Utils::toBinary(human->herderLevel()).constData());
+    unitFile.write(Utils::toBinary(human->adventurerLevel()).constData());
+    unitFile.write(Utils::toBinary(human->unknown1Level()).constData());
+    unitFile.write(Utils::toBinary(human->unknown2Level()).constData());
+    unitFile.write(Utils::toBinary(human->unknown3Level()).constData());
+    unitFile.write(Utils::toBinary(human->unknown4Level()).constData());
+    unitStream << "/"; unitStream.flush();
+
+    unitFile.write(Utils::toBinary(human->experience()).constData());
+    unitStream << "/"; unitStream.flush();
+
+    unitStream << QString(human->autoChop()?"True":"False") << "/"
+               << QString(human->gatherBerries()?"True":"False") << "/"
+               << QString(human->huntChicken()?"True":"False") << "/"
+               << QString(human->huntBoar()?"True":"False") << "/"
+               << QString(human->showBowRange()?"True":"False") << "/"
+               << QString(human->trainNearTarget()?"True":"False") << "/"
+               << QString("%1").arg(human->rotation(),0,'g',8) << "/";
+    unitStream.flush();
+
+    unitFile.write(Utils::toBinary(human->equipHand()).constData());
+    unitStream << "/"; unitStream.flush();
+    unitFile.write(Utils::toBinary(human->equipOffhand()).constData());
+    unitStream << "/"; unitStream.flush();
+    unitFile.write(Utils::toBinary(human->equipHead()).constData());
+    unitStream << "/"; unitStream.flush();
+    unitFile.write(Utils::toBinary(human->equipBody()).constData());
+    unitStream << "/"; unitStream.flush();
+    unitFile.write(Utils::toBinary(human->equipFeet()).constData());
+    unitStream << "/"; unitStream.flush();
+    unitFile.write(Utils::toBinary(human->health()).constData());
+    unitStream << "/"; unitStream.flush();
+
+    // Dump some of the options in the file.
+    for (unsigned int i = 0; i<52; i++) {
+        unitStream << QString(human->option(i)?"True":"False") << "/";
+    }
+    unitStream << human->timeToEat() << "/"
+               << human->morale() << "/"
+               << human->fatigue() << "/"
+               << human->hunger() << "/";
+
+    // Dump more options in the file.
+    for (unsigned int i = 52; i<52+12; i++) {
+        unitStream << QString(human->option(i)?"True":"False") << "/";
+    }
+
+
+
+    QList<float> const * patrolSetpoints = human->patrolSetpoints();
+    unitStream << patrolSetpoints->length() << "/";
+    // NOTE: Please be aware that this *3 stuff is only because
+    // I don't want to take the time to write the 3-vector class
+    // and handler. It's just not necessary, even though it'd probably
+    // make the code a bit easier to understand.
+    //
+    for (int i = 0; i<patrolSetpoints->length()*3; i++) {
+        unitStream << patrolSetpoints->at(i) << "/";
+    }
+
+    unitStream << human->patrolIndex() << "/";
+
+    unitStream << human->guardedUnit() << "/";
+
+    unitStream << endl;
+    unitStream.flush();
+
+}
+
 
 void Human::setProfession(QString profession)
 {
@@ -679,7 +776,7 @@ void HumanListModel::add(const QString profession, float x, float y, float z)
     }
 
     QList<int> inventoryPreferences;
-    for( i=0; i<20; i++) {
+    for(int i=0; i<20; i++) {
         inventoryPreferences.append(0);
     }
     QList<int> inventoryItems;
@@ -687,7 +784,7 @@ void HumanListModel::add(const QString profession, float x, float y, float z)
     QList<float> patrolSetpoints;
 
     QList<int> professionEXP;
-    for( i=0; i<20; i++) {
+    for(int i=0; i<20; i++) {
         professionEXP.append(0);
     }
 
