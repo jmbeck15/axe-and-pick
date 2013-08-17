@@ -35,6 +35,10 @@ Human::Human(const QString &profession,
              const unsigned int &traderLevel,
              const unsigned int &herderLevel,
              const unsigned int &adventurerLevel,
+             const unsigned int &unknown1Level,
+             const unsigned int &unknown2Level,
+             const unsigned int &unknown3Level,
+             const unsigned int &unknown4Level,
 
              const unsigned int &experience,
 
@@ -156,8 +160,9 @@ Human * Human::build(QStringList & unitData)
         levels.clear();
 
         // For each job, compute the experience level.
-        // NOTE: There are 15 professions and associated levels.
-        for (int job=0; job<16; job++)
+        // NOTE: There are 20 professions and associated levels.
+        NumberOfProfessions = 20;
+        for (int job=0; job<NumberOfProfessions; job++)
         {
             // Most significant byte
             byte = rawLevelString[byteNumber];
@@ -193,14 +198,30 @@ Human * Human::build(QStringList & unitData)
         // Load the Options
         //
         QBitArray loadedOptions(64, false);
-        for(unsigned int i=0; i<52; i++)
+        for(unsigned int i=0; i<52; i++) // array[20] through array[71]
         {
             loadedOptions[i] = unitData[i+20].compare("True") ? false : true;
         }
-        for(unsigned int i=52; i<52+12; i++)
+        for(unsigned int i=52; i<52+12; i++) // array[76] through array[87]
         {
             loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
         }
+
+        // Inventory Preferences
+        int[] inventoryPreferences;
+        for(unsigned int i=0; i<NumberOfProfessions; i++)
+        {
+            inventoryPreferences[i] = unitData[88 + i].toInt();
+        }
+
+        int itemsInInventory =
+
+        // Inventory Preferences
+        for(unsigned int i=0; i<NumberOfProfessions; i++)
+        {
+            inventoryPreferences[i] = unitData[88 + i].toInt();
+        }
+
 
         //
         // Patrol Values
@@ -241,6 +262,10 @@ Human * Human::build(QStringList & unitData)
                     levels[13],
                     levels[14],
                     levels[15],
+                    levels[16],
+                    levels[17],
+                    levels[18],
+                    levels[19],
 
                     Utils::toInt(unitData[6].toLocal8Bit()), // experience
 
@@ -253,20 +278,20 @@ Human * Human::build(QStringList & unitData)
 
                     unitData[13].toFloat(), // rotation
 
-                    Utils::toInt(unitData[14].toLocal8Bit()),
-                    Utils::toInt(unitData[15].toLocal8Bit()),
-                    Utils::toInt(unitData[16].toLocal8Bit()),
-                    Utils::toInt(unitData[17].toLocal8Bit()),
-                    Utils::toInt(unitData[18].toLocal8Bit()),
+                    Utils::toInt(unitData[14].toLocal8Bit()),   // weapon right
+                    Utils::toInt(unitData[15].toLocal8Bit()),   // weapon left
+                    Utils::toInt(unitData[16].toLocal8Bit()),   // helm
+                    Utils::toInt(unitData[17].toLocal8Bit()),   // chest
+                    Utils::toInt(unitData[18].toLocal8Bit()),   // boots
 
-                    Utils::toInt(unitData[19].toLocal8Bit()),
+                    Utils::toInt(unitData[19].toLocal8Bit()),   // health
 
                     loadedOptions,
 
-                    unitData[72].toFloat(), // unknown options
-                    unitData[73].toFloat(), // morale
-                    unitData[74].toFloat(), // fatigue
-                    unitData[75].toFloat(), // hunger
+                    unitData[72].toInt(), // time to eat
+                    unitData[73].toFloat(), // morale level
+                    unitData[74].toFloat(), // fatigue level
+                    unitData[75].toFloat(), // hunger level
 
                     patrolCount,            // Patrol data
                     patrolSetpoints,
@@ -332,6 +357,10 @@ QHash<int, QByteArray> Human::roleNames() const
     names[TraderLevelRole] = "traderLevel";
     names[HerderLevelRole] = "herderLevel";
     names[AdventurerLevelRole] = "adventurerLevel";
+    names[Unknown1Role] = "unknown1";
+    names[Unknown2Role] = "unknown2";
+    names[Unknown3Role] = "unknown3";
+    names[Unknown4Role] = "unknown4";
 
     names[ExperienceRole] = "experience";
 
@@ -410,6 +439,14 @@ QVariant Human::data(int role) const
         return herderLevel();
     case AdventurerLevelRole:
         return adventurerLevel();
+    case Unknown1Role:
+        return unknown1Level();
+    case Unknown2Role:
+        return unknown2Level();
+    case Unknown3Role:
+        return unknown3Level();
+    case Unknown4Role:
+        return unknown4Level();
 
     case ExperienceRole:
         return experience();
@@ -612,6 +649,10 @@ void HumanListModel::add(const QString profession, float x, float y, float z)
                   (profession.compare("Trader"))?qrand() % ((high + 1) - low) + low : expertLevel,
                   (profession.compare("Herder"))?qrand() % ((high + 1) - low) + low : expertLevel,
                   (profession.compare("Adventurer"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Unknown1"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Unknown2"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Unknown3"))?qrand() % ((high + 1) - low) + low : expertLevel,
+                  (profession.compare("Unknown4"))?qrand() % ((high + 1) - low) + low : expertLevel,
 
                   1, // experience
 

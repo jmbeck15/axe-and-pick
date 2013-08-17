@@ -45,6 +45,10 @@ public:
         TraderLevelRole,
         HerderLevelRole,
         AdventurerLevelRole,
+        Unknown1Role,
+        Unknown2Role,
+        Unknown3Role,
+        Unknown4Role,
 
         ExperienceRole,
 
@@ -96,6 +100,10 @@ public:
                    const unsigned int &traderLevel,
                    const unsigned int &herderLevel,
                    const unsigned int &adventurerLevel,
+                   const unsigned int &unknown1Level,
+                   const unsigned int &unknown2Level,
+                   const unsigned int &unknown3Level,
+                   const unsigned int &unknown4Level,
 
                    const unsigned int &experience,
 
@@ -168,6 +176,15 @@ public:
     inline unsigned int traderLevel() const { return m_traderLevel; }
     inline unsigned int herderLevel() const { return m_herderLevel; }
     inline unsigned int adventurerLevel() const { return m_adventurerLevel; }
+    inline unsigned int tailorLevel() const { return m_tailorLevel; }
+    inline unsigned int traderLevel() const { return m_traderLevel; }
+    inline unsigned int herderLevel() const { return m_herderLevel; }
+    inline unsigned int adventurerLevel() const { return m_adventurerLevel; }
+    inline unsigned int unknown1Level() const { return m_unknown1Level; }
+    inline unsigned int unknown2Level() const { return m_unknown2Level; }
+    inline unsigned int unknown3Level() const { return m_unknown3Level; }
+    inline unsigned int unknown4Level() const { return m_unknown4Level; }
+
 
     inline unsigned int experience() const { return m_experience; }
 
@@ -229,6 +246,10 @@ private:
     unsigned int m_traderLevel;
     unsigned int m_herderLevel;
     unsigned int m_adventurerLevel;
+    unsigned int m_unknown1Level;
+    unsigned int m_unknown2Level;
+    unsigned int m_unknown3Level;
+    unsigned int m_unknown4Level;
 
     unsigned int m_experience;
 

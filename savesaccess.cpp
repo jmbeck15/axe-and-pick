@@ -489,6 +489,10 @@ void SavesAccess::saveUnitFile()
             unitFile.write(Utils::toBinary(human->traderLevel()).constData());
             unitFile.write(Utils::toBinary(human->herderLevel()).constData());
             unitFile.write(Utils::toBinary(human->adventurerLevel()).constData());
+            unitFile.write(Utils::toBinary(human->unknown1Level()).constData());
+            unitFile.write(Utils::toBinary(human->unknown2Level()).constData());
+            unitFile.write(Utils::toBinary(human->unknown3Level()).constData());
+            unitFile.write(Utils::toBinary(human->unknown4Level()).constData());
             unitStream << "/"; unitStream.flush();
 
             unitFile.write(Utils::toBinary(human->experience()).constData());
