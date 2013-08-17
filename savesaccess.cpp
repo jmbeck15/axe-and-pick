@@ -534,7 +534,7 @@ void SavesAccess::saveUnitFile()
                 unitStream << QString(human->option(i)?"True":"False") << "/";
             }
 
-            unitStream << human->patrolCount() << "/";
+            unitStream << patrolSetpoints.length() << "/";
 
             // NOTE: Please be aware that this *3 stuff is only because
             // I don't want to take the time to write the 3-vector class

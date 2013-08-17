@@ -678,8 +678,18 @@ void HumanListModel::add(const QString profession, float x, float y, float z)
         randomlyChosenName = names.at(qrand() % names.size());
     }
 
+    QList<int> inventoryPreferences;
+    for( i=0; i<20; i++) {
+        inventoryPreferences.append(0);
+    }
+    QList<int> inventoryItems;
+    QList<int> spareInventory;
     QList<float> patrolSetpoints;
-    patrolSetpoints.clear();
+
+    QList<int> professionEXP;
+    for( i=0; i<20; i++) {
+        professionEXP.append(0);
+    }
 
     // Build the Human and add it to the list.
 
@@ -731,11 +741,24 @@ void HumanListModel::add(const QString profession, float x, float y, float z)
 
                   options,
 
-                  10.0f, 1.0f, 1.52f, 0.0f,   // unknown, marole, fatigue, hunger
+                  10.0f, 1.0f, 1.50f, 0.0f,   // time to eat, marole, fatigue, hunger
 
-                  0, patrolSetpoints, 0,  // patrol count, patrol setpoints, patrol index
+                  // Inventory data
+                  inventoryPreferences,
+                  inventoryItems,
+                  spareInventory,
 
-                  "NoUnit"  // person they're guarding.
+                  // Patrol data
+                  patrolSetpoints,
+                  0,
+
+                  "NoUnit",  // person they're guarding.
+
+                  professionEXP,
+
+                  // There may be a desire to increase the max weight, perhaps when
+                  // giving a unit coffee.
+                  10 // max weight (it seems 10 is the default)
                   )
               );
 

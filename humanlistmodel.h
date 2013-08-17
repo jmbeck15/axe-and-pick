@@ -217,7 +217,6 @@ public:
     inline float fatigue() const { return m_fatigue; }
     inline float hunger() const { return m_hunger; }
 
-    inline int patrolCount() const { return m_patrolCount; }
     inline QList<float> patrolSetpoints() const { return m_patrolSetpoints; }
     inline int patrolIndex() const { return m_patrolIndex; }
 
@@ -293,9 +292,9 @@ private:
 
     QString m_guardedUnit;
 
-    const QList<int> m_professionEXP;
+    QList<int> m_professionEXP;
 
-    const float m_maxWeight;
+    float m_maxWeight;
 };
 
 // HumanListModel store Humans
