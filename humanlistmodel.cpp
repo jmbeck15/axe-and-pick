@@ -208,36 +208,49 @@ Human * Human::build(QStringList & unitData)
         }
 
         // Inventory Preferences
-        int[] inventoryPreferences;
+        QList<int> inventoryPreferences;
         for(unsigned int i=0; i<NumberOfProfessions; i++)
         {
-            inventoryPreferences[i] = unitData[88 + i].toInt();
+            inventoryPreferences.append(unitData[88 + i].toInt());
         }
 
-        int itemsInInventory =
-
-        // Inventory Preferences
-        for(unsigned int i=0; i<NumberOfProfessions; i++)
+        // Inventory Items
+        int numItemsInInventory = unitData[108].toInt(); // num2
+        QList<int> inventoryItems;
+        for(unsigned int i=0; i<numItemsInInventory; i++)
         {
-            inventoryPreferences[i] = unitData[88 + i].toInt();
+            inventoryItems.append(unitData[109 + i].toInt());
         }
 
+        // Spare Inventory (slots?)
+        int numSpareInventory = unitData[109 + numItemsInInventory].toInt(); // num3
+        QList<int> spareInventory;
+        for(unsigned int i=0; i<numSpareInventory; i++)
+        {
+            spareInventory.append(unitData[110 + numItemsInInventory + i].toInt());
+        }
 
-        //
-        // Patrol Values
-        // Starts at 88
-        int patrolCount = unitData[88].toInt();
-
-        // Add all the patrol waypoints to the list
-        // NOTE: I realize this is xyz. Better to have a class
-        // that wraps each point. But I'm not even using these right
-        // now, so I'll decide that when/if I ever need it.
+        // Patrol
+        int numPatrolPoints = unitData[110 + numItemsInInventory + numSpareInventory].toInt(); // num5
         QList<float> patrolSetpoints;
-        for(int patrolCountNdx=0; patrolCountNdx<patrolCount*3; patrolCountNdx++ )
+        for(int i=0; i<numPatrolPoints*3; i++ )
         {
-            patrolSetpoints.push_back(unitData[89+patrolCountNdx].toFloat());
+            patrolSetpoints.push_back(unitData[111 + numItemsInInventory + numSpareInventory + i].toFloat());
         }
-        int patrolIndex = unitData[89+patrolCount*3].toInt();
+
+        int patrolIndex = unitData[111 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
+
+        // Guarded Unit
+        QString gardedUnitName( unitData[112 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toStdString() );
+
+        // Profession Experience
+        QList<int> professionEXP;
+        for(unsigned int i=0; i<NumberOfProfessions; i++)
+        {
+            professionEXP.append(unitData[113 + numItemsInInventory + numSpareInventory + numPatrolPoints*3 + i].toInt());
+        }
+
+        int maxWeight = unitData[133 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
 
         return (new Human(
                     unitData[0],
@@ -293,11 +306,23 @@ Human * Human::build(QStringList & unitData)
                     unitData[74].toFloat(), // fatigue level
                     unitData[75].toFloat(), // hunger level
 
-                    patrolCount,            // Patrol data
+                    // Inventory data
+                    inventoryPreferences,
+                    numItemsInInventory,
+                    inventoryItems,
+                    numSpareInventory,
+                    spareInventory,
+
+                    // Patrol data
+                    numPatrolPoints,
                     patrolSetpoints,
                     patrolIndex,
 
-                    unitData[89+patrolCount*3+1]            // guarded unit
+                    gardedUnitName,
+
+                    professionEXP,
+
+                    maxWeight
                    ));
     }
 
