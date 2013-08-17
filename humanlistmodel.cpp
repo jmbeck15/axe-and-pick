@@ -68,13 +68,10 @@ Human::Human(const QString &profession,
 
              // Inventory data
              const QList<int> &inventoryPreferences,
-             const int &numItemsInInventory,
              const QList<int> &inventoryItems,
-             const int &numSpareInventory,
              const QList<int> &spareInventory,
 
              // Patrol data
-             const int &numPatrolPoints,
              const QList<float> &patrolSetpoints,
              const int &patrolIndex,
 
@@ -147,7 +144,6 @@ Human::Human(const QString &profession,
     m_spareInventory(spareInventory),
 
     // Patrol data
-    m_patrolCount(numPatrolPoints),
     m_patrolSetpoints(patrolSetpoints),
     m_patrolIndex(patrolIndex),
 
@@ -350,13 +346,10 @@ Human * Human::build(QStringList & unitData)
 
                     // Inventory data
                     inventoryPreferences,
-                    numItemsInInventory,
                     inventoryItems,
-                    numSpareInventory,
                     spareInventory,
 
                     // Patrol data
-                    numPatrolPoints,
                     patrolSetpoints,
                     patrolIndex,
 

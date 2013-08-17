@@ -131,11 +131,20 @@ public:
                    const float &fatigue,
                    const float &hunger,
 
-                   const int &patrolCount,
+                   // Inventory data
+                   const QList<int> &inventoryPreferences,
+                   const QList<int> &inventoryItems,
+                   const QList<int> &spareInventory,
+
+                   // Patrol data
                    const QList<float> &patrolSetpoints,
                    const int &patrolIndex,
 
-                   const QString &guardedUnit,
+                   const QString &gardedUnitName,
+
+                   const QList<int> &professionEXP,
+
+                   const int &maxWeight,
                    QObject * parent = 0);
 
     // Builder. This returns a Human which is all set up.
@@ -279,7 +288,6 @@ private:
     QList<int> m_spareInventory;
 
     // Patrol data
-    int m_patrolCount;
     QList<float> m_patrolSetpoints;
     int m_patrolIndex;
 
