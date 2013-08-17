@@ -66,11 +66,24 @@ Human::Human(const QString &profession,
              const float &fatigue,
              const float &hunger,
 
-             const int &patrolCount,
+             // Inventory data
+             const QList<int> &inventoryPreferences,
+             const int &numItemsInInventory,
+             const QList<int> &inventoryItems,
+             const int &numSpareInventory,
+             const QList<int> &spareInventory,
+
+             // Patrol data
+             const int &numPatrolPoints,
              const QList<float> &patrolSetpoints,
              const int &patrolIndex,
 
-             const QString &guardedUnit,
+             const QString &gardedUnitName,
+
+             const QList<int> &professionEXP,
+
+             const float &maxWeight,
+
              QObject * parent)
     : ListItem(parent),
     m_id(id_counter),
@@ -97,6 +110,10 @@ Human::Human(const QString &profession,
     m_traderLevel(traderLevel),
     m_herderLevel(herderLevel),
     m_adventurerLevel(adventurerLevel),
+    m_unknown1Level(unknown1Level),
+    m_unknown2Level(unknown2Level),
+    m_unknown3Level(unknown3Level),
+    m_unknown4Level(unknown4Level),
 
     m_experience(experience),
 
@@ -124,11 +141,22 @@ Human::Human(const QString &profession,
     m_fatigue(fatigue),
     m_hunger(hunger),
 
-    m_patrolCount(patrolCount),
+    // Inventory data
+    m_inventoryPreferences(inventoryPreferences),
+    m_inventoryItems(inventoryItems),
+    m_spareInventory(spareInventory),
+
+    // Patrol data
+    m_patrolCount(numPatrolPoints),
     m_patrolSetpoints(patrolSetpoints),
     m_patrolIndex(patrolIndex),
 
-    m_guardedUnit(guardedUnit)
+    m_guardedUnit(gardedUnitName),
+
+    m_professionEXP(professionEXP),
+
+    m_maxWeight(maxWeight)
+
 {
     id_counter++;
 }
@@ -146,6 +174,8 @@ Human * Human::build(QStringList & unitData)
     if (    (unitData.size() >= 92)
          && ((unitData.size() - 92) % 3 == 0)
        ) {
+
+        QString unitProfession = unitData[0];
 
         //
         // Experience Levels
@@ -207,53 +237,65 @@ Human * Human::build(QStringList & unitData)
             loadedOptions[i] = unitData[i-52+76].compare("True") ? false : true;
         }
 
-        // Inventory Preferences
+        // These items are not used for the Merchant, which is for some stupid
+        // reason, saved with the other units.
         QList<int> inventoryPreferences;
-        for(unsigned int i=0; i<NumberOfProfessions; i++)
-        {
-            inventoryPreferences.append(unitData[88 + i].toInt());
-        }
-
-        // Inventory Items
-        int numItemsInInventory = unitData[108].toInt(); // num2
+        int numItemsInInventory;
         QList<int> inventoryItems;
-        for(unsigned int i=0; i<numItemsInInventory; i++)
-        {
-            inventoryItems.append(unitData[109 + i].toInt());
-        }
-
-        // Spare Inventory (slots?)
-        int numSpareInventory = unitData[109 + numItemsInInventory].toInt(); // num3
+        int numSpareInventory;
         QList<int> spareInventory;
-        for(unsigned int i=0; i<numSpareInventory; i++)
-        {
-            spareInventory.append(unitData[110 + numItemsInInventory + i].toInt());
-        }
-
-        // Patrol
-        int numPatrolPoints = unitData[110 + numItemsInInventory + numSpareInventory].toInt(); // num5
+        int numPatrolPoints;
         QList<float> patrolSetpoints;
-        for(int i=0; i<numPatrolPoints*3; i++ )
-        {
-            patrolSetpoints.push_back(unitData[111 + numItemsInInventory + numSpareInventory + i].toFloat());
-        }
-
-        int patrolIndex = unitData[111 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
-
-        // Guarded Unit
-        QString gardedUnitName( unitData[112 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toStdString() );
-
-        // Profession Experience
+        int patrolIndex;
+        QString gardedUnitName;
         QList<int> professionEXP;
-        for(unsigned int i=0; i<NumberOfProfessions; i++)
-        {
-            professionEXP.append(unitData[113 + numItemsInInventory + numSpareInventory + numPatrolPoints*3 + i].toInt());
-        }
+        int maxWeight;
 
-        int maxWeight = unitData[133 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
+        if( unitProfession != "Merchant" )
+        {
+            // Inventory Preferences
+            for(unsigned int i=0; i<NumberOfProfessions; i++)
+            {
+                inventoryPreferences.append(unitData[88 + i].toInt());
+            }
+
+            // Inventory Items
+            numItemsInInventory = unitData[108].toInt(); // num2
+            for(unsigned int i=0; i<numItemsInInventory; i++)
+            {
+                inventoryItems.append(unitData[109 + i].toInt());
+            }
+
+            // Spare Inventory (slots?)
+            numSpareInventory = unitData[109 + numItemsInInventory].toInt(); // num3
+            for(unsigned int i=0; i<numSpareInventory; i++)
+            {
+                spareInventory.append(unitData[110 + numItemsInInventory + i].toInt());
+            }
+
+            // Patrol
+            numPatrolPoints = unitData[110 + numItemsInInventory + numSpareInventory].toInt(); // num5
+            for(int i=0; i<numPatrolPoints*3; i++ )
+            {
+                patrolSetpoints.push_back(unitData[111 + numItemsInInventory + numSpareInventory + i].toFloat());
+            }
+
+            patrolIndex = unitData[111 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toInt();
+
+            // Guarded Unit
+            gardedUnitName( unitData[112 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toStdString() );
+
+            // Profession Experience
+            for(unsigned int i=0; i<NumberOfProfessions; i++)
+            {
+                professionEXP.append(unitData[113 + numItemsInInventory + numSpareInventory + numPatrolPoints*3 + i].toInt());
+            }
+
+            maxWeight = unitData[133 + numItemsInInventory + numSpareInventory + numPatrolPoints*3].toFloat();
+        }
 
         return (new Human(
-                    unitData[0],
+                    unitProfession,
                     unitData[1].toFloat(),
                     unitData[2].toFloat(),
                     unitData[3].toFloat(),

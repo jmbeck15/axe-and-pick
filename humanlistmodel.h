@@ -176,10 +176,6 @@ public:
     inline unsigned int traderLevel() const { return m_traderLevel; }
     inline unsigned int herderLevel() const { return m_herderLevel; }
     inline unsigned int adventurerLevel() const { return m_adventurerLevel; }
-    inline unsigned int tailorLevel() const { return m_tailorLevel; }
-    inline unsigned int traderLevel() const { return m_traderLevel; }
-    inline unsigned int herderLevel() const { return m_herderLevel; }
-    inline unsigned int adventurerLevel() const { return m_adventurerLevel; }
     inline unsigned int unknown1Level() const { return m_unknown1Level; }
     inline unsigned int unknown2Level() const { return m_unknown2Level; }
     inline unsigned int unknown3Level() const { return m_unknown3Level; }
@@ -277,11 +273,21 @@ private:
     float m_fatigue;
     float m_hunger;
 
+    // Inventory data
+    QList<int> m_inventoryPreferences;
+    QList<int> m_inventoryItems;
+    QList<int> m_spareInventory;
+
+    // Patrol data
     int m_patrolCount;
     QList<float> m_patrolSetpoints;
     int m_patrolIndex;
 
     QString m_guardedUnit;
+
+    const QList<int> m_professionEXP;
+
+    const float m_maxWeight;
 };
 
 // HumanListModel store Humans
