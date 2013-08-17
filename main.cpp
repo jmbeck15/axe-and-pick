@@ -34,7 +34,7 @@ QString appVersion()
     // 1.8 - updated for T&S 1.3 (and some other tweaks)
     // 1.9 - updated for T&S 1.4
     //
-    return "1.9 (for T&S v1.4) BETA";
+    return "1.9 (for T&S v1.4) BETA 1";
 }
 
 int main(int argc, char *argv[])
